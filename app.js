@@ -66,7 +66,14 @@ function canvasUpdate() {
     // ctx.fillRect(Math.sin(i * 0.5) * 10, Math.cos(i * 0.5) * 10, 50, 50);
     ctx.fillStyle = "blue";
     // ctx.fillRect(mousePos.x, mousePos.y, 50, 50);
+    
     var pixelData = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+    ctx.lineWidth = 5;
+    ctx.strokeStyle =  pixelDataToRGB(pixelData);
+    ctx.beginPath();
+    ctx.arc(mousePos.x,mousePos.y, 10, 0, 2 * Math.PI);
+    ctx.stroke(); 
+    ctx.closePath();
     // console.log(pixelData);
     var colorText = document.getElementById("color");
     if (colorText != null) {
