@@ -1,7 +1,7 @@
-// カメラを初期化する関数
-var cameraInit = function () {
+var video;
+function cameraInit() {
     // HTMLドキュメント内の<video>要素を取得
-    var video = document.getElementById("camera");
+    video = document.getElementById("camera");
     if (!video) {
         console.error("Video element not found");
         return;
@@ -10,9 +10,9 @@ var cameraInit = function () {
     var cameraSetting = {
         audio: false,
         video: {
-            width: 300,
-            height: 400,
-            deviceId: '3'
+            width: 256,
+            height: 256,
+            deviceId: '1'
         }
     };
     // ユーザーのデバイスからメディアストリーム（カメラのビデオストリーム）を取得
@@ -24,6 +24,61 @@ var cameraInit = function () {
         // エラーが発生した場合はコンソールにエラーメッセージを表示
         console.error(err.toString());
     });
-};
+    video.style.display = "none";
+}
+var canvas;
+var mousePos = { x: 0, y: 0 };
+function canvasInit() {
+    console.log("canvasInit");
+    canvas = document.getElementById("cameraCanvas");
+    document.addEventListener("DOMContentLoaded", function () {
+        var ctx;
+        console.log("DOMContentLoaded");
+        if (canvas != null) {
+            ctx = canvas.getContext("2d");
+        }
+        //  console.log("角");
+        canvas.addEventListener("mousemove", function (event) {
+            var rect = canvas.getBoundingClientRect();
+            mousePos = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+            // console.log("角");
+            // ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvasをクリア
+        });
+    });
+    canvasUpdate();
+}
 // カメラの初期化関数を呼び出し
 cameraInit();
+canvasInit();
+var i = 0;
+function canvasUpdate() {
+    var ctx;
+    if (canvas != null) {
+        ctx = canvas.getContext("2d");
+    }
+    if (ctx == null)
+        return;
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // console.log("ctx");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    i += 1;
+    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+    // ctx.fillRect(Math.sin(i * 0.5) * 10, Math.cos(i * 0.5) * 10, 50, 50);
+    ctx.fillStyle = "blue";
+    // ctx.fillRect(mousePos.x, mousePos.y, 50, 50);
+    var pixelData = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+    // console.log(pixelData);
+    var colorText = document.getElementById("color");
+    if (colorText != null) {
+        colorText.textContent = pixelDataToRGB(pixelData);
+        colorText.style.color = pixelDataToRGB(pixelData);
+    }
+    requestAnimationFrame(canvasUpdate);
+}
+function pixelDataToRGB(pixelData) {
+    var hex = function (value) {
+        var hexValue = Math.round(value).toString(16);
+        return hexValue.length === 1 ? "0" + hexValue : hexValue;
+    };
+    return "#" + hex(pixelData[0]) + hex(pixelData[1]) + hex(pixelData[2]);
+}
