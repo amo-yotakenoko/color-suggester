@@ -10,7 +10,8 @@ interface CameraSetting {
 
 let video: HTMLVideoElement;
 
-function cameraInit() {
+function cameraInit(deviceId) {
+    console.log(`camera${deviceId}`);
     // HTMLドキュメント内の<video>要素を取得
     video = document.getElementById("camera") as HTMLVideoElement;
 
@@ -25,7 +26,7 @@ function cameraInit() {
         video: {
             width: 256,
             height: 256,
-            deviceId: '1',
+            deviceId: deviceId
         }
     };
 
@@ -39,7 +40,7 @@ function cameraInit() {
             // エラーが発生した場合はコンソールにエラーメッセージを表示
             console.error(err.toString());
         });
-     video.style.display = "none";
+    video.style.display = "none";
 }
 
 var canvas;
@@ -74,7 +75,7 @@ canvasUpdate();
 }
 
 // カメラの初期化関数を呼び出し
-cameraInit();
+cameraInit('1');
 
 canvasInit();
 
