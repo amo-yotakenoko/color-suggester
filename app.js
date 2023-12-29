@@ -1,6 +1,5 @@
 var video;
 function cameraInit(deviceId) {
-    console.log("camera" + deviceId);
     // HTMLドキュメント内の<video>要素を取得
     video = document.getElementById("camera");
     if (!video) {
@@ -48,7 +47,30 @@ function canvasInit() {
     });
     canvasUpdate();
 }
+function cameraDevicesChangeButtonInit() {
+    navigator.mediaDevices.enumerateDevices()
+        .then(function (devices) {
+        // メディアデバイスのリストが取得された場合の処理
+        devices.forEach(function (device) {
+            var _a;
+            // デバイスがビデオ入力である場合のみ処理
+            if (device.kind === "videoinput") {
+                // デバイスの情報をコンソールに表示
+                console.log(device.kind + ": " + device.label + device.deviceId);
+                var newButton = document.createElement("button");
+                // ボタンのテキストを設定
+                newButton.innerHTML = device.label + device.deviceId;
+                newButton.onclick = function () {
+                    cameraInit(device.deviceId);
+                };
+                // ボディ要素にボタンを追加
+                (_a = document.getElementById("cameraList")) === null || _a === void 0 ? void 0 : _a.appendChild(newButton);
+            }
+        });
+    });
+}
 // カメラの初期化関数を呼び出し
+cameraDevicesChangeButtonInit();
 cameraInit('1');
 canvasInit();
 var i = 0;
