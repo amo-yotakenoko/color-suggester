@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>colorSuggester</title>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 
@@ -13,45 +13,32 @@
     <script src="https://unpkg.com/three@0.146.0/build/three.min.js"></script>
 </head>
 
+<video id="camera" width="256" height="256" autoplay playsinline></video>
+
 <body>
-
-
     <div class="container">
         <div class="row">
-
-
             <div class="col-md-6">
 
-                <video id="camera" width="256" height="256" autoplay playsinline></video>
-
-                <canvas id="cameraCanvas" class="cameraCanvas " width="256" height="256">
-                </canvas>
-                <script src="camera.js"></script>
+                <canvas id="cameraCanvas" class="cameraCanvas" width="256px" height="256px"></canvas>
             </div>
-
-
-
-
-
-            <div class="col-md-6 ">
-                <!-- samplet extsampletextsam pletextsampletextsamplete xtsampl etextsa mpletextsamplet
-                exts amplet extsamp lete xtsam p letext sampl ete xtsamp letextsample text sam plet ext
-                sa mp l etext sa mp let exts amplete xtsample textsa mplet extsam ple text -->
+            <div class="col-md-6">
                 <canvas id="munsellColorSystemCanvas" class="cameraCanvas " width="256" height="256">
                     <script src="MunsellColorSystem.js"></script>
-
             </div>
-
-            <!-- <canvas id="myCanvas"></canvas> -->
-
         </div>
-
     </div>
 
 
 
 
 
+    <div id="cameraList"></div>
+    <div id="color">color</div>
+
+
+
+    <script src="camera.js"></script>
 </body>
 
 
