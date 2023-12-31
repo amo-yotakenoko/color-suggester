@@ -36,7 +36,7 @@ function tick() {
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }
-
+var colorObjects=[]
 function addColorMesh(colorcode, H, V, C) {
   // console.log([colorcode, H, S, C])
    let rad = (H / 40.0)  *2 * Math.PI;
@@ -48,5 +48,6 @@ const sphere = new THREE.Mesh(
   new THREE.SphereGeometry(1, 32, 32),
   material);
   sphere.position.set(y, z, x);
-scene.add(sphere)
+  scene.add(sphere)
+  colorObjects.push([sphere,colorcode,[H,V,C]])
 } 

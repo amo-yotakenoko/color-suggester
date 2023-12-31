@@ -29,6 +29,7 @@ function cameraInit(deviceId) {
 var cameraCanvas;
 var mousePos = { x: 0, y: 0 };
 var ctx;
+var isMouseDown ;
 function canvasInit() {
     console.log("canvasInit");
     cameraCanvas = document.getElementById("cameraCanvas");
@@ -48,6 +49,14 @@ function canvasInit() {
             // console.log("角");
             // ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvasをクリア
         });
+         cameraCanvas.addEventListener('mousedown', function (event) {
+            isMouseDown = true;
+            console.log("おされた")
+        });
+         cameraCanvas.addEventListener('mouseup', function (event) {
+            isMouseDown = false;
+            console.log("はなれた")
+            });
     });
     canvasUpdate();
 }
@@ -78,6 +87,7 @@ cameraDevicesChangeButtonInit();
 cameraInit('1');
 canvasInit();
 var i = 0;
+var selectingColorcode;
 function canvasUpdate() {
     // console.log(ctx);
     // var ctx;
@@ -96,14 +106,16 @@ function canvasUpdate() {
     // console.log(mousePos);
     var pixelData = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
     // console.log(pixelData);
-    var colorText = document.getElementById("color");
-    var colorcode = pixelDataToRGB(pixelData);
-    if (colorText != null) {
-        colorText.textContent = colorcode;
-        colorText.style.color = colorcode;
+    // var SelectingColorText;
+ var SelectingColorText = document.getElementById("color");
+    // console.log(colorText);
+     selectingColorcode = pixelDataToRGB(pixelData);
+    if (SelectingColorText != null) {
+      SelectingColorText.textContent = selectingColorcode;
+  SelectingColorText.style.color = selectingColorcode;
     }
-    ctx.fillStyle = colorcode;
-    ctx.strokeStyle = colorcode;
+    ctx.fillStyle = selectingColorcode;
+    ctx.strokeStyle = selectingColorcode;
     // console.log(colorcode);
     drowCircle(mousePos.x, mousePos.y)
     requestAnimationFrame(canvasUpdate);
