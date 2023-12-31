@@ -40,8 +40,8 @@ var colorObjects=[]
 function addColorMesh(colorcode, H, V, C) {
   // console.log([colorcode, H, S, C])
    let rad = (H / 40.0)  *2 * Math.PI;
-    let x=Math.sin(rad) * C;
- let y=Math.cos(rad) * C;
+    let x=Math.sin(rad) * C*1.5;
+ let y=Math.cos(rad) * C*1.5;
   let z = V * 5-20;
    material= new THREE.MeshBasicMaterial({ color: colorcode })
 const sphere = new THREE.Mesh(
