@@ -1,0 +1,3 @@
+http://www.rit-mcsl.org/MunsellRenotation/all.dat
+http://www.rit-mcsl.org/MunsellRenotation/real_sRGB.xls
+https://www.konicaminolta.jp/instruments/knowledge/color/section1/07.html
