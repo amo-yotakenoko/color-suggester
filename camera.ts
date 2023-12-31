@@ -40,32 +40,61 @@ function canvasInit() {
         // if (cameraCanvas != null) {
         // }
         //  console.log("角");
-        cameraCanvas.addEventListener("mousemove", function (event) {
-            var rect = cameraCanvas.getBoundingClientRect();
-            // console.log(cameraCanvas.rect.width);
-         var   cameraCanvasRect = cameraCanvas.getBoundingClientRect();
-         mousePos = { x: (event.clientX - rect.left)/(cameraCanvasRect.width/256), y: (event.clientY - rect.top)/(cameraCanvasRect.height/256) };
-        //  console.log(mousePos);
-            // console.log("角");
-            // ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvasをクリア
-        });
-         cameraCanvas.addEventListener('touchstart', function (event) {
-            isMouseDown = true;
-             console.log("おされた");
-               event.preventDefault()
-        });
-        cameraCanvas.addEventListener('touchmove', function (event) {
-            event.preventDefault();
-            console.log("おされてる");
-});
-         cameraCanvas.addEventListener('touchend', function (event) {
-            isMouseDown = false;
-             console.log("はなれた");
-               event.preventDefault()
-         });
+cameraCanvas.addEventListener('mousedown', mouseDownHandler, false);
+cameraCanvas.addEventListener('mouseup', mouseUpHandler, false);
+        function mouseDownHandler(event) {
+    isMouseDown = true;
+    console.log("mousedown");
+}
+
+function mouseUpHandler(event) {
+    isMouseDown = false;
+}
+       
+           cameraCanvas.addEventListener('touchstart', TouchStart, { passive: false });
+
+    cameraCanvas.addEventListener('touchend', TouchEnd, false);
+
+    function TouchStart(event) {
+       isMouseDown  = true;
+console.log("touchstart")
+        event.preventDefault();
+    }
+
+    function TouchEnd(event) {
+    
+       isMouseDown  = false;
+    }
     });
+    
+cameraCanvas.addEventListener("mousemove", handleInput);
+cameraCanvas.addEventListener("touchmove", handleInput);
+
+function handleInput(event) {
+    if (event.touches && event.touches.length === 1) {
+   
+        var touch = event.touches[0];
+        updateMousePos(touch.clientX, touch.clientY);
+    } else {
+      
+        updateMousePos(event.clientX, event.clientY);
+    }
+}
+
+function updateMousePos(clientX, clientY) {
+    var rect = cameraCanvas.getBoundingClientRect();
+    var cameraCanvasRect = cameraCanvas.getBoundingClientRect();
+
+    mousePos = {
+        x: (clientX - rect.left) / (cameraCanvasRect.width / 256),
+        y: (clientY - rect.top) / (cameraCanvasRect.height / 256)
+    };
+    // Perform other actions with the updated mousePos as needed
+}
     canvasUpdate();
 }
+
+
 function cameraDevicesChangeButtonInit() {
     navigator.mediaDevices.enumerateDevices()
         .then(function (devices) {
