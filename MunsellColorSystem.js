@@ -1,64 +1,52 @@
 //https://ics.media/entry/14771/
-window.addEventListener('DOMContentLoaded', init);
-// init();
+// window.addEventListener('DOMContentLoaded', init);
 var canvas;
-function init() {
-    
-    // レンダラーを作成
-    canvas=document.querySelector('#munsellColorSystemCanvas')
-    const renderer = new THREE.WebGLRenderer({canvas});
- canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    renderer.setSize(width,height);
-    
 
-
-//   window.addEventListener('resize', function () {
-//         console.log("サイズ変更");
-
-//         // ウィンドウサイズに合わせてレンダラーのサイズを更新
-//      const newWidth = canvas.innerWidth;
-//             const newHeight = canvas.innerHeight;
-//         renderer.setSize(width, newWidth );
-
-//         // ここでカメラなどの他のサイズに依存するオブジェクトのサイズも更新する必要がある場合は追加してください。
-//     });
-
-//   renderer.setPixelRatio(window.devicePixelRatio);
-  
+  // レンダラーを作成
+  canvas = document.querySelector('#munsellColorSystemCanvas');
+  const renderer = new THREE.WebGLRenderer({ canvas });
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  renderer.setSize(width, height);
   // シーンを作成
-  const scene = new THREE.Scene();
+const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xffffff);
 
   // カメラを作成
   const camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-  // カメラの初期座標を設定（X座標:0, Y座標:0, Z座標:0）
-  camera.position.set(0, 0, 1000);
+  camera.position.set(0, 0, 100);
 
-  // 箱を作成
-  const geometry = new THREE.BoxGeometry(500, 500, 500);
-  const material = new THREE.MeshStandardMaterial({color: 0x0000FF});
-  const box = new THREE.Mesh(geometry, material);
-  scene.add(box);
+  // カメラコントローラーを作成
+  const controls = new THREE.OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.2;
 
-  // 平行光源
-  const light = new THREE.DirectionalLight(0xFFFFFF);
-  light.intensity = 2; // 光の強さを倍に
-  light.position.set(1, 1, 1); // ライトの方向
-  // シーンに追加
-  scene.add(light);
+  const mesh = new THREE.Mesh(
+    new THREE.BoxGeometry(300, 300, 300),
+    new THREE.MeshNormalMaterial());
+// scene.add(mesh);
 
-  // 初回実行
+
+
   tick();
 
-  function tick() {
-    requestAnimationFrame(tick);
-
-    // 箱を回転させる
-    box.rotation.x += 0.01;
-    box.rotation.y += 0.01;
-
-    // レンダリング
-    renderer.render(scene, camera);
-  }
+// 毎フレーム時に実行されるループイベントです
+function tick() {
+  // レンダリング
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
 }
+
+function addColorMesh(colorcode, H, V, C) {
+  // console.log([colorcode, H, S, C])
+   let rad = (H / 40.0)  *2 * Math.PI;
+    let x=Math.sin(rad) * C;
+ let y=Math.cos(rad) * C;
+  let z = V * 5-20;
+   material= new THREE.MeshBasicMaterial({ color: colorcode })
+const sphere = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 32, 32),
+  material);
+  sphere.position.set(y, z, x);
+scene.add(sphere)
+} 

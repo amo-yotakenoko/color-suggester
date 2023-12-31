@@ -68,7 +68,7 @@ def training():
     model.save('RGBtoHVC.h5')
     print(model.to_json())
 
-training()
+# training()
 model = load_model('RGBtoHVC.h5')
 predictions = model.predict(np.column_stack((r, g, b)))
 print(predictions)
