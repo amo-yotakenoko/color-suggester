@@ -49,14 +49,20 @@ function canvasInit() {
             // console.log("角");
             // ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvasをクリア
         });
-         cameraCanvas.addEventListener('mousedown', function (event) {
+         cameraCanvas.addEventListener('touchstart', function (event) {
             isMouseDown = true;
-            console.log("おされた")
+             console.log("おされた");
+               event.preventDefault()
         });
-         cameraCanvas.addEventListener('mouseup', function (event) {
+        cameraCanvas.addEventListener('touchmove', function (event) {
+            event.preventDefault();
+            console.log("おされてる");
+});
+         cameraCanvas.addEventListener('touchend', function (event) {
             isMouseDown = false;
-            console.log("はなれた")
-            });
+             console.log("はなれた");
+               event.preventDefault()
+         });
     });
     canvasUpdate();
 }
