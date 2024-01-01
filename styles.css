@@ -13,3 +13,14 @@ border: 1px solid rgb(197, 37, 37);
    touch-action: none;
 
  }
+  .scroll{
+      border: 1px solid rgb(37, 197, 144);
+            overflow-y: auto;
+              word-wrap: break-word;
+                width: 200px; /* 正方形のサイズを指定 */
+            height: 200px; /* 正方形のサイズを指定 */
+        }
+
+        .nav-link {
+      border-radius:0 !important;
+    }

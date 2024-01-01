@@ -1,6 +1,10 @@
 var video;
+var inputingColorItem;
 function cameraInit(deviceId) {
     // HTMLドキュメント内の<video>要素を取得
+    var userAgent = window.navigator.userAgent.toLowerCase();
+    if (navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1)
+        alert("Safariだとカメラが動かないかもしれないのでできればChrome等を使ってください" + window.navigator.userAgent.toLowerCase());
     video = document.getElementById("camera");
     if (!video) {
         console.error("Video element not found");
@@ -40,21 +44,22 @@ function canvasInit() {
         // if (cameraCanvas != null) {
         // }
         //  console.log("角");
-        cameraCanvas.addEventListener('mousedown', mouseDownHandler, false);
-        cameraCanvas.addEventListener('mouseup', mouseUpHandler, false);
-        function mouseDownHandler(event) {
-            isMouseDown = true;
-            console.log("mousedown");
-        }
-        function mouseUpHandler(event) {
-            isMouseDown = false;
-        }
+        cameraCanvas.addEventListener('mousedown', TouchStart, false);
+        cameraCanvas.addEventListener('mouseup', TouchEnd, false);
+        //         function mouseDownHandler(event) {
+        //     isMouseDown = true;
+        //     console.log("mousedown");
+        // }
+        // function mouseUpHandler(event) {
+        //     isMouseDown = false;
+        // }
         cameraCanvas.addEventListener('touchstart', TouchStart, { passive: false });
         cameraCanvas.addEventListener('touchend', TouchEnd, false);
         function TouchStart(event) {
             isMouseDown = true;
             console.log("touchstart");
             event.preventDefault();
+            inputingColorItem = colorItemAdd();
         }
         function TouchEnd(event) {
             isMouseDown = false;
@@ -66,6 +71,7 @@ function canvasInit() {
         if (event.touches && event.touches.length === 1) {
             var touch = event.touches[0];
             updateMousePos(touch.clientX, touch.clientY);
+            //   inputingColorItem= colorItemAdd();
         }
         else {
             updateMousePos(event.clientX, event.clientY);
@@ -137,6 +143,9 @@ function canvasUpdate() {
     }
     ctx.fillStyle = selectingColorcode;
     ctx.strokeStyle = selectingColorcode;
+    if (isMouseDown) {
+        colorSet(inputingColorItem, selectingColorcode);
+    }
     // console.log(colorcode);
     drowCircle(mousePos.x, mousePos.y);
     requestAnimationFrame(canvasUpdate);

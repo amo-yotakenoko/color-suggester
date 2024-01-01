@@ -13,7 +13,7 @@ function colorConvart() {
     let [r, g, b] = hexToRgb(selectingColorcode); 
     // console.log(r);
     var nearobj;
-    var nearDistance = 1000000;
+    var nearDistance =  Infinity;
     for (const obj of colorObjects) {
         // 各要素に対する処理をここに記述
         let [objr, objg, objb] =hexToRgb(obj[1]); 
