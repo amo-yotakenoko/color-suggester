@@ -1,51 +1,178 @@
-function colorConvart() {
-    // console.log("colorConvart")
-    requestAnimationFrame(colorConvart);
-    console.log(isMouseDown);
-    if (!isMouseDown) {
-        for (const obj of colorObjects) {
-                obj[0].material.transparent = false;
-           obj[0].material.needsUpdate = false;
-        }
-        return;
-    }
 
-    let [r, g, b] = hexToRgb(selectingColorcode); 
+// colorHighlight();
+function colorHighlight(colorcode) {
+
+    // requestAnimationFrame(colorHighlight);
+    // console.log(colorcode);
+
+    // if (!isMouseDown) {
+
+    //     return;
+    // }
+    // console.log(selectiongItem.dataset.colorcode, ",", selectingColorcode);
+    var nearobj = colorConvart(colorcode);
+    var HviewCanvas = document.getElementById("Hview");
+    var Hview = HviewCanvas.getContext("2d");
+    var VCviewCanvas = document.getElementById("VCview");
+    var VCview = VCviewCanvas.getContext("2d");
+
+    Hview.clearRect(0, 0, HviewCanvas.width, HviewCanvas.height);
+    VCview.clearRect(0, 0, VCviewCanvas.width, VCviewCanvas.height);
+
+    // console.log("near", nearobj);
+    // //nearobj:[sphere,colorcode,[H,V,C]]
+    // colorObjects.indexOf(nearobj)
+    // array.splice(index, 1);
+    // console.log(nearobj[0])
+    // console.log(colorObjects)
+    // console.log(colorObjects.filter(a => a[2] != nearobj[2]).concat(nearobj));
+    // console.log(colorObjects.filter(a => a !== nearobj[0]).concat(nearobj[0]).length);
+    for (const obj of colorObjects.filter(a => a[2] != nearobj[2]).concat([nearobj])) {
+        // if (obj == nearobj) continue;
+        var sphere = obj[0];
+
+        // if (obj == nearobj) {
+        //     sphere.scale.set(2, 2, 2);
+        // } else {
+        //     sphere.scale.set(1, 1, 1);
+        // }
+        var isHighLight = false;
+        if (obj[2][0] == nearobj[2][0]) {
+
+            VCview.fillStyle = obj[1];
+            //格子
+            var x = obj[2][2] * 10 + 10;
+            var y = -obj[2][1] * 20 + VCviewCanvas.height;
+            VCview.beginPath();
+            //    VCview.moveTo();
+            var size = obj != nearobj ? 10 : 15;
+            VCview.moveTo(x - size, y - size);
+            VCview.lineTo(x + size, y - size);
+            VCview.lineTo(x + size, y + size);
+            VCview.lineTo(x - size, y + size);
+
+            VCview.closePath();
+            VCview.fill();
+            if (obj == nearobj) {
+
+                VCview.lineWidth = 1;
+                VCview.strokeStyle = 'black';
+                VCview.stroke();
+            }
+
+            isHighLight = true;
+
+            // drawCircleFill(VCview,x,y, 10);
+        }
+        if (obj[2][1] == nearobj[2][1]) {
+
+            Hview.fillStyle = obj[1];
+            //[sphere,colorcode,[H,V,C]]
+            var H = obj[2][0];
+            var V = obj[2][1];
+            var C = obj[2][2];
+            // var HVC = obj[2];
+
+            //   var  r=Math.sqrt(sphere.position.x**2+sphere.position.z**2)
+            //円
+            // var theta1=
+            //   let x=Math.sin(rad) * C*5 + HviewCanvas.width / 2;
+            // let y = Math.cos(rad) * C*5 + HviewCanvas.height / 2;
+
+
+            var rad = ((H / 40.0)) * 2 * Math.PI;
+            //    VCview.moveTo();
+            var radwidth = (obj != nearobj ? 5 : 7.5) / 360 * 2 * Math.PI;
+            var rwidth = (obj != nearobj ? 2.2 : 5);
+
+            Hview.beginPath();
+            Hview.moveTo(Math.cos(rad - radwidth) * C * 5 + HviewCanvas.width / 2, Math.sin(rad - radwidth) * C * 5 + HviewCanvas.height / 2);
+            Hview.lineTo(Math.cos(rad + radwidth) * C * 5 + HviewCanvas.width / 2, Math.sin(rad + radwidth) * C * 5 + HviewCanvas.height / 2);
+            Hview.lineTo(Math.cos(rad + radwidth) * (C + rwidth) * 5 + HviewCanvas.width / 2, Math.sin(rad + radwidth) * (C + rwidth) * 5 + HviewCanvas.height / 2);
+            Hview.lineTo(Math.cos(rad - radwidth) * (C + rwidth) * 5 + HviewCanvas.width / 2, Math.sin(rad - radwidth) * (C + rwidth) * 5 + HviewCanvas.height / 2);
+            Hview.closePath();
+
+            Hview.fill();
+            if (obj == nearobj) {
+
+                Hview.lineWidth = 1;
+                Hview.strokeStyle = 'black';
+                Hview.stroke();
+            }
+
+            isHighLight = true;
+            // VCview.moveTo(Math.sin(rad - radwidth) * C * 5 + HviewCanvas.width / 2, Math.cos(rad - radwidth) * C * 5 + HviewCanvas.height / 2);
+            //   VCview.moveTo(Math.sin(rad+radwidth) * C * 5 + HviewCanvas.width / 2, Math.cos(rad+radwidth) * C * 5 + HviewCanvas.height / 2);
+            //  VCview.moveTo(Math.sin(rad-radwidth) * C*5 + HviewCanvas.width / 2,Math.cos(rad-radwidth) * C*5 + HviewCanvas.height / 2);
+
+
+
+
+
+            // var x = sphere.position.x * 3 + HviewCanvas.width / 2;
+            // var y= sphere.position.z * 3 + HviewCanvas.height / 2
+            // drawCircleFill(Math.sin(rad - radwidth) * (C) * 5 + HviewCanvas.width / 2, Math.cos(rad - radwidth) * (C+1) * 5 + HviewCanvas.height / 2, 1);
+
+        }
+        if (isHighLight) {
+            sphere.material.transparent = false;
+            sphere.material.needsUpdate = false;
+        } else {
+
+
+            sphere.material.opacity = 0.05;
+            sphere.material.transparent = true;
+            sphere.material.needsUpdate = true;
+        }
+
+    }
+}
+
+
+function HilightReset() {
+    for (const obj of colorObjects) {
+        obj[0].material.transparent = false;
+        obj[0].material.needsUpdate = false;
+    }
+    console.log("HilightReset()")
+}
+
+function drawCircleFill(context, centerX, centerY, radius) {
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    context.fill();
+    context.closePath();
+}
+
+
+
+function colorConvart(selectingColorcode) {
+    // console.log("colorConvart")
+
+
+
+    let [r, g, b] = hexToRgb(selectingColorcode);
     // console.log(r);
     var nearobj;
-    var nearDistance =  Infinity;
+    var nearDistance = Infinity;
     for (const obj of colorObjects) {
         // 各要素に対する処理をここに記述
-        let [objr, objg, objb] =hexToRgb(obj[1]); 
+        let [objr, objg, objb] = hexToRgb(obj[1]);
         // console.log(objr);
         var distance = Math.sqrt((r - objr) ** 2 + (g - objg) ** 2 + (b - objb) ** 2);
         if (nearDistance > distance) {
             nearDistance = distance;
-            nearobj=obj
+            nearobj = obj
         }
-       
+
     }
-    console.log("near", nearobj);
-    for (const obj of colorObjects) {
-        if (obj == nearobj) {
-          obj[0].scale.set(2, 2, 2);
-        } else {
-      obj[0].scale.set(1, 1, 1);
-        }
-        if (obj[2][0] == nearobj[2][0]||obj[2][1] == nearobj[2][1]) {
-                obj[0].material.transparent = false;
-           obj[0].material.needsUpdate = false;
-        } else {
-              obj[0].material.opacity = 0.05;
-           obj[0].material.transparent = true;
-           obj[0].material.needsUpdate = true;
-           }
-    }
+    return nearobj;
 
 
-    
+
+
 }
-colorConvart();
+// colorConvart();
 
 function hexToRgb(hex) {
     // #を削除

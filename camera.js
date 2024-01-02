@@ -39,6 +39,11 @@ function canvasInit() {
     cameraCanvas = document.getElementById("cameraCanvas");
     console.log(cameraCanvas);
     ctx = cameraCanvas.getContext("2d");
+    var image = new Image();
+    image.src = 'demo.png';
+    image.onload = function () {
+        ctx.drawImage(image, 0, 0, cameraCanvas.width, cameraCanvas.height);
+    };
     document.addEventListener("DOMContentLoaded", function () {
         console.log("DOMContentLoaded");
         // if (cameraCanvas != null) {
@@ -63,6 +68,7 @@ function canvasInit() {
         }
         function TouchEnd(event) {
             isMouseDown = false;
+            HilightReset();
         }
     });
     cameraCanvas.addEventListener("mousemove", handleInput);
@@ -134,16 +140,17 @@ function canvasUpdate() {
     var pixelData = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
     // console.log(pixelData);
     // var SelectingColorText;
-    var SelectingColorText = document.getElementById("color");
-    // console.log(colorText);
-    selectingColorcode = pixelDataToRGB(pixelData);
-    if (SelectingColorText != null) {
-        SelectingColorText.textContent = selectingColorcode;
-        SelectingColorText.style.color = selectingColorcode;
-    }
-    ctx.fillStyle = selectingColorcode;
-    ctx.strokeStyle = selectingColorcode;
+    //  var SelectingColorText = document.getElementById("color");
+    //     // console.log(colorText);
+    //     if (SelectingColorText != null) {
+    //       SelectingColorText.textContent = selectingColorcode;
+    //   SelectingColorText.style.color = selectingColorcode;
+    //     }
+    ctx.fillStyle = pixelDataToRGB(pixelData);
+    ctx.strokeStyle = pixelDataToRGB(pixelData);
     if (isMouseDown) {
+        selectingColorcode = pixelDataToRGB(pixelData);
+        // console.log("   selectingColorcode", selectingColorcode);
         colorSet(inputingColorItem, selectingColorcode);
     }
     // console.log(colorcode);
