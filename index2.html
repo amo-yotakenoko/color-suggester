@@ -20,12 +20,7 @@
 
 <body>
     <div class="container">
-        <div class="col-md-12">
 
-            <ul id="colorList" class="nav nav-tabs justify-content-center">
-
-            </ul>
-        </div>
 
         <div class="row">
             <div class="col-6 p-0">
@@ -43,9 +38,25 @@
                 <canvas id="cameraCanvas" class="cameraCanvas touchActionDisable" width="256px" height="256px"></canvas>
             </div>
         </div>
+        <div class="row" id="colorProperty">
 
 
-        <div id="colorcode">colorcode</div>
+            <div id="colorcode">colorcode</div>
+
+
+        </div>
+        <div class="row" id="settings">
+
+            設定
+            <div id="cameraList"></div>
+        </div>
+
+        <div class="footer">
+            <ul id="colorList" class="nav nav-tabs justify-content-center">
+                <a class="nav-link active" onclick="settingButton();">settings</a>
+
+            </ul>
+        </div>
 
 
 

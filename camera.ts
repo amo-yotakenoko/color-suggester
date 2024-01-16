@@ -5,7 +5,7 @@ function cameraInit(deviceId) {
 
 
     var userAgent = window.navigator.userAgent.toLowerCase();
-    if (navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1) alert("Safariだとカメラが動かないかもしれないのでできればChrome等を使ってください" + window.navigator.userAgent.toLowerCase());
+    // if (navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1) alert("Safariだとカメラが動かないかもしれないのでできればChrome等を使ってください" + window.navigator.userAgent.toLowerCase());
     video = document.getElementById("camera");
     if (!video) {
         console.error("Video element not found");
@@ -115,6 +115,7 @@ function canvasInit() {
 
 
 function cameraDevicesChangeButtonInit() {
+    console.log("cameraDevicesChangeButtonInit")
     navigator.mediaDevices.enumerateDevices()
         .then(function (devices) {
             devices.forEach(function (device) {
@@ -195,4 +196,11 @@ function drowCircle(x, y) {
     ctx.arc(x, y, r, 0, 2 * Math.PI, false);
     ctx.stroke();
     ctx.closePath();
+}
+function settingButton() {
+    console.log("settingButton");
+    document.getElementById("colorProperty").style.display = "none";
+    document.getElementById("settings").style.display = "block";
+    // console.log(colorPropertyElement, settingsElement);
+
 }

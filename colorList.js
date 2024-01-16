@@ -7,16 +7,19 @@ function colorItemAdd() {
     var item = document.createElement("a");
     item.className = "nav-link";
     item.dataset.colorcode = "#000000";
-    // item.textContent = "aa";
-    // item.style.backgroundColor =colorcode;
+    item.textContent = "a";
+    // item.style.backgroundColor = colorcode;
     li.appendChild(item);
     item.classList.add("active");
     selectiongItem = item;
     item.addEventListener("click", function () {
         console.log(item);
+        document.getElementById("colorProperty").style.display = "block";
+        document.getElementById("settings").style.display = "none";
         selectiongItem = item;
         console.log(item.dataset.colorcode);
         selectingColorcode = item.dataset.colorcode;
+        //TODO、ここ改善点
         colorHighlight();
     });
     //  li.insertBefore(item, li.firstChild);
@@ -42,7 +45,7 @@ function colorUpdate() {
     // console.log(selectiongcolor)
     // SelectingColorText.style.color = "aa";
     SelectingColorText.textContent = selectingColorcode;
-    console.log(selectingColorcode);
+    // console.log(selectingColorcode)
     // console.log("selectingColorcodelast", selectingColorcode)
     colorHighlight(selectingColorcode);
     // console.log(selectingColorcode)
