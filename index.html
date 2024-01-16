@@ -36,10 +36,12 @@
                         </div> -->
                         <div id="colorcode">colorcode</div>
                         <div class="row ">
-                            <div class="col-6 p-0"><canvas class="cameraCanvas" width="256px" height="256px"
-                                    id="VCview"></canvas></div>
-                            <div class="col-6 p-0"><canvas class="cameraCanvas" width="256px" height="256px"
-                                    id="Hview"></canvas></div>
+                            <div class="col-6 p-0">
+                                <canvas class="cameraCanvas" width="256px" height="256px" id="VCview"></canvas>
+                            </div>
+                            <div class="col-6 p-0">
+                                <canvas class="cameraCanvas" width="256px" height="256px" id="Hview"></canvas>
+                            </div>
                         </div>
                     </div>
                     <div class="col-6 p-0 ">
@@ -49,10 +51,16 @@
                 </div>
             </div>
 
-            <div class="col-md-6 p-0">
-                <canvas id="munsellColorSystemCanvas" class="cameraCanvas " width="256" height="256">
+            <div class="col-4 p-0">
+                <canvas id="munsellColorSystemCanvas" class="cameraCanvas " width="256px" height="256px">
                     <script src="MunsellColorSystem.js"></script>
                     <script src="MunsellColorSystemLoad.js"></script>
+            </div>
+            <div class="col-4 p-0">
+                <canvas class="cameraCanvas" width="256px" height="256px" id="VCview"></canvas>
+            </div>
+            <div class="col-4 p-0">
+                <canvas class="cameraCanvas" width="256px" height="256px" id="Hview"></canvas>
             </div>
         </div>
     </div>
