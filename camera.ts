@@ -138,6 +138,7 @@ canvasInit();
 var i = 0;
 var selectingColorcode;
 function canvasUpdate() {
+    requestAnimationFrame(canvasUpdate);
     // console.log(ctx);
     // var ctx;
     // if (cameraCanvas != null) {
@@ -174,7 +175,7 @@ function canvasUpdate() {
     // console.log(colorcode);
     drowCircle(mousePos.x, mousePos.y)
 
-    requestAnimationFrame(canvasUpdate);
+
 }
 function pixelDataToRGB(pixelData) {
     var hex = function (value) {
