@@ -8,6 +8,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import BatchNormalization
 
+
 colorcodeHVC = pd.read_csv('colorcodeToHVC.txt', delimiter='\s+', names=['rgb', 'H', 'V', 'C'])
 
 print(colorcodeHVC)

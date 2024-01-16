@@ -31,10 +31,15 @@ function colorHighlight(colorcode) {
         //     sphere.scale.set(1, 1, 1);
         // }
         var isHighLight = false;
-        if (obj[2][0] == nearobj[2][0]) {
+        if (obj[2][0] % 40 == nearobj[2][0] % 40 || (obj[2][0] + 20) % 40 == nearobj[2][0] % 40 || nearobj[2][2] == 0) {
             VCview.fillStyle = obj[1];
             //格子
-            var x = obj[2][2] * 10 + 10;
+            var x = (obj[2][2] - 1) * 7.5;
+            var isHosyoku = (obj[2][0] + 20) % 40 == nearobj[2][0] % 40;
+            if (isHosyoku)
+                x *= -1;
+            // x += isHosyoku ? -5 : 5;
+            x += VCviewCanvas.width / 2;
             var y = -obj[2][1] * 20 + VCviewCanvas.height;
             VCview.beginPath();
             //    VCview.moveTo();
