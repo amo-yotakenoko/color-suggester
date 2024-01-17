@@ -7,11 +7,13 @@ function colorHighlight(colorcode) {
     // }
     // console.log(selectiongItem.dataset.colorcode, ",", selectingColorcode);
     // console.log(colorcode);
-    if (colorcode == null) {
+    // if (isgray(colorcode));
+    if (colorcode == null || isgray(colorcode)) {
         // console.log("colorcodeがない")
         HilightReset();
         return;
     }
+    var enablecount = 0;
     var nearobj = colorConvart(colorcode);
     var HviewCanvas = document.getElementById("Hview");
     var Hview = HviewCanvas.getContext("2d");
@@ -19,7 +21,7 @@ function colorHighlight(colorcode) {
     var VCview = VCviewCanvas.getContext("2d");
     Hview.clearRect(0, 0, HviewCanvas.width, HviewCanvas.height);
     VCview.clearRect(0, 0, VCviewCanvas.width, VCviewCanvas.height);
-    // console.log("near", nearobj);
+    // console.log();
     // //nearobj:[sphere,colorcode,[H,V,C]]
     // colorObjects.indexOf(nearobj)
     // array.splice(index, 1);
@@ -27,6 +29,8 @@ function colorHighlight(colorcode) {
     // console.log(colorObjects)
     // console.log(colorObjects.filter(a => a[2] != nearobj[2]).concat(nearobj));
     // console.log(colorObjects.filter(a => a !== nearobj[0]).concat(nearobj[0]).length);
+    var angleoffset = Math.atan2(munsellCamera.position.x, munsellCamera.position.z);
+    console.log(angleoffset);
     for (var _i = 0, _a = colorObjects.filter(function (a) { return a[2] != nearobj[2]; }).concat([nearobj]); _i < _a.length; _i++) {
         var obj = _a[_i];
         // if (obj == nearobj) continue;
@@ -40,7 +44,7 @@ function colorHighlight(colorcode) {
         if (obj[2][0] % 40 == nearobj[2][0] % 40 || (obj[2][0] + 20) % 40 == nearobj[2][0] % 40 || nearobj[2][2] == 0) {
             VCview.fillStyle = obj[1];
             //格子
-            var x = (obj[2][2] - 1) * 7.5;
+            var x = (obj[2][2] - 1) * 4.5;
             var isHosyoku = (obj[2][0] + 20) % 40 == nearobj[2][0] % 40;
             if (isHosyoku)
                 x *= -1;
@@ -76,7 +80,7 @@ function colorHighlight(colorcode) {
             // var theta1=
             //   let x=Math.sin(rad) * C*5 + HviewCanvas.width / 2;
             // let y = Math.cos(rad) * C*5 + HviewCanvas.height / 2;
-            var rad = ((H / 40.0)) * 2 * Math.PI;
+            var rad = ((H / 40.0)) * 2 * Math.PI + angleoffset;
             //    VCview.moveTo();
             var radwidth = (obj != nearobj ? 5 : 7.5) / 360 * 2 * Math.PI;
             var rwidth = (obj != nearobj ? 2.2 : 5);
@@ -103,6 +107,7 @@ function colorHighlight(colorcode) {
         if (isHighLight) {
             sphere.material.transparent = false;
             sphere.material.needsUpdate = false;
+            enablecount += 1;
         }
         else {
             sphere.material.opacity = 0.05;
@@ -110,6 +115,13 @@ function colorHighlight(colorcode) {
             sphere.material.needsUpdate = true;
         }
     }
+    if (enablecount <= 0) {
+        HilightReset();
+    }
+}
+function isgray(colorcode) {
+    var RGB = hexToRgb(colorcode);
+    return RGB.every(function (i) { return i === RGB[0]; });
 }
 function HilightReset() {
     for (var _i = 0, colorObjects_1 = colorObjects; _i < colorObjects_1.length; _i++) {

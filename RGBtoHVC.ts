@@ -1,5 +1,7 @@
 
 // colorHighlight();
+
+
 function colorHighlight(colorcode) {
 
     // requestAnimationFrame(colorHighlight);
@@ -11,11 +13,13 @@ function colorHighlight(colorcode) {
     // }
     // console.log(selectiongItem.dataset.colorcode, ",", selectingColorcode);
     // console.log(colorcode);
-    if (colorcode == null) {
+    // if (isgray(colorcode));
+    if (colorcode == null || isgray(colorcode)) {
         // console.log("colorcodeがない")
         HilightReset();
         return;
     }
+    var enablecount = 0;
 
     var nearobj = colorConvart(colorcode);
     var HviewCanvas = document.getElementById("Hview");
@@ -26,7 +30,7 @@ function colorHighlight(colorcode) {
     Hview.clearRect(0, 0, HviewCanvas.width, HviewCanvas.height);
     VCview.clearRect(0, 0, VCviewCanvas.width, VCviewCanvas.height);
 
-    // console.log("near", nearobj);
+    // console.log();
     // //nearobj:[sphere,colorcode,[H,V,C]]
     // colorObjects.indexOf(nearobj)
     // array.splice(index, 1);
@@ -34,6 +38,8 @@ function colorHighlight(colorcode) {
     // console.log(colorObjects)
     // console.log(colorObjects.filter(a => a[2] != nearobj[2]).concat(nearobj));
     // console.log(colorObjects.filter(a => a !== nearobj[0]).concat(nearobj[0]).length);
+    var angleoffset = Math.atan2(munsellCamera.position.x, munsellCamera.position.z);
+    console.log(angleoffset)
     for (const obj of colorObjects.filter(a => a[2] != nearobj[2]).concat([nearobj])) {
         // if (obj == nearobj) continue;
         var sphere = obj[0];
@@ -48,7 +54,7 @@ function colorHighlight(colorcode) {
 
             VCview.fillStyle = obj[1];
             //格子
-            var x = (obj[2][2] - 1) * 7.5;
+            var x = (obj[2][2] - 1) * 4.5;
             var isHosyoku = (obj[2][0] + 20) % 40 == nearobj[2][0] % 40;
             if (isHosyoku) x *= -1;
             // x += isHosyoku ? -5 : 5;
@@ -93,7 +99,7 @@ function colorHighlight(colorcode) {
             // let y = Math.cos(rad) * C*5 + HviewCanvas.height / 2;
 
 
-            var rad = ((H / 40.0)) * 2 * Math.PI;
+            var rad = ((H / 40.0)) * 2 * Math.PI + angleoffset;
             //    VCview.moveTo();
             var radwidth = (obj != nearobj ? 5 : 7.5) / 360 * 2 * Math.PI;
             var rwidth = (obj != nearobj ? 2.2 : 5);
@@ -130,6 +136,7 @@ function colorHighlight(colorcode) {
         if (isHighLight) {
             sphere.material.transparent = false;
             sphere.material.needsUpdate = false;
+            enablecount += 1;
         } else {
 
 
@@ -139,6 +146,14 @@ function colorHighlight(colorcode) {
         }
 
     }
+    if (enablecount <= 0) {
+        HilightReset();
+    }
+}
+function isgray(colorcode) {
+    var RGB = hexToRgb(colorcode);
+    return RGB.every(i => i === RGB[0])
+
 }
 
 
