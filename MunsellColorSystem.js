@@ -4,13 +4,15 @@ var canvas;
 
   // レンダラーを作成
   canvas = document.querySelector('#munsellColorSystemCanvas');
-  const renderer = new THREE.WebGLRenderer({ canvas });
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true  } );
   const width = canvas.clientWidth;
   const height = canvas.clientHeight;
+  // renderer.setClearColor(0x000000, 0); 
   renderer.setSize(width, height);
+
   // シーンを作成
 const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xffffff);
+  // scene.background = new THREE.Color(0xffffff);
 
   // カメラを作成
   const munsellCamera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
@@ -28,7 +30,6 @@ controls.dampingFactor = 0.2;
     new THREE.BoxGeometry(300, 300, 300),
     new THREE.MeshNormalMaterial());
 // scene.add(mesh);
-
 
 
 // requestAnimationFrame(cameraControlsAnimation(0));

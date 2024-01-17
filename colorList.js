@@ -16,7 +16,7 @@ function colorItemAdd() {
         console.log(btn);
         document.getElementById("colorProperty").style.display = "block";
         document.getElementById("settings").style.display = "none";
-        selectiongItem = item;
+        selectiongItem = btn;
         console.log(btn.dataset.colorcode);
         selectingColorcode = btn.dataset.colorcode;
         //TODO、ここ改善点
@@ -32,6 +32,7 @@ function colorSet(item, colorcode) {
     item.style.backgroundColor = colorcode; // 任意の色に変更
     item.style.borderColor = colorcode; // ボーダーカラーも指定すると良い
     item.style.color = colorcode;
+    item.dataset.colorcode = colorcode;
 }
 colorUpdate();
 function colorUpdate() {
@@ -42,6 +43,7 @@ function colorUpdate() {
     // console.log(selectiongItem)
     if (selectiongItem) {
         selectiongcolor = selectiongItem.style.backgroundColor;
+        document.body.style.backgroundColor = selectiongcolor;
     }
     // console.log(selectiongcolor)
     // SelectingColorText.style.color = "aa";

@@ -106,12 +106,13 @@ function colorHighlight(colorcode) {
         }
         if (isHighLight) {
             sphere.material.transparent = false;
-            sphere.material.needsUpdate = false;
+            sphere.material.opacity = 1;
+            sphere.material.needsUpdate = true;
             enablecount += 1;
         }
         else {
-            sphere.material.opacity = 0.05;
             sphere.material.transparent = true;
+            sphere.material.opacity = 0.05;
             sphere.material.needsUpdate = true;
         }
     }
@@ -127,7 +128,8 @@ function HilightReset() {
     for (var _i = 0, colorObjects_1 = colorObjects; _i < colorObjects_1.length; _i++) {
         var obj = colorObjects_1[_i];
         obj[0].material.transparent = false;
-        obj[0].material.needsUpdate = false;
+        obj[0].material.opacity = 1;
+        obj[0].material.needsUpdate = true;
     }
     // console.log("HilightReset()")
 }
