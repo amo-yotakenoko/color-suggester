@@ -54,6 +54,7 @@ function canvasInit() {
         // if (cameraCanvas != null) {
         // }
         //  console.log("角");
+        // requestCameraPermission();
         cameraCanvas.addEventListener('mousedown', TouchStart, false);
         cameraCanvas.addEventListener('mouseup', TouchEnd, false);
         //         function mouseDownHandler(event) {
@@ -115,27 +116,34 @@ function canvasInit() {
 
 
 function cameraDevicesChangeButtonInit() {
-    console.log("cameraDevicesChangeButtonInit")
+    console.log("cameraDevicesChangeButtonInit");
+
     navigator.mediaDevices.enumerateDevices()
         .then(function (devices) {
-            devices.forEach(function (device) {
-                var _a;
-                if (device.kind === "videoinput") {
-                    console.log(device.kind + ": " + device.label + device.deviceId);
-                    var newButton = document.createElement("button");
-                    newButton.innerHTML = device.label + device.deviceId;
-                    newButton.onclick = function () {
-                        cameraInit(device.deviceId);
-                    };
-                    (_a = document.getElementById("cameraList")) === null || _a === void 0 ? void 0 : _a.appendChild(newButton);
-                }
-            });
+            devices
+                .filter(device => device.kind === "videoinput")
+                .forEach(device => createCameraButton(device));
         });
 }
+
+function createCameraButton(device) {
+    console.log(`${device.kind}: ${device.label} ${device.deviceId}`);
+
+    const newButton = document.createElement("button");
+    newButton.innerHTML = `${device.label}`;
+    newButton.onclick = () => cameraInit(device.deviceId);
+
+    const cameraList = document.getElementById("cameraList");
+    if (cameraList) {
+        cameraList.appendChild(newButton);
+    }
+}
 // カメラの初期化関数を呼び出し
-cameraDevicesChangeButtonInit();
 cameraInit('1');
 canvasInit();
+cameraDevicesChangeButtonInit();
+
+
 var i = 0;
 var selectingColorcode;
 function canvasUpdate() {

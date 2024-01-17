@@ -48,6 +48,7 @@ function canvasInit() {
         // if (cameraCanvas != null) {
         // }
         //  console.log("角");
+        // requestCameraPermission();
         cameraCanvas.addEventListener('mousedown', TouchStart, false);
         cameraCanvas.addEventListener('mouseup', TouchEnd, false);
         //         function mouseDownHandler(event) {
@@ -97,24 +98,25 @@ function cameraDevicesChangeButtonInit() {
     console.log("cameraDevicesChangeButtonInit");
     navigator.mediaDevices.enumerateDevices()
         .then(function (devices) {
-        devices.forEach(function (device) {
-            var _a;
-            if (device.kind === "videoinput") {
-                console.log(device.kind + ": " + device.label + device.deviceId);
-                var newButton = document.createElement("button");
-                newButton.innerHTML = device.label + device.deviceId;
-                newButton.onclick = function () {
-                    cameraInit(device.deviceId);
-                };
-                (_a = document.getElementById("cameraList")) === null || _a === void 0 ? void 0 : _a.appendChild(newButton);
-            }
-        });
+        devices
+            .filter(function (device) { return device.kind === "videoinput"; })
+            .forEach(function (device) { return createCameraButton(device); });
     });
 }
+function createCameraButton(device) {
+    console.log(device.kind + ": " + device.label + " " + device.deviceId);
+    var newButton = document.createElement("button");
+    newButton.innerHTML = "" + device.label;
+    newButton.onclick = function () { return cameraInit(device.deviceId); };
+    var cameraList = document.getElementById("cameraList");
+    if (cameraList) {
+        cameraList.appendChild(newButton);
+    }
+}
 // カメラの初期化関数を呼び出し
-cameraDevicesChangeButtonInit();
 cameraInit('1');
 canvasInit();
+cameraDevicesChangeButtonInit();
 var i = 0;
 var selectingColorcode;
 function canvasUpdate() {
