@@ -71,12 +71,12 @@ def training():
     model.add(Dense(3))  
     model.add(BatchNormalization())
     model.compile(optimizer='adam', loss='mse')  
-    model.fit(np.column_stack((x, y, z)), np.column_stack((r,g,b)), epochs=1000)
+    model.fit(np.column_stack((x, y, z)), np.column_stack((r,g,b)), epochs=100)
     # model.save_weights('RGBtoHVC.h5')
     model.save('HVCtoRGB.h5')
     print(model.to_json())
 
-# training()
+training()
 
 model = load_model('HVCtoRGB.h5')
 predictions = model.predict(np.column_stack((x, y, z)))

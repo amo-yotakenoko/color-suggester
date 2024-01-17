@@ -1,39 +1,40 @@
 function colorItemAdd() {
     var colorList = document.getElementById("colorList");
     console.log(colorList);
-    var li = document.createElement("li");
-    li.className = "nav-item";
-    colorList.insertBefore(li, colorList.firstChild);
-    var item = document.createElement("a");
-    item.className = "nav-link";
-    item.dataset.colorcode = "#000000";
-    item.textContent = "a";
+    var btn = document.createElement("button");
+    // li.className = "nav-item";
+    // var item = document.createElement("a");
+    btn.className = "btn btn-primary";
+    btn.dataset.colorcode = "#000000";
+    btn.textContent = "a";
     // item.style.backgroundColor = colorcode;
-    li.appendChild(item);
-    item.classList.add("active");
-    selectiongItem = item;
+    // btn.appendChild(item);
+    btn.classList.add("active");
+    selectiongItem = btn;
+    colorList.insertBefore(btn, colorList.firstChild);
 
-    item.addEventListener("click", function () {
-        console.log(item)
+    btn.addEventListener("click", function () {
+        console.log(btn)
         document.getElementById("colorProperty").style.display = "block";
         document.getElementById("settings").style.display = "none";
         selectiongItem = item;
-        console.log(item.dataset.colorcode);
-        selectingColorcode = item.dataset.colorcode;
+        console.log(btn.dataset.colorcode);
+        selectingColorcode = btn.dataset.colorcode;
         //TODO、ここ改善点
 
         colorHighlight();
 
     });
     //  li.insertBefore(item, li.firstChild);
-    return item;
+    return btn;
 }
 var selectiongItem;
 var selectiongcolor;
 function colorSet(item, colorcode) {
     // console.log("colorset")
-    item.style.backgroundColor = colorcode;
-    item.dataset.colorcode = colorcode;
+    item.style.backgroundColor = colorcode; // 任意の色に変更
+    item.style.borderColor = colorcode; // ボーダーカラーも指定すると良い
+    item.style.color = colorcode;
 
 }
 colorUpdate()

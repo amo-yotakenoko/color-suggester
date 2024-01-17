@@ -39,7 +39,7 @@ function colorHighlight(colorcode) {
     // console.log(colorObjects.filter(a => a[2] != nearobj[2]).concat(nearobj));
     // console.log(colorObjects.filter(a => a !== nearobj[0]).concat(nearobj[0]).length);
     var angleoffset = Math.atan2(munsellCamera.position.x, munsellCamera.position.z);
-    console.log(angleoffset)
+    // console.log(angleoffset)
     for (const obj of colorObjects.filter(a => a[2] != nearobj[2]).concat([nearobj])) {
         // if (obj == nearobj) continue;
         var sphere = obj[0];

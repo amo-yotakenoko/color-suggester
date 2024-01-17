@@ -30,7 +30,7 @@ function colorHighlight(colorcode) {
     // console.log(colorObjects.filter(a => a[2] != nearobj[2]).concat(nearobj));
     // console.log(colorObjects.filter(a => a !== nearobj[0]).concat(nearobj[0]).length);
     var angleoffset = Math.atan2(munsellCamera.position.x, munsellCamera.position.z);
-    console.log(angleoffset);
+    // console.log(angleoffset)
     for (var _i = 0, _a = colorObjects.filter(function (a) { return a[2] != nearobj[2]; }).concat([nearobj]); _i < _a.length; _i++) {
         var obj = _a[_i];
         // if (obj == nearobj) continue;

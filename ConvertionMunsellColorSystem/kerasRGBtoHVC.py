@@ -3,11 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import tensorflow as tf
+import tensorflowjs as tfjs
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import BatchNormalization
-
 
 colorcodeHVC = pd.read_csv('colorcodeToHVC.txt', delimiter='\s+', names=['rgb', 'H', 'V', 'C'])
 
@@ -64,14 +64,16 @@ def training():
     model.add(Dense(8, input_dim=3, activation='relu'))
     model.add(Dense(8, activation='relu'))
     model.add(Dense(8, activation='relu'))
+    model.add(Dense(3))  
     model.add(BatchNormalization())
     model.compile(optimizer='adam', loss='mse')  
-    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=1000)
-    # model.save_weights('RGBtoHVC.h5')
+    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=10)
+
     model.save('RGBtoHVC.h5')
     print(model.to_json())
+    # tfjs.converters.save_keras_model(model, 'tfjs_model')
 
-# training()
+training()
 model = load_model('RGBtoHVC.h5')
 predictions = model.predict(np.column_stack((r, g, b)))
 print(predictions)
