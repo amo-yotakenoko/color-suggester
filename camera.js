@@ -175,4 +175,6 @@ function settingButton() {
     document.getElementById("colorProperty").style.display = "none";
     document.getElementById("settings").style.display = "block";
     // console.log(colorPropertyElement, settingsElement);
+    selectingColorcode = null;
+    // console.log(selectingColorcode)
 }

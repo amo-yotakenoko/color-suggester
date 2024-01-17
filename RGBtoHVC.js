@@ -6,6 +6,12 @@ function colorHighlight(colorcode) {
     //     return;
     // }
     // console.log(selectiongItem.dataset.colorcode, ",", selectingColorcode);
+    // console.log(colorcode);
+    if (colorcode == null) {
+        // console.log("colorcodeがない")
+        HilightReset();
+        return;
+    }
     var nearobj = colorConvart(colorcode);
     var HviewCanvas = document.getElementById("Hview");
     var Hview = HviewCanvas.getContext("2d");
@@ -111,7 +117,7 @@ function HilightReset() {
         obj[0].material.transparent = false;
         obj[0].material.needsUpdate = false;
     }
-    console.log("HilightReset()");
+    // console.log("HilightReset()")
 }
 function drawCircleFill(context, centerX, centerY, radius) {
     context.beginPath();
@@ -121,19 +127,24 @@ function drawCircleFill(context, centerX, centerY, radius) {
 }
 function colorConvart(selectingColorcode) {
     // console.log("colorConvart")
+    if (!selectingColorcode)
+        return null;
     var _a = hexToRgb(selectingColorcode), r = _a[0], g = _a[1], b = _a[2];
     // console.log(r);
     var nearobj;
     var nearDistance = Infinity;
-    for (var _i = 0, colorObjects_2 = colorObjects; _i < colorObjects_2.length; _i++) {
-        var obj = colorObjects_2[_i];
-        // 各要素に対する処理をここに記述
-        var _b = hexToRgb(obj[1]), objr = _b[0], objg = _b[1], objb = _b[2];
-        // console.log(objr);
-        var distance = Math.sqrt(Math.pow((r - objr), 2) + Math.pow((g - objg), 2) + Math.pow((b - objb), 2));
-        if (nearDistance > distance) {
-            nearDistance = distance;
-            nearobj = obj;
+    // console.log(colorObjects)
+    if (colorObjects) {
+        for (var _i = 0, colorObjects_2 = colorObjects; _i < colorObjects_2.length; _i++) {
+            var obj = colorObjects_2[_i];
+            // 各要素に対する処理をここに記述
+            var _b = hexToRgb(obj[1]), objr = _b[0], objg = _b[1], objb = _b[2];
+            // console.log(objr);
+            var distance = Math.sqrt(Math.pow((r - objr), 2) + Math.pow((g - objg), 2) + Math.pow((b - objb), 2));
+            if (nearDistance > distance) {
+                nearDistance = distance;
+                nearobj = obj;
+            }
         }
     }
     return nearobj;

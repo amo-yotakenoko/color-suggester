@@ -67,7 +67,9 @@ function colorAddLoop(i) {
         if (!munsellColors[i]) return;
         
         i+=1
-        let color=munsellColors[i]
+        let color = munsellColors[i]
+        // console.log(color)
+        if (color == null) continue;
          addColorMesh(color[0], parseFloat(color[1]), parseFloat(color[2]), parseFloat(color[3]));
     }
     // colorAddLoop(i + 1);

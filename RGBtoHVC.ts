@@ -10,6 +10,13 @@ function colorHighlight(colorcode) {
     //     return;
     // }
     // console.log(selectiongItem.dataset.colorcode, ",", selectingColorcode);
+    // console.log(colorcode);
+    if (colorcode == null) {
+        // console.log("colorcodeがない")
+        HilightReset();
+        return;
+    }
+
     var nearobj = colorConvart(colorcode);
     var HviewCanvas = document.getElementById("Hview");
     var Hview = HviewCanvas.getContext("2d");
@@ -140,7 +147,7 @@ function HilightReset() {
         obj[0].material.transparent = false;
         obj[0].material.needsUpdate = false;
     }
-    console.log("HilightReset()")
+    // console.log("HilightReset()")
 }
 
 function drawCircleFill(context, centerX, centerY, radius) {
@@ -155,22 +162,25 @@ function drawCircleFill(context, centerX, centerY, radius) {
 function colorConvart(selectingColorcode) {
     // console.log("colorConvart")
 
-
+    if (!selectingColorcode) return null;
 
     let [r, g, b] = hexToRgb(selectingColorcode);
     // console.log(r);
     var nearobj;
     var nearDistance = Infinity;
-    for (const obj of colorObjects) {
-        // 各要素に対する処理をここに記述
-        let [objr, objg, objb] = hexToRgb(obj[1]);
-        // console.log(objr);
-        var distance = Math.sqrt((r - objr) ** 2 + (g - objg) ** 2 + (b - objb) ** 2);
-        if (nearDistance > distance) {
-            nearDistance = distance;
-            nearobj = obj
-        }
+    // console.log(colorObjects)
+    if (colorObjects) {
+        for (const obj of colorObjects) {
+            // 各要素に対する処理をここに記述
+            let [objr, objg, objb] = hexToRgb(obj[1]);
+            // console.log(objr);
+            var distance = Math.sqrt((r - objr) ** 2 + (g - objg) ** 2 + (b - objb) ** 2);
+            if (nearDistance > distance) {
+                nearDistance = distance;
+                nearobj = obj
+            }
 
+        }
     }
     return nearobj;
 
