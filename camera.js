@@ -65,6 +65,7 @@ function canvasInit() {
             console.log("touchstart");
             event.preventDefault();
             inputingColorItem = colorItemAdd();
+            canvasUpdate();
         }
         function TouchEnd(event) {
             isMouseDown = false;

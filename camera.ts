@@ -76,6 +76,7 @@ function canvasInit() {
             event.preventDefault();
 
             inputingColorItem = colorItemAdd();
+            canvasUpdate();
         }
 
         function TouchEnd(event) {
