@@ -1,11 +1,17 @@
 
 // colorHighlight();
 
-
+var HviewCanvas = document.getElementById("Hview");
+var VCviewCanvas = document.getElementById("VCview");
+var prevcolorcode;
+// var isHighLight = false;
 function colorHighlight(colorcode) {
-
+    if (prevcolorcode == colorcode) {
+        return;
+    }
+    prevcolorcode = colorcode;
     // requestAnimationFrame(colorHighlight);
-    // console.log(colorcode);
+    console.log(colorHighlight);
 
     // if (!isMouseDown) {
 
@@ -15,16 +21,14 @@ function colorHighlight(colorcode) {
     // console.log(colorcode);
     // if (isgray(colorcode));
     if (colorcode == null || isgray(colorcode)) {
-        // console.log("colorcodeがない")
+        console.log("colorcodeがない")
         HilightReset();
         return;
     }
     var enablecount = 0;
 
     var nearobj = colorConvart(colorcode);
-    var HviewCanvas = document.getElementById("Hview");
     var Hview = HviewCanvas.getContext("2d");
-    var VCviewCanvas = document.getElementById("VCview");
     var VCview = VCviewCanvas.getContext("2d");
 
     Hview.clearRect(0, 0, HviewCanvas.width, HviewCanvas.height);

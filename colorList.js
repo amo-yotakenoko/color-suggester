@@ -34,12 +34,12 @@ function colorSet(item, colorcode) {
     item.style.color = colorcode;
     item.dataset.colorcode = colorcode;
 }
+var colorList = document.getElementById("colorList");
+var SelectingColorText = document.getElementById("colorcode");
 colorUpdate();
 function colorUpdate() {
     requestAnimationFrame(colorUpdate);
-    var colorList = document.getElementById("colorList");
     // selectingColorcode
-    var SelectingColorText = document.getElementById("colorcode");
     // console.log(selectiongItem)
     if (selectiongItem) {
         selectiongcolor = selectiongItem.style.backgroundColor;

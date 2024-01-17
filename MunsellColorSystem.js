@@ -59,8 +59,8 @@ function tick() {
   // レンダリング
   requestAnimationFrame(tick);
   renderer.render(scene, munsellCamera);
-   mesh.rotation.x += 0.01;
-  mesh.rotation.y += 0.01;
+  //  mesh.rotation.x += 0.01;
+  // mesh.rotation.y += 0.01;
   // カメラコントローラーをアップデート
   controls.update();
 }
@@ -70,13 +70,15 @@ function tick() {
 var colorObjects=[]
 function addColorMesh(colorcode, H, V, C) {
   // console.log([colorcode, H, S, C])
+// if (Math.random()<0.9) 
+//   return;
    let rad = (H / 40.0)  *2 * Math.PI;
     let x=Math.sin(rad) * C*1.5;
  let y=Math.cos(rad) * C*1.5;
   let z = V * 5-20;
    material= new THREE.MeshBasicMaterial({ color: colorcode })
 const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(1, 32, 32),
+  new THREE.SphereGeometry(1, 1, 1),
   material);
   sphere.position.set(y, z, x);
   scene.add(sphere)
