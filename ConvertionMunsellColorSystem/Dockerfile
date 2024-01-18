@@ -16,10 +16,9 @@
 FROM tensorflow/tensorflow
 
 # Set the working directory
-WORKDIR /out
+WORKDIR /jsmodel
 
 # Copy the model file (RGBtoHVC.h5) into the container at /out
-COPY RGBtoHVC.h5 /out/RGBtoHVC.h5
 
 # Install any dependencies needed for your specific case
 # (e.g., if additional Python packages are required)
@@ -27,16 +26,19 @@ COPY RGBtoHVC.h5 /out/RGBtoHVC.h5
 # Run the tensorflowjs_converter command to convert the model
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip 
+
+
 RUN pip install tensorflowjs
-RUN tensorflowjs_converter \
-    --input_format=keras \
-    --output_format=tfjs_layers_model \
-    /out/RGBtoHVC.h5 \
-    /out/tfjs_model
-RUN rm RGBtoHVC.h5
 
-# Optionally, you can expose a port or specify other configurations
+COPY *.h5 .
+RUN tensorflowjs_converter --input_format=keras RGBtoHVC.h5 out/RGBtoHVC
+RUN tensorflowjs_converter --input_format=keras HVCtoRGB.h5 out/HVCtoRGB
+RUN rm *.h5
 
-# Command to run when the container starts
-RUN ls&&sleep 10
+# RUN rm RGBtoHVC.h5
 CMD ["/bin/bash"]
+CMD ["cp -r /model /jsmodel"]
+# CMD ["ls"]
+
+
+#tensorflowjs_converter

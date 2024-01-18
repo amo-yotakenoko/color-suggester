@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import tensorflow as tf
-# import tensorflowjs as tfjs
+import tensorflowjs as tfjs
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
@@ -108,8 +108,8 @@ def training():
     model.add(Dense(3))  
     model.add(BatchNormalization())
     model.compile(optimizer='adam', loss='mse')  
-    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=360,
-              callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
+    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=10,
+            #   callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
               )
 
     model.save('RGBtoHVC.h5')
