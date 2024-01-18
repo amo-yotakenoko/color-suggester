@@ -41,7 +41,11 @@
         <div class="row" id="colorProperty">
 
 
-            <div id="colorcode">colorcode</div>
+            <!-- <div type="text" id="colorcode">colorcode</div> -->
+            <input type="text" id="colorcode" pattern="#[0-9A-Fa-f]{6}" maxlength="7"
+                style="width:100px;  border-radius: 8px;">
+            <button type="button" class="btn btn-outline-primary" id="colorDelete" onclick="colorDelete();"
+                style="width:100px">削除</button>
 
 
         </div>

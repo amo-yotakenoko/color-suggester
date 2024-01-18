@@ -39,20 +39,54 @@ function colorSet(item, colorcode) {
 }
 var colorList = document.getElementById("colorList");
 var SelectingColorText = document.getElementById("colorcode");
+var deleteButton = document.getElementById("colorDelete");
+SelectingColorText.addEventListener('input', function (event) {
+    console.log("input event" + SelectingColorText.value);
+    colorSet(selectiongItem, SelectingColorText.value)
+    selectingColorcode = SelectingColorText.value;
+    // selectiongItem.style.backgroundColor = SelectingColorText.value;
+});
+
+// changeイベント
+SelectingColorText.addEventListener('change', function (event) {
+    console.log("change event");
+});
+
 colorUpdate()
 function colorUpdate() {
     requestAnimationFrame(colorUpdate);
     // selectingColorcode
 
     // console.log(selectiongItem)
+
+
+    // clickイベント
+    // SelectingColorText.addEventListener('click', function (event) {
+    //     console.log("click event");
+    // });
+
+
     if (selectiongItem) {
 
         selectiongcolor = selectiongItem.style.backgroundColor;
         document.body.style.backgroundColor = selectiongcolor;
+        var regex = /rgb\((\d+), (\d+), (\d+)\)/;
+        var rgb = selectiongcolor.match(regex);
+        console.log((parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)));
+        var c = (parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
+        deleteButton.style.color = c;
+        deleteButton.style.outlineColor = c;
+        // console.log("aa" + hexToRgb(selectiongcolor) + deleteButton.style.outlineColor);
+    }
+    if (document.activeElement !== SelectingColorText) {
+
+        SelectingColorText.value = selectingColorcode;
     }
     // console.log(selectiongcolor)
     // SelectingColorText.style.color = "aa";
-    SelectingColorText.textContent = selectingColorcode;
+    // SelectingColorText.style.color = (rgb[0] + rgb[1] + rgb[2]) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
+    // console.log((rgb[0] + rgb[1] + rgb[2]) < 255 * 3 / 2 ? '#000000' : '#FFFFFF')
+
     // console.log(selectingColorcode)
     // console.log("selectingColorcodelast", selectingColorcode)
 
@@ -60,4 +94,14 @@ function colorUpdate() {
 
     // console.log(selectingColorcode)
     //     }
+}
+
+function colorDelete() {
+    console.log("delete");
+    var parent = selectiongItem.parentNode
+    parent.removeChild(selectiongItem);
+    parent.firstElementChild.click();
+
+    // selectiongItem = null;
+
 }
