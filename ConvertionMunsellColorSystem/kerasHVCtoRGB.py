@@ -59,10 +59,23 @@ hvcax.set_zlim([0, 10])
 # hvcxyzax.set_xlabel('H')
 # hvcxyzax.set_ylabel('V')
 # hvcxyzax.set_zlabel('C')
+result.axis('equal')
+result.set_title('TrainingResult')
+
 
 
 
 def training():
+    def saveImage(epoch, logs):
+        if epoch % 5 == 0:
+            predictions = model.predict(np.column_stack((x, y, z)))
+            result.clear()
+            result.set_xlim([0, 1])
+            result.set_ylim([0, 1])
+            result.set_zlim([0, 1])
+            result.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=color,s=s)
+            plt.title(f"{epoch}")
+            plt.savefig(f'out/{epoch}.png')
     model = Sequential()
     model.add(Dense(8, input_dim=3, activation='relu'))
     model.add(BatchNormalization())
@@ -71,24 +84,23 @@ def training():
     model.add(Dense(3))  
     model.add(BatchNormalization())
     model.compile(optimizer='adam', loss='mse')  
-    model.fit(np.column_stack((x, y, z)), np.column_stack((r,g,b)), epochs=100)
+    model.fit(np.column_stack((x, y, z)), np.column_stack((r,g,b)), epochs=1000, callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)])
     # model.save_weights('RGBtoHVC.h5')
     model.save('HVCtoRGB.h5')
     print(model.to_json())
 
+
+
 training()
 
 model = load_model('HVCtoRGB.h5')
+
+
 predictions = model.predict(np.column_stack((x, y, z)))
 print(predictions)
 
 result.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=color,s=s)
-result.axis('equal')
-result.set_title('TrainingResult')
 
-result.set_xlim([0, 1])
-result.set_ylim([0, 1])
-result.set_zlim([0, 1])
 # H,V,C=[],[],[]
 # color=[]
 # for rv in range(0,255,25):

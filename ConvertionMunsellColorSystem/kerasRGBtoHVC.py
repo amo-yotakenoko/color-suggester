@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import tensorflow as tf
-import tensorflowjs as tfjs
+# import tensorflowjs as tfjs
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
@@ -56,10 +56,51 @@ hvcax.set_zlim([0, 10])
 # hvcxyzax.set_xlabel('H')
 # hvcxyzax.set_ylabel('V')
 # hvcxyzax.set_zlabel('C')
-
+tr,tg,tb=[],[],[]
+colort=[]
+for rv in range(0,255,25):
+    for gv in range(0,255,25):
+        for bv in range(0,255,25):
+            tr.append(rv)
+            tg.append(gv)
+            tb.append(bv)
+            colort.append([rv/255.0,gv/255.0,bv/255.0])
 
 
 def training():
+    def saveImage(epoch, logs):
+        if epoch % 1 == 0:
+            
+
+            predictions = model.predict(np.column_stack((r, g, b)))
+            # print(predictions)
+            result.clear();
+            result.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=color,s=s)
+            result.set_zlabel('V')
+            result.axis('equal')
+            result.set_title('TrainingResult')
+            result.set_xlim([-20, 20])
+            result.set_ylim([-20, 20])
+            result.set_zlim([0, 10])
+
+
+
+            predictions = model.predict(np.column_stack((tr,tg, tb)))
+            print(predictions)
+            resultrgb.clear()
+            resultrgb.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=colort,s=s)
+            resultrgb.set_zlabel('V')
+            resultrgb.axis('equal')
+            resultrgb.set_title('TrainingResult')
+            resultrgb.set_xlim([-20, 20])
+            resultrgb.set_ylim([-20, 20])
+            resultrgb.set_zlim([0, 10])
+
+            for f in [rgbax, hvcax,resultrgb,result]:
+                f.view_init(elev=20, azim=epoch ) 
+
+
+            plt.savefig(f'out/{epoch}.png')
     model = Sequential()
     model.add(Dense(8, input_dim=3, activation='relu'))
     model.add(Dense(8, activation='relu'))
@@ -67,7 +108,9 @@ def training():
     model.add(Dense(3))  
     model.add(BatchNormalization())
     model.compile(optimizer='adam', loss='mse')  
-    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=10)
+    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=360,
+              callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
+              )
 
     model.save('RGBtoHVC.h5')
     print(model.to_json())
@@ -86,21 +129,12 @@ result.set_xlim([-20, 20])
 result.set_ylim([-20, 20])
 result.set_zlim([0, 10])
 
-r,g,b=[],[],[]
-color=[]
-for rv in range(0,255,25):
-    for gv in range(0,255,25):
-        for bv in range(0,255,25):
-            r.append(rv)
-            g.append(gv)
-            b.append(bv)
-            color.append([rv/255.0,gv/255.0,bv/255.0])
 
 
-predictions = model.predict(np.column_stack((r, g, b)))
+predictions = model.predict(np.column_stack((tr,tg, tb)))
 print(predictions)
 
-resultrgb.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=color,s=s)
+resultrgb.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=colort,s=s)
 resultrgb.set_zlabel('V')
 resultrgb.axis('equal')
 resultrgb.set_title('TrainingResult')
@@ -110,7 +144,7 @@ resultrgb.set_zlim([0, 10])
 # resultrgb.set_ylim([min(min(y1), min(y2)), max(max(y1), max(y2))])
 
 
-
+# plt.savefig(f'out/aaa.png')
 
 plt.show()
 
