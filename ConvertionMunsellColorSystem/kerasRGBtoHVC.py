@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import tensorflow as tf
-import tensorflowjs as tfjs
+# import tensorflowjs as tfjs
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
@@ -74,7 +74,7 @@ def training():
 
             predictions = model.predict(np.column_stack((r, g, b)))
             # print(predictions)
-            result.clear();
+            result.clear()
             result.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=color,s=s)
             result.set_zlabel('V')
             result.axis('equal')
@@ -106,9 +106,9 @@ def training():
     model.add(Dense(8, activation='relu'))
     model.add(Dense(8, activation='relu'))
     model.add(Dense(3))  
-    model.add(BatchNormalization())
+    # model.add(BatchNormalization())
     model.compile(optimizer='adam', loss='mse')  
-    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=10,
+    model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=1000,
             #   callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
               )
 

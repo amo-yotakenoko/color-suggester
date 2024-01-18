@@ -16,7 +16,8 @@ const scene = new THREE.Scene();
 
   // カメラを作成
   const munsellCamera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-  munsellCamera.position.set(0, 0, 100);
+munsellCamera.position.set(0, 0, 100);
+
   //  camera.rotation.set(0, 90, 0);
   // camera.position.y += 20;
 

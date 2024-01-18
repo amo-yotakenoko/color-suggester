@@ -1,6 +1,6 @@
 function colorItemAdd() {
     var colorList = document.getElementById("colorList");
-    console.log(colorList);
+    // console.log(colorList);
     var btn = document.createElement("button");
     // li.className = "nav-item";
     // var item = document.createElement("a");
@@ -12,15 +12,17 @@ function colorItemAdd() {
     btn.classList.add("active");
     selectiongItem = btn;
     colorList.insertBefore(btn, colorList.firstChild);
+    colortab(true);
+    console.log("ボタン追加");
+    btn.click();
     btn.addEventListener("click", function () {
-        console.log(btn);
-        document.getElementById("colorProperty").style.display = "block";
-        document.getElementById("settings").style.display = "none";
+        // console.log(btn)
+        colortab(true);
         selectiongItem = btn;
         console.log(btn.dataset.colorcode);
         selectingColorcode = btn.dataset.colorcode;
         //TODO、ここ改善点
-        colorHighlight();
+        colorHighlight(selectingColorcode);
     });
     //  li.insertBefore(item, li.firstChild);
     return btn;
@@ -61,7 +63,7 @@ function colorUpdate() {
         document.body.style.backgroundColor = selectiongcolor;
         var regex = /rgb\((\d+), (\d+), (\d+)\)/;
         var rgb = selectiongcolor.match(regex);
-        console.log((parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)));
+        // console.log((parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)));
         var c = (parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
         deleteButton.style.color = c;
         deleteButton.style.outlineColor = c;

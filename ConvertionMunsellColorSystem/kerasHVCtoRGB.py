@@ -75,7 +75,7 @@ def training():
             result.set_zlim([0, 1])
             result.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=color,s=s)
             plt.title(f"{epoch}")
-            plt.savefig(f'out/{epoch}.png')
+            plt.savefig(f'frameout/{epoch}.png')
     model = Sequential()
     model.add(Dense(8, input_dim=3, activation='relu'))
     model.add(BatchNormalization())

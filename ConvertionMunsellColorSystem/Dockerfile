@@ -37,7 +37,7 @@ RUN rm *.h5
 
 # RUN rm RGBtoHVC.h5
 CMD ["/bin/bash"]
-CMD ["cp -r /model /jsmodel"]
+CMD ["cp", "-r", "/jsmodel/out", "/out"]
 # CMD ["ls"]
 
 

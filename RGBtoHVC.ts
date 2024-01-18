@@ -4,14 +4,18 @@
 var HviewCanvas = document.getElementById("Hview");
 var VCviewCanvas = document.getElementById("VCview");
 var prevcolorcode;
+var prevcameraangle;
 // var isHighLight = false;
-function colorHighlight(colorcode) {
-    if (prevcolorcode == colorcode) {
+function colorHighlight(colorcode, enforceUpdate: boolean = false) {
+    // console.log(munsellCamera.position.x)
+    if (!enforceUpdate && prevcolorcode == colorcode && Math.abs(prevcameraangle - munsellCamera.position.x) < 0.1) {
         return;
     }
+    // console.log("更新")
     prevcolorcode = colorcode;
+    prevcameraangle = munsellCamera.position.x;
     // requestAnimationFrame(colorHighlight);
-    console.log(colorHighlight);
+    // console.log(colorHighlight);
 
     // if (!isMouseDown) {
 
@@ -19,7 +23,7 @@ function colorHighlight(colorcode) {
     // }
     // console.log(selectiongItem.dataset.colorcode, ",", selectingColorcode);
     // console.log(colorcode);
-    // if (isgray(colorcode));
+    // console.log(colorcode);
     if (colorcode == null || isgray(colorcode)) {
         console.log("colorcodeがない")
         HilightReset();
@@ -102,7 +106,7 @@ function colorHighlight(colorcode) {
             //   let x=Math.sin(rad) * C*5 + HviewCanvas.width / 2;
             // let y = Math.cos(rad) * C*5 + HviewCanvas.height / 2;
 
-
+            // console.log(angleoffset)
             var rad = ((H / 40.0)) * 2 * Math.PI + angleoffset;
             //    VCview.moveTo();
             var radwidth = (obj != nearobj ? 5 : 7.5) / 360 * 2 * Math.PI;
@@ -156,9 +160,8 @@ function colorHighlight(colorcode) {
     }
 }
 function isgray(colorcode) {
-    var RGB = hexToRgb(colorcode);
-    return RGB.every(i => i === RGB[0])
-
+    // console.log("color", colorcode)
+    return colorcode.substring(1, 3) === colorcode.substring(3, 5) && colorcode.substring(3, 5) === colorcode.substring(5, 7);
 }
 
 
@@ -213,6 +216,11 @@ function colorConvart(selectingColorcode) {
 
 function hexToRgb(hex) {
     // #を削除
+    // if (typeof hex !== 'string') {
+    //     console.log(hex)
+    //     console.log("えらー￥")
+    //     return [0, 0, 0];
+    // }
     hex = hex.replace(/^#/, '');
 
     // 16進数を10進数に変換
@@ -222,6 +230,11 @@ function hexToRgb(hex) {
     const red = (bigint >> 16) & 255;
     const green = (bigint >> 8) & 255;
     const blue = bigint & 255;
+
+    // 入力が正しい16進数形式でない場合は黒を返す
+    if (isNaN(red) || isNaN(green) || isNaN(blue)) {
+        return [0, 0, 0];
+    }
 
     return [red, green, blue];
 }

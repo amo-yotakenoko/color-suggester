@@ -175,9 +175,18 @@ function drowCircle(x, y) {
 }
 function settingButton() {
     console.log("settingButton");
-    document.getElementById("colorProperty").style.display = "none";
-    document.getElementById("settings").style.display = "block";
+    colortab(false);
     // console.log(colorPropertyElement, settingsElement);
     selectingColorcode = null;
     // console.log(selectingColorcode)
+}
+function colortab(isenable) {
+    if (isenable) {
+        document.getElementById("colorProperty").style.display = "block";
+        document.getElementById("settings").style.display = "none";
+    }
+    else {
+        document.getElementById("colorProperty").style.display = "none";
+        document.getElementById("settings").style.display = "block";
+    }
 }
