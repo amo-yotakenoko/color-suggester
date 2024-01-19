@@ -79,9 +79,27 @@ function addColorMesh(colorcode, H, V, C) {
   let z = V * 5-20;
    material= new THREE.MeshBasicMaterial({ color: colorcode })
 const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(1, 1, 1),
+  new THREE.SphereGeometry(1, 4, 1),
   material);
   sphere.position.set(y, z, x);
   scene.add(sphere)
+  // console.log(sphere)
   colorObjects.push([sphere,colorcode,[H,V,C]])
 } 
+
+
+// var anchors ;
+// function addcolorAnchor() {
+//   console.log("  addcolorAnchor")
+//  material = new THREE.MeshBasicMaterial({ color: "#00ff00" })
+//     const sphere = new THREE.Mesh(
+//         new THREE.SphereGeometry(1, 1, 1),
+//         material);
+//     sphere.position.set(0, 0, 0);
+//     const s = 2; // 新しいサイズを設定
+//   sphere.scale.set(s, s, s);
+//    scene.add(sphere)
+//   console.log(sphere);
+//   // anchors.add([btn,sphere])
+//   return sphere;
+// }

@@ -5,7 +5,7 @@ function colorItemAdd() {
     // li.className = "nav-item";
     // var item = document.createElement("a");
     btn.className = "btn btn-primary";
-    btn.dataset.colorcode = "#000000";
+    // btn.dataset.colorcode = "#000000";
     btn.textContent = "a";
     // item.style.backgroundColor = colorcode;
     // btn.appendChild(item);
@@ -15,12 +15,26 @@ function colorItemAdd() {
     colortab(true);
     console.log("ボタン追加")
     btn.click();
+
+
+    material = new THREE.MeshBasicMaterial({ color: "#000000" })
+    const sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(3, 4, 1),
+        material);
+    sphere.position.set(0, 0, 0);
+    // const s = 2; // 新しいサイズを設定
+    // sphere.scale.set(s, s, s);
+    scene.add(sphere)
+    console.log(sphere);
+    btn.dataset.anchorUuid = sphere.uuid;
+    // anchors.add([btn,sphere])
+
     btn.addEventListener("click", function () {
         // console.log(btn)
         colortab(true)
         selectiongItem = btn;
-        console.log(btn.dataset.colorcode);
-        selectingColorcode = btn.dataset.colorcode;
+        // console.log(btn.dataset.colorcode);
+        selectingColorcode = btn.style.backgroundColor;
         //TODO、ここ改善点
 
         colorHighlight(selectingColorcode);
@@ -29,15 +43,32 @@ function colorItemAdd() {
     //  li.insertBefore(item, li.firstChild);
     return btn;
 }
+
+
+
+
 var selectiongItem;
 var selectiongcolor;
-function colorSet(item, colorcode) {
-    // console.log("colorset")
+async function colorSet(item, colorcode) {
     item.style.backgroundColor = colorcode; // 任意の色に変更
     item.style.borderColor = colorcode; // ボーダーカラーも指定すると良い
     item.style.color = colorcode;
     item.dataset.colorcode = colorcode;
+    var obj = scene.getObjectByProperty('uuid', item.dataset.anchorUuid);
+    console.log("colorset", item.dataset, obj)
+    obj.material.color.set(new THREE.Color(colorcode));
+    var HVC = await RGBtoHVC(hexToRgb(colorcode))
+    // console.log("結果", HVC)
+    obj.position.z = HVC[0] * 1.5;
+    obj.position.x = HVC[1] * 1.5;
+    obj.position.y = HVC[2] * 5 - 20;
+    console.log("pos,", obj.position)
+
 }
+
+
+
+
 var colorList = document.getElementById("colorList");
 var SelectingColorText = document.getElementById("colorcode");
 var deleteButton = document.getElementById("colorDelete");
@@ -45,6 +76,7 @@ SelectingColorText.addEventListener('input', function (event) {
     console.log("input event" + SelectingColorText.value);
     colorSet(selectiongItem, SelectingColorText.value)
     selectingColorcode = SelectingColorText.value;
+
     // selectiongItem.style.backgroundColor = SelectingColorText.value;
 });
 

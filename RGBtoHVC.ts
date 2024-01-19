@@ -11,6 +11,8 @@ function colorHighlight(colorcode, enforceUpdate: boolean = false) {
     if (!enforceUpdate && prevcolorcode == colorcode && Math.abs(prevcameraangle - munsellCamera.position.x) < 0.1) {
         return;
     }
+
+
     // console.log("更新")
     prevcolorcode = colorcode;
     prevcameraangle = munsellCamera.position.x;
