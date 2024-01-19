@@ -18,7 +18,7 @@ function cameraInit(deviceId) {
             width: 256,
             height: 256,
             // deviceId: deviceId,
-            facingMode: "environment",
+            facingMode: { exact: "environment" },
         }
     };
     // ユーザーのデバイスからメディアストリーム（カメラのビデオストリーム）を取得
