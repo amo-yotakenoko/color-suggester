@@ -35,6 +35,22 @@ for index, data in colorcodeHVC.iterrows():
     z.append(V[-1])
 
 
+# model = load_model('RGBtoHVC.h5')
+# for rv in range(0,255,25):
+#     for gv in range(0,255,25):
+#         for bv in range(0,255,25):
+#             r.append(rv)
+#             g.append(gv)
+#             b.append(bv)
+#             predictions = model.predict(np.column_stack((rv, gv, bv)))
+#             print(predictions[:,0][0])
+#             x.append( predictions[:,0][0])
+#             y.append( predictions[:,1][0])
+#             z.append( predictions[:,2][0])
+#             color.append([rv/255.0,gv/255.0,bv/255.0])
+
+
+
 s=2
 rgbax.scatter(r, g, b,color=color,s=s)
 rgbax.set_title('RGB')
@@ -103,7 +119,7 @@ def training():
     optimizer = Adam()
     model.compile(optimizer=optimizer, loss='mse')  
     model.fit(np.column_stack((x, y, z)), np.column_stack((r,g,b)), epochs=1000,
-               callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
+            #    callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
                )
     # model.save_weights('RGBtoHVC.h5')
     model.save('HVCtoRGB.h5')

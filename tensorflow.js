@@ -52,7 +52,6 @@ function RGBtoHVC(RGB) {
                     model = _a.sent();
                     _a.label = 2;
                 case 2:
-                    console.log("入力 RGB:", RGB);
                     if (!model) return [3 /*break*/, 7];
                     _a.label = 3;
                 case 3:
@@ -61,8 +60,8 @@ function RGBtoHVC(RGB) {
                     return [4 /*yield*/, model.predict(data)];
                 case 4:
                     HVC = _a.sent();
-                    HVC.print(); // 予測結果を表示
-                    console.log("結果", HVC.arraySync()[0]);
+                    // HVC.print(); // 予測結果を表示
+                    // console.log("結果", HVC.arraySync()[0])
                     return [2 /*return*/, HVC.arraySync()[0]];
                 case 5:
                     error_1 = _a.sent();

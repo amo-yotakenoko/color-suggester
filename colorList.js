@@ -41,6 +41,7 @@ function colorItemAdd() {
     // li.className = "nav-item";
     // var item = document.createElement("a");
     btn.className = "btn btn-primary";
+    btn.id = "colorButton";
     // btn.dataset.colorcode = "#000000";
     btn.textContent = "a";
     // item.style.backgroundColor = colorcode;
@@ -87,7 +88,7 @@ function colorSet(item, colorcode) {
                     item.style.color = colorcode;
                     item.dataset.colorcode = colorcode;
                     obj = scene.getObjectByProperty('uuid', item.dataset.anchorUuid);
-                    console.log("colorset", item.dataset, obj);
+                    // console.log("colorset", item.dataset, obj)
                     obj.material.color.set(new THREE.Color(colorcode));
                     return [4 /*yield*/, RGBtoHVC(hexToRgb(colorcode))
                         // console.log("結果", HVC)
@@ -98,7 +99,6 @@ function colorSet(item, colorcode) {
                     obj.position.z = HVC[0] * 1.5;
                     obj.position.x = HVC[1] * 1.5;
                     obj.position.y = HVC[2] * 5 - 20;
-                    console.log("pos,", obj.position);
                     return [2 /*return*/];
             }
         });
@@ -138,7 +138,7 @@ function colorUpdate() {
         // console.log("aa" + hexToRgb(selectiongcolor) + deleteButton.style.outlineColor);
     }
     if (document.activeElement !== SelectingColorText) {
-        console.log("selectingColorcode" + selectingColorcode);
+        // console.log("selectingColorcode" + selectingColorcode)
         SelectingColorText.value = rgbToColorcode(selectingColorcode);
     }
     // console.log(selectiongcolor)

@@ -80,6 +80,11 @@ result.set_xlim([0, 255])
 result.set_ylim([0, 255])
 result.set_zlim([0, 255])
 
+for i in range(0,360):
+    for f in [rgb,hvc,result]:
+        f.view_init(elev=20, azim=i) 
+    # plt.title(f"{epoch}")
+    plt.savefig(f'frameout/{i}.png',dpi=300)
 
 
 

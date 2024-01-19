@@ -8,7 +8,7 @@ var prevcameraangle;
 // var isHighLight = false;
 function colorHighlight(colorcode, enforceUpdate: boolean = false) {
     colorcode = rgbToColorcode(colorcode)
-    console.log("updatecolorcode", colorcode)
+    // console.log("updatecolorcode", colorcode)
     if (!enforceUpdate && prevcolorcode == colorcode && Math.abs(prevcameraangle - munsellCamera.position.x) < 0.1) {
         return;
     }
@@ -158,6 +158,14 @@ function colorHighlight(colorcode, enforceUpdate: boolean = false) {
         }
 
     }
+    // console.log(colorList);
+    // for (const btn in colorList.getElementsByTagName("button")) {
+    //     console.log("btn", btn.style.backgroundColor)
+    // }
+    for (let i = 0; i < colorList.length; i++) {
+        console.log(colorList[i]); // 各アイテムのテキストが表示されます
+    }
+
     if (enablecount <= 0) {
         HilightReset();
     }
