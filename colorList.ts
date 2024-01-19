@@ -112,8 +112,8 @@ function colorUpdate() {
         // console.log("aa" + hexToRgb(selectiongcolor) + deleteButton.style.outlineColor);
     }
     if (document.activeElement !== SelectingColorText) {
-
-        SelectingColorText.value = selectingColorcode;
+        console.log("selectingColorcode" + selectingColorcode)
+        SelectingColorText.value = rgbToColorcode(selectingColorcode);
     }
     // console.log(selectiongcolor)
     // SelectingColorText.style.color = "aa";
@@ -129,12 +129,36 @@ function colorUpdate() {
     //     }
 }
 
+function rgbToColorcode(rgb) {
+    const match = rgb.match(/^rgb\((\d+), (\d+), (\d+)\)$/);
+
+    if (match) {
+        const r = parseInt(match[1], 10);
+        const g = parseInt(match[2], 10);
+        const b = parseInt(match[3], 10);
+
+        const hexR = r.toString(16).padStart(2, '0');
+        const hexG = g.toString(16).padStart(2, '0');
+        const hexB = b.toString(16).padStart(2, '0');
+        return `#${hexR}${hexG}${hexB}`;
+    } else {
+        return rgb;
+    }
+}
+
 function colorDelete() {
     console.log("delete");
+    var obj = scene.getObjectByProperty('uuid', selectiongItem.dataset.anchorUuid);
+    obj.geometry.dispose();
+    obj.material.dispose();
+    scene.remove(obj);
+
+    // メモリリークを防ぐために GC（ガベージコレクション）を促進
+    obj.geometry = null;
+    obj.material = null;
     var parent = selectiongItem.parentNode
     parent.removeChild(selectiongItem);
     parent.firstElementChild.click();
-
     // selectiongItem = null;
 
 }
