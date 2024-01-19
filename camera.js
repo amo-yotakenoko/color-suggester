@@ -15,7 +15,7 @@ function cameraInit(deviceId) {
         video: {
             width: 256,
             height: 256,
-            deviceId: deviceId,
+            // deviceId: deviceId,
             facingMode: "environment"
         }
     };

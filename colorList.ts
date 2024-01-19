@@ -132,6 +132,9 @@ function colorUpdate() {
 }
 
 function rgbToColorcode(rgb) {
+    if (!rgb) {
+        return rgb; // rgb が undefined または null の場合、そのまま返す
+    }
     const match = rgb.match(/^rgb\((\d+), (\d+), (\d+)\)$/);
 
     if (match) {

@@ -152,6 +152,9 @@ function colorUpdate() {
     //     }
 }
 function rgbToColorcode(rgb) {
+    if (!rgb) {
+        return rgb; // rgb が undefined または null の場合、そのまま返す
+    }
     var match = rgb.match(/^rgb\((\d+), (\d+), (\d+)\)$/);
     if (match) {
         var r = parseInt(match[1], 10);
