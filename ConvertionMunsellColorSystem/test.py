@@ -16,22 +16,22 @@ r,g,b=[],[],[]
 H,V,C=[],[],[]
 color=[]
 x,y,z=[],[],[]
-for index, data in colorcodeHVC.iterrows():
-    r.append( int(data['rgb'][1:3], 16))
-    g.append(int(data['rgb'][3:5], 16))
-    b.append( int(data['rgb'][5:7], 16))
-    H.append(  float(data['H']))
-    V.append(  float(data['V']))
-    C.append(  float(data['C']))
-    color.append((r[-1]/255.0, g[-1]/255.0, b[-1]/255.0))
-    rad=H[-1]/40.0*2*math.pi
-    # print(rad)
-    x.append(math.sin(rad)*C[-1])
-    y.append(math.cos(rad)*C[-1])
-    z.append(V[-1]*5)
+# for index, data in colorcodeHVC.iterrows():
+#     r.append( int(data['rgb'][1:3], 16))
+#     g.append(int(data['rgb'][3:5], 16))
+#     b.append( int(data['rgb'][5:7], 16))
+#     H.append(  float(data['H']))
+#     V.append(  float(data['V']))
+#     C.append(  float(data['C']))
+#     color.append((r[-1]/255.0, g[-1]/255.0, b[-1]/255.0))
+#     rad=H[-1]/40.0*2*math.pi
+#     # print(rad)
+#     x.append(math.sin(rad)*C[-1])
+#     y.append(math.cos(rad)*C[-1])
+#     z.append(V[-1]*5)
 
-# r,g,b=[],[],[]
-# color=[]
+r,g,b=[],[],[]
+color=[]
 for rv in range(0,255,25):
     for gv in range(0,255,25):
         for bv in range(0,255,25):
@@ -73,7 +73,7 @@ HVCtoRGB = load_model('HVCtoRGB.h5')
 predictions = HVCtoRGB.predict(np.column_stack(( np.array(x), np.array(y), np.array(z))))
 print(predictions)
 
-result.scatter(predictions[:,0]*255,predictions[:,1]*255,predictions[:,2]*255,color=color,s=s)
+result.scatter(predictions[:,0],predictions[:,1],predictions[:,2],color=color,s=s)
 result.axis('equal')
 result.set_title('RGBresult')
 result.set_xlim([0, 255])
