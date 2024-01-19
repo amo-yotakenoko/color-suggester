@@ -8,6 +8,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import BatchNormalization
+from keras.optimizers import Adam
 
 colorcodeHVC = pd.read_csv('colorcodeToHVC.txt', delimiter='\s+', names=['rgb', 'H', 'V', 'C'])
 
@@ -100,16 +101,20 @@ def training():
                 f.view_init(elev=20, azim=epoch ) 
 
 
-            plt.savefig(f'out/{epoch}.png')
+            plt.savefig(f'frameout/{epoch}.png',dpi=300)
     model = Sequential()
     model.add(Dense(8, input_dim=3, activation='relu'))
     model.add(Dense(8, activation='relu'))
     model.add(Dense(8, activation='relu'))
     model.add(Dense(3))  
     # model.add(BatchNormalization())
-    model.compile(optimizer='adam', loss='mse')  
+    optimizer = Adam()
+
+# 学習率を変更
+    optimizer.learning_rate = 0.001
+    model.compile(optimizer=optimizer, loss='mse')  
     model.fit(np.column_stack((r, g, b)), np.column_stack((x, y, z)), epochs=1000,
-            #   callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
+              callbacks=[tf.keras.callbacks.LambdaCallback(on_epoch_end=saveImage)]
               )
 
     model.save('RGBtoHVC.h5')
