@@ -36,8 +36,9 @@ function colorItemAdd() {
         // console.log(btn.dataset.colorcode);
         selectingColorcode = btn.style.backgroundColor;
         //TODO、ここ改善点
-
-        colorHighlight(selectingColorcode);
+        // console.log("selectingColorcode2",rgbToColorcode(selectingColorcode))
+        // colorHighlight(selectingColorcode)
+        colorHighlight(rgbToColorcode(selectingColorcode), true);
 
     });
     //  li.insertBefore(item, li.firstChild);

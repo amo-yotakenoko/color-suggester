@@ -7,7 +7,8 @@ var prevcolorcode;
 var prevcameraangle;
 // var isHighLight = false;
 function colorHighlight(colorcode, enforceUpdate: boolean = false) {
-    // console.log(munsellCamera.position.x)
+    colorcode = rgbToColorcode(colorcode)
+    console.log("updatecolorcode", colorcode)
     if (!enforceUpdate && prevcolorcode == colorcode && Math.abs(prevcameraangle - munsellCamera.position.x) < 0.1) {
         return;
     }

@@ -69,7 +69,7 @@ function canvasInit() {
         }
         function TouchEnd(event) {
             isMouseDown = false;
-            HilightReset();
+            // HilightReset()
         }
     });
     cameraCanvas.addEventListener("mousemove", handleInput);

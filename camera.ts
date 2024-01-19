@@ -82,7 +82,7 @@ function canvasInit() {
         function TouchEnd(event) {
 
             isMouseDown = false;
-            HilightReset()
+            // HilightReset()
         }
     });
 
