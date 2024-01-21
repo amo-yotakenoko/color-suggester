@@ -221,3 +221,14 @@ function colorDelete() {
     parent.firstElementChild.click();
     // selectiongItem = null;
 }
+function colorAllDelete() {
+    // var result = confirm("色をすべて削除します");
+    // ユーザーが「OK」ボタンをクリックした場合
+    var colorButtons = document.querySelectorAll('#colorButton');
+    if (colorButtons.length < 3 || confirm("色をすべて削除します")) {
+        for (var c = 0; c < colorButtons.length; c++) {
+            selectiongItem = colorButtons[c];
+            colorDelete();
+        }
+    }
+}
