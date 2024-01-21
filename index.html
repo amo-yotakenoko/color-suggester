@@ -41,76 +41,104 @@
             </div>
         </div>
 
-        <div class="row ">
-            <div class="col-6">
+        <!-- <div class="row ">
+            <div class="col-6"> -->
 
-                <!-- <div type="text" id="colorcode">colorcode</div> -->
-                <div id="colorProperty">
+        <!-- <div type="text" id="colorcode">colorcode</div> -->
+        <div id="colorProperty">
 
-                    <input type="text" id="colorcode" pattern="#[0-9A-Fa-f]{6}" maxlength="7"
-                        style="width:100px;  border-radius: 8px;">
-                    <br>
-                    <div id="HVCview" class="autocolor">
-                        色彩H:<br>
-                        明度V:<br>
-                        彩度C:<br>
-                    </div><br>
-                    <button type="button" class="btn btn-outline-dark" id="colorDelete" onclick="colorDelete();"
-                        style="width:100px">削除</button>
+            <input type="text" id="colorcode" pattern="#[0-9A-Fa-f]{6}" maxlength="7"
+                style="width:100px;  border-radius: 8px;">
+            <br>
+            <div id="HVCview" class="autocolor">
+                色彩H:<br>
+                明度V:<br>
+                彩度C:<br>
+            </div><br>
+            <button type="button" class="btn btn-outline-light" id="colorDelete" onclick="colorDelete();"
+                style="width:100px">削除</button>
+        </div>
+
+        <div id="settings">
+
+            <h1 class="display-4 autocolor">設定</h1>
+            <button type="button" class="btn btn-outline-light" id="colorDelete" onclick="colorAllDelete();"
+                style="">色を全て削除</button>
+            <div id="cameraList"></div>
+
+        </div>
+
+        <!-- <div id="suggestion"></div> -->
+        <!-- </div> -->
+
+        <div id="colorHarmony">
+            <!-- 美度計算式 -->
+            <!-- <button type="button" class="btn btn-outline-dark" onclick="colorHarmonyCalculate();">美度計算式</button> -->
+            <h1 class="display-4 autocolor" id="aestheticMeasure">美度:5</h1>
+
+            <div class="row">
+                <div class="col-8" id="ordartable">
+
+
+                    <template id="ordartableTemplate">
+                        <div class="harmony upmargin ">
+
+                            <button type="button" class="btn sample1" onclick="tableHide(this)">　</button>
+                            <button type="button" class="btn sample2" onclick="tableHide(this)">　</button>
+                            <div class="orderview display-6"></div>
+                            <table class="table table-striped autocolor ordartablebody " style="display: none;">
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </template>
+
                 </div>
+                <div class="col-4" id="complexitytable">
 
-                <div id="settings">
+                    <template id="complexitytableTemplate">
 
-                    <h1 class="display-4 autocolor">設定</h1>
-                    <button type="button" class="btn btn-outline-dark" id="colorDelete" onclick="colorAllDelete();"
-                        style="">色を全て削除</button>
-                    <div id="cameraList"></div>
+                        <table class=" table table-striped autocolor harmony">
+
+                            <tbody>
+                                <!-- <tr>
+                                    <th>色相</th>
+                                    <td>同一</td>
+                                    <td>+1.5</td>
+                                </tr> -->
+
+
+
+                            </tbody>
+                        </table>
+                    </template>
 
                 </div>
-
-                <!-- <div id="suggestion"></div> -->
             </div>
-
-            <div class="col-6" id="colorHarmony">
-                <!-- 美度計算式 -->
-                <button type="button" class="btn btn-outline-dark" onclick="colorHarmonyCalculate();">美度計算式</button>
-                <h1 class="display-4 autocolor" id="aestheticMeasure">美度:5</h1>
-                <template id="harmonyTemplate">
-
-                    <table class=" table-striped table-bordered table-hover autocolor harmony">
-
-                        <tbody>
-                            <!-- <tr>
-                                <th>色相</th>
-                                <td>同一</td>
-                                <td>+1.5</td>
-                            </tr> -->
-
-
-
-                        </tbody>
-                    </table>
-                </template>
-
-            </div>
-
-
-
-            <div class="footer x-scroll" id="colorList">
-                <!-- <ul id="colorList"> -->
-                <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
-                <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
-                <button type="button" class="btn btn-outline-dark" onclick="settingButton();">設定</button>
-
-
-
-                <!-- </ul> -->
-            </div>
-
-
 
 
         </div>
+
+
+
+        <div class="footer x-scroll" id="colorList">
+            <!-- <ul id="colorList"> -->
+            <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
+            <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
+
+            <button type="button" class="btn btn-outline-dark" onclick=" changetab('colorHarmony')">美度</button>
+            <button type="button" class="btn btn-outline-dark" onclick="settingButton();">設定</button>
+
+
+
+            <!-- </ul> -->
+        </div>
+
+
+
+
+    </div>
     </div>
 
 

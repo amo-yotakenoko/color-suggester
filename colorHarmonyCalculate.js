@@ -39,7 +39,7 @@ function delay(ms) {
 }
 function colorHarmonyCalculate() {
     return __awaiter(this, void 0, void 0, function () {
-        var _i, _a, element, parent_1, colorButtons, ordersum, c1, c2, b1, b2, harmonyTemplate_1, harmonyElement_1, container_1, tbody_1, order, _b, H1, V1, C1, _c, H2, V2, C2, Hdifferent, Hevaluation, Hpoint, newRow_1, Vdifferent, Cdifferent, Vpoint, Cpoint, VCdifferent, newRow_2, newRow_3, newRow_4, harmonyTemplate, harmonyElement, container, tbody, complexity, newRow, newRow, newRow, newRow, newRow;
+        var _i, _a, element, parent_1, colorButtons, ordersum, paircount, c1, c2, b1, b2, ordartableTemplate, ordartableElemant, container_1, tbodyElements, tbody_1, colorelements1, colorelements2, order, _b, H1, V1, C1, _c, H2, V2, C2, Hdifferent, Hevaluation, Hpoint, newRow_1, Vdifferent, Cdifferent, Vpoint, Cpoint, VCdifferent, newRow_2, newRow_3, newRow_4, orderviewelements, complexitytableTemplate, complexitytableElemant, container, tbody, complexity, newRow, newRow, newRow, newRow, newRow;
         return __generator(this, function (_d) {
             for (_i = 0, _a = Array.from(document.getElementsByClassName("harmony")); _i < _a.length; _i++) {
                 element = _a[_i];
@@ -53,16 +53,27 @@ function colorHarmonyCalculate() {
             VdifferentCount = 0;
             CdifferentCount = 0;
             ordersum = 0;
+            paircount = 0;
             for (c1 = 0; c1 < colorButtons.length; c1++) {
                 for (c2 = c1 + 1; c2 < colorButtons.length; c2++) {
                     b1 = colorButtons[c1];
                     b2 = colorButtons[c2];
                     console.log(c1, c2);
-                    harmonyTemplate_1 = document.getElementById("harmonyTemplate");
-                    harmonyElement_1 = harmonyTemplate_1.content.cloneNode(true);
-                    container_1 = document.getElementById("colorHarmony");
-                    container_1.appendChild(harmonyElement_1);
-                    tbody_1 = container_1.querySelector(".autocolor tbody");
+                    ordartableTemplate = document.getElementById("ordartableTemplate");
+                    ordartableElemant = ordartableTemplate.content.cloneNode(true);
+                    container_1 = document.getElementById("ordartable");
+                    container_1.appendChild(ordartableElemant);
+                    tbodyElements = container_1.querySelectorAll(".autocolor tbody");
+                    tbody_1 = tbodyElements[tbodyElements.length - 1];
+                    colorelements1 = container_1.querySelectorAll(".sample1");
+                    colorelements2 = container_1.querySelectorAll(".sample2");
+                    // 新しい要素ごとに処理
+                    colorelements1[colorelements1.length - 1].style.backgroundColor = b1.style.backgroundColor;
+                    colorelements1[colorelements1.length - 1].dataset.pairid = paircount;
+                    colorelements2[colorelements2.length - 1].style.backgroundColor = b2.style.backgroundColor;
+                    colorelements2[colorelements2.length - 1].dataset.pairid = paircount;
+                    console.log(paircount);
+                    paircount += 1;
                     order = 0;
                     _b = XYZtoHVC(scene.getObjectByProperty('uuid', b1.dataset.anchorUuid).position), H1 = _b[0], V1 = _b[1], C1 = _b[2];
                     _c = XYZtoHVC(scene.getObjectByProperty('uuid', b2.dataset.anchorUuid).position), H2 = _c[0], V2 = _c[1], C2 = _c[2];
@@ -145,7 +156,7 @@ function colorHarmonyCalculate() {
                     newRow_1.innerHTML = "<th>\u5F69\u5EA6\u5DEE</th><td>" + Cdifferent.toFixed(2) + "</td><td>" + Cevaluation + "</td><td>" + Cpoint.toFixed(2) + "</td>";
                     tbody_1.appendChild(newRow_1);
                     newRow_1 = document.createElement("tr");
-                    newRow_1.innerHTML = "<th>\u79E9\u5E8F</th><td></td><td></td><td>" + order.toFixed(2) + "</td>";
+                    newRow_1.innerHTML = "<th >\u79E9\u5E8F</th><td></td><td></td><td >" + order.toFixed(2) + "</td>";
                     tbody_1.appendChild(newRow_1);
                     console.log("diff", Hdifferent, Vdifferent, Cdifferent);
                     if (Hdifferent > 2) {
@@ -159,6 +170,8 @@ function colorHarmonyCalculate() {
                     }
                     document.getElementById("aestheticMeasure");
                     ordersum += order;
+                    orderviewelements = container_1.querySelectorAll(".orderview");
+                    orderviewelements[orderviewelements.length - 1].innerHTML = "\u79E9\u5E8F:" + order.toFixed(2);
                     // var harmonybtn = harmonyElement.createElement("button");
                     // document.getElementById("colorHarmony").appendChild(harmonybtn);
                     // // Set the class and text content for the button
@@ -179,10 +192,10 @@ function colorHarmonyCalculate() {
                     // console.log("After 2 seconds");
                 }
             }
-            harmonyTemplate = document.getElementById("harmonyTemplate");
-            harmonyElement = harmonyTemplate.content.cloneNode(true);
-            container = document.getElementById("colorHarmony");
-            container.appendChild(harmonyElement);
+            complexitytableTemplate = document.getElementById("complexitytableTemplate");
+            complexitytableElemant = complexitytableTemplate.content.cloneNode(true);
+            container = document.getElementById("complexitytable");
+            container.appendChild(complexitytableElemant);
             tbody = container.querySelector(".autocolor tbody");
             complexity = 0;
             complexity += colorButtons.length;
@@ -196,13 +209,14 @@ function colorHarmonyCalculate() {
             newRow.innerHTML = "<th>\u660E\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + VdifferentCount;
             tbody.appendChild(newRow);
             newRow = document.createElement("tr");
-            newRow.innerHTML = "<th>\u5F69\u5EA6\u5DEE\u306E\u306E\u3042\u308B\u8272\u5BFE</th><td>" + CdifferentCount;
+            newRow.innerHTML = "<th>\u5F69\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + CdifferentCount;
             tbody.appendChild(newRow);
             complexity += HdifferentCount;
             complexity += VdifferentCount;
             complexity += CdifferentCount;
             newRow = document.createElement("tr");
             newRow.innerHTML = "<th>\u8907\u96D1\u3055</th><td>" + complexity;
+            newRow.classList.add("total-cell");
             tbody.appendChild(newRow);
             console.log(document.getElementById("aestheticMeasure"));
             measre = (ordersum / complexity);
@@ -210,4 +224,11 @@ function colorHarmonyCalculate() {
             return [2 /*return*/];
         });
     });
+}
+function tableHide(num) {
+    console.log(num.dataset.pairid);
+    var id = num.dataset.pairid;
+    console.log(Array.from(document.getElementsByClassName("ordartablebody"))[0]);
+    Array.from(document.getElementsByClassName("ordartablebody"))[id].style.display = Array.from(document.getElementsByClassName("ordartablebody"))[id].style.display == 'none' ? "block" : "none";
+    // document.getElementById("ordartable").querySelectorAll(".autocolor tbody")
 }

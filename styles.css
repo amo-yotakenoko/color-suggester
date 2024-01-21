@@ -61,3 +61,13 @@
        .transparent-background {
         background: transparent;
         }
+        .large-text {
+            font-size: 20px; /* 適切なサイズに変更してください */
+            margin: 0;
+        }
+
+         .upmargin {
+      margin-top: 10px; /* 上方向の余白 */
+      margin-bottom: 10px; /* 下方向の余白 */
+  
+    }

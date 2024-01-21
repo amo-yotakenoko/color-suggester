@@ -16,19 +16,39 @@ async function colorHarmonyCalculate() {
     VdifferentCount = 0
     CdifferentCount = 0
     var ordersum = 0
+    var paircount = 0
     for (let c1 = 0; c1 < colorButtons.length; c1++) {
         for (let c2 = c1 + 1; c2 < colorButtons.length; c2++) {
+            // delay(1000);
             var b1 = colorButtons[c1];
             var b2 = colorButtons[c2];
             console.log(c1, c2)
             // Clone the content of the template
-            const harmonyTemplate = document.getElementById("harmonyTemplate");
-            const harmonyElement = harmonyTemplate.content.cloneNode(true);
+            const ordartableTemplate = document.getElementById("ordartableTemplate");
+            const ordartableElemant = ordartableTemplate.content.cloneNode(true);
 
 
-            const container = document.getElementById("colorHarmony");
-            container.appendChild(harmonyElement);
-            const tbody = container.querySelector(".autocolor tbody");
+            const container = document.getElementById("ordartable");
+            container.appendChild(ordartableElemant);
+            // console.log(container.querySelectorAll(".autocolor tbody")[container.querySelectorAll(".autocolor tbody").length - 1])
+            const tbodyElements = container.querySelectorAll(".autocolor tbody");
+            const tbody = tbodyElements[tbodyElements.length - 1];
+
+
+
+            const colorelements1 = container.querySelectorAll(".sample1");
+            const colorelements2 = container.querySelectorAll(".sample2");
+
+            // 新しい要素ごとに処理
+            colorelements1[colorelements1.length - 1].style.backgroundColor = b1.style.backgroundColor;
+            colorelements1[colorelements1.length - 1].dataset.pairid = paircount
+
+            colorelements2[colorelements2.length - 1].style.backgroundColor = b2.style.backgroundColor;
+            colorelements2[colorelements2.length - 1].dataset.pairid = paircount
+            console.log(paircount)
+            paircount += 1
+
+
             var order = 0
 
             var [H1, V1, C1] = XYZtoHVC(scene.getObjectByProperty('uuid', b1.dataset.anchorUuid).position);
@@ -118,7 +138,7 @@ async function colorHarmonyCalculate() {
 
 
             const newRow = document.createElement("tr");
-            newRow.innerHTML = `<th>秩序</th><td></td><td></td><td>${order.toFixed(2)}</td>`;
+            newRow.innerHTML = `<th >秩序</th><td></td><td></td><td >${order.toFixed(2)}</td>`;
             tbody.appendChild(newRow);
             console.log("diff", Hdifferent, Vdifferent, Cdifferent)
             if (Hdifferent > 2) {
@@ -132,6 +152,9 @@ async function colorHarmonyCalculate() {
             }
             document.getElementById("aestheticMeasure")
             ordersum += order;
+
+            const orderviewelements = container.querySelectorAll(".orderview");
+            orderviewelements[orderviewelements.length - 1].innerHTML = `秩序:${order.toFixed(2)}`
             // var harmonybtn = harmonyElement.createElement("button");
             // document.getElementById("colorHarmony").appendChild(harmonybtn);
 
@@ -155,14 +178,16 @@ async function colorHarmonyCalculate() {
 
         }
     }
+    const complexitytableTemplate = document.getElementById("complexitytableTemplate");
+    const complexitytableElemant = complexitytableTemplate.content.cloneNode(true);
 
-    const harmonyTemplate = document.getElementById("harmonyTemplate");
-    const harmonyElement = harmonyTemplate.content.cloneNode(true);
 
-
-    const container = document.getElementById("colorHarmony");
-    container.appendChild(harmonyElement);
+    const container = document.getElementById("complexitytable");
+    container.appendChild(complexitytableElemant);
     const tbody = container.querySelector(".autocolor tbody");
+
+
+
     var complexity = 0
     complexity += colorButtons.length;
     const newRow = document.createElement("tr");
@@ -175,7 +200,7 @@ async function colorHarmonyCalculate() {
     newRow.innerHTML = `<th>明度差のある色対</th><td>${VdifferentCount}`;
     tbody.appendChild(newRow);
     const newRow = document.createElement("tr");
-    newRow.innerHTML = `<th>彩度差ののある色対</th><td>${CdifferentCount}`;
+    newRow.innerHTML = `<th>彩度差のある色対</th><td>${CdifferentCount}`;
     tbody.appendChild(newRow);
 
     complexity += HdifferentCount
@@ -183,6 +208,7 @@ async function colorHarmonyCalculate() {
     complexity += CdifferentCount
     const newRow = document.createElement("tr");
     newRow.innerHTML = `<th>複雑さ</th><td>${complexity}`;
+    newRow.classList.add("total-cell");
     tbody.appendChild(newRow);
 
     console.log(document.getElementById("aestheticMeasure"))
@@ -190,4 +216,13 @@ async function colorHarmonyCalculate() {
     document.getElementById("aestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
 
 
+}
+
+
+function tableHide(num) {
+    console.log(num.dataset.pairid)
+    var id = num.dataset.pairid;
+    console.log(Array.from(document.getElementsByClassName("ordartablebody"))[0])
+    Array.from(document.getElementsByClassName("ordartablebody"))[id].style.display = Array.from(document.getElementsByClassName("ordartablebody"))[id].style.display == 'none' ? "block" : "none";
+    // document.getElementById("ordartable").querySelectorAll(".autocolor tbody")
 }

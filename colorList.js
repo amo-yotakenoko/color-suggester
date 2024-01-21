@@ -49,7 +49,8 @@ function colorItemAdd() {
     btn.classList.add("active");
     selectiongItem = btn;
     colorList.insertBefore(btn, colorList.firstChild);
-    colortab(true);
+    // changetab("colorProperty")
+    changetab("colorProperty");
     console.log("ボタン追加");
     btn.click();
     material = new THREE.MeshBasicMaterial({ color: "#000000" });
@@ -63,7 +64,7 @@ function colorItemAdd() {
     // anchors.add([btn,sphere])
     btn.addEventListener("click", function () {
         // console.log(btn)
-        colortab(true);
+        changetab("colorProperty");
         selectiongItem = btn;
         // console.log(btn.dataset.colorcode);
         selectingColorcode = btn.style.backgroundColor;
@@ -155,7 +156,7 @@ function colorUpdate() {
         selectiongcolor = selectiongItem.style.backgroundColor;
         document.body.style.backgroundColor = selectiongcolor;
         var regex = /rgb\((\d+), (\d+), (\d+)\)/;
-        var rgb = selectiongcolor.match(regex);
+        var rgb = document.body.style.backgroundColor.match(regex);
         // console.log((parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)));
         // var c = (parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
         // deleteButton.style.color = c;

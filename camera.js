@@ -176,18 +176,36 @@ function drowCircle(x, y) {
 }
 function settingButton() {
     console.log("settingButton");
-    colortab(false);
+    changetab("settings");
     // console.log(colorPropertyElement, settingsElement);
     selectingColorcode = null;
     // console.log(selectingColorcode)
 }
-function colortab(isenable) {
-    if (isenable) {
-        document.getElementById("colorProperty").style.display = "block";
-        document.getElementById("settings").style.display = "none";
+changetab("");
+function changetab(enabletab) {
+    ["colorHarmony", "colorProperty", "settings"].forEach(function (tab) {
+        // console.log(tab);
+        document.getElementById(tab).style.display = tab == enabletab ? "block" : "none";
+        // ここに要素ごとの処理を追加
+    });
+    if (enabletab == "colorHarmony") {
+        selectiongItem = null;
+        selectiongcolor = null;
+        document.body.style.backgroundColor = "#FFFFFF";
+        document.getElementsByClassName('autocolor').forEach(function (b) {
+            b.style.color = '#000000';
+            console.log(b.style.color);
+        });
+        btns.forEach(function (b) {
+            b.className = 'btn btn-outline-dark';
+        });
+        colorHarmonyCalculate();
     }
-    else {
-        document.getElementById("colorProperty").style.display = "none";
-        document.getElementById("settings").style.display = "block";
-    }
+    // if (isenable) {
+    //     document.getElementById("colorProperty").style.display = "block";
+    //     document.getElementById("settings").style.display = "none";
+    // } else {
+    //     document.getElementById("colorProperty").style.display = "none";
+    //     document.getElementById("settings").style.display = "block";
+    // }
 }
