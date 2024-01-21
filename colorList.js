@@ -70,6 +70,7 @@ function colorItemAdd() {
         //TODO、ここ改善点
         // console.log("selectingColorcode2",rgbToColorcode(selectingColorcode))
         // colorHighlight(selectingColorcode)
+        HVCviewupdate(scene.getObjectByProperty('uuid', this.dataset.anchorUuid));
         colorHighlight(rgbToColorcode(selectingColorcode), true);
     });
     //  li.insertBefore(item, li.firstChild);
@@ -103,15 +104,20 @@ function colorSet(item, colorcode) {
                     _a = XYZtoHVC(obj.position), H = _a[0], V = _a[1], C = _a[2];
                     // console.log(XYZtoHVC(obj.position));
                     hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
-                    ;
                     // hvcView.style.color = textcolorIswhite ? "white" : "black";
                     // console.log("pos", obj.position)
                     // console.log("pos,", obj.position)
+                    HVCviewupdate(obj);
                     colorHighlight(rgbToColorcode(colorcode), true);
                     return [2 /*return*/];
             }
         });
     });
+}
+function HVCviewupdate(obj) {
+    var _a = XYZtoHVC(obj.position), H = _a[0], V = _a[1], C = _a[2];
+    // console.log(XYZtoHVC(obj.position));
+    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
 }
 // https://rfs.jp/sb/javascript/js-lab/zeropadding.html
 function XYZtoHVC(pos) {

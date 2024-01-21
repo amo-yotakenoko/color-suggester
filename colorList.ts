@@ -39,6 +39,7 @@ function colorItemAdd() {
         //TODO、ここ改善点
         // console.log("selectingColorcode2",rgbToColorcode(selectingColorcode))
         // colorHighlight(selectingColorcode)
+        HVCviewupdate(scene.getObjectByProperty('uuid', this.dataset.anchorUuid))
         colorHighlight(rgbToColorcode(selectingColorcode), true);
 
     });
@@ -68,13 +69,22 @@ async function colorSet(item, colorcode) {
 
     var [H, V, C] = XYZtoHVC(obj.position);
     // console.log(XYZtoHVC(obj.position));
-    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);;
+    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
     // hvcView.style.color = textcolorIswhite ? "white" : "black";
     // console.log("pos", obj.position)
     // console.log("pos,", obj.position)
+    HVCviewupdate(obj)
     colorHighlight(rgbToColorcode(colorcode), true);
 
 }
+
+function HVCviewupdate(obj) {
+    var [H, V, C] = XYZtoHVC(obj.position);
+    // console.log(XYZtoHVC(obj.position));
+    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+}
+
+
 // https://rfs.jp/sb/javascript/js-lab/zeropadding.html
 
 function XYZtoHVC(pos) {
