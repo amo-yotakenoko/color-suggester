@@ -57,3 +57,7 @@
     .fig{
       background-color: #ffffff;
     }
+
+       .transparent-background {
+        background: transparent;
+        }

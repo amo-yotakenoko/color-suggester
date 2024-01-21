@@ -50,7 +50,7 @@
                     <input type="text" id="colorcode" pattern="#[0-9A-Fa-f]{6}" maxlength="7"
                         style="width:100px;  border-radius: 8px;">
                     <br>
-                    <div id="HVCview">
+                    <div id="HVCview" class="autocolor">
                         色彩H:<br>
                         明度V:<br>
                         彩度C:<br>
@@ -71,26 +71,43 @@
             <div class="col-6" id="colorHarmony">
                 <!-- 美度計算式 -->
                 <button type="button" class="btn btn-outline-dark" onclick="colorHarmonyCalculate();">美度計算式</button>
+                <h1 class="display-4 autocolor" id="aestheticMeasure">美度:5</h1>
+                <template id="harmonyTemplate">
+
+                    <table class=" table-striped table-bordered table-hover autocolor harmony">
+
+                        <tbody>
+                            <!-- <tr>
+                                <th>色相</th>
+                                <td>同一</td>
+                                <td>+1.5</td>
+                            </tr> -->
+
+
+
+                        </tbody>
+                    </table>
+                </template>
+
             </div>
+
+
+
+            <div class="footer x-scroll" id="colorList">
+                <!-- <ul id="colorList"> -->
+                <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
+                <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
+                <button type="button" class="btn btn-outline-dark" onclick="settingButton();">設定</button>
+
+
+
+                <!-- </ul> -->
+            </div>
+
+
+
+
         </div>
-
-
-
-        <div class="footer x-scroll" id="colorList">
-            <!-- <ul id="colorList"> -->
-            <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
-            <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
-            <button type="button" class="btn btn-outline-dark" onclick="settingButton();">設定</button>
-
-
-
-            <!-- </ul> -->
-        </div>
-
-
-
-
-    </div>
     </div>
 
 

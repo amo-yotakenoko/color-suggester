@@ -39,20 +39,174 @@ function delay(ms) {
 }
 function colorHarmonyCalculate() {
     return __awaiter(this, void 0, void 0, function () {
-        var c1, c2;
-        return __generator(this, function (_a) {
-            for (c1 = 0; c1 < 5; c1++) {
-                for (c2 = c1 + 1; c2 < 5; c2++) {
-                    console.log(c1, c2);
+        var _i, _a, element, parent_1, colorButtons, ordersum, c1, c2, b1, b2, harmonyTemplate_1, harmonyElement_1, container_1, tbody_1, order, _b, H1, V1, C1, _c, H2, V2, C2, Hdifferent, Hevaluation, Hpoint, newRow_1, Vdifferent, Cdifferent, Vpoint, Cpoint, VCdifferent, newRow_2, newRow_3, newRow_4, harmonyTemplate, harmonyElement, container, tbody, complexity, newRow, newRow, newRow, newRow, newRow;
+        return __generator(this, function (_d) {
+            for (_i = 0, _a = Array.from(document.getElementsByClassName("harmony")); _i < _a.length; _i++) {
+                element = _a[_i];
+                parent_1 = element.parentNode;
+                if (parent_1) {
+                    parent_1.removeChild(element);
                 }
-                // const element = 5
-                // console.log("計算");
-                // console.log("Start");
-                // await delay(1000);  // 1秒待つ
-                // console.log("After 1 second");
-                // await delay(2000);  // 2秒待つ
-                // console.log("After 2 seconds");
             }
+            colorButtons = document.querySelectorAll('#colorButton');
+            HdifferentCount = 0;
+            VdifferentCount = 0;
+            CdifferentCount = 0;
+            ordersum = 0;
+            for (c1 = 0; c1 < colorButtons.length; c1++) {
+                for (c2 = c1 + 1; c2 < colorButtons.length; c2++) {
+                    b1 = colorButtons[c1];
+                    b2 = colorButtons[c2];
+                    console.log(c1, c2);
+                    harmonyTemplate_1 = document.getElementById("harmonyTemplate");
+                    harmonyElement_1 = harmonyTemplate_1.content.cloneNode(true);
+                    container_1 = document.getElementById("colorHarmony");
+                    container_1.appendChild(harmonyElement_1);
+                    tbody_1 = container_1.querySelector(".autocolor tbody");
+                    order = 0;
+                    _b = XYZtoHVC(scene.getObjectByProperty('uuid', b1.dataset.anchorUuid).position), H1 = _b[0], V1 = _b[1], C1 = _b[2];
+                    _c = XYZtoHVC(scene.getObjectByProperty('uuid', b2.dataset.anchorUuid).position), H2 = _c[0], V2 = _c[1], C2 = _c[2];
+                    Hdifferent = Math.abs(H1, H2);
+                    if (Hdifferent > 20) {
+                        Hdifferent = 40 - Hdifferent;
+                    }
+                    if (Hdifferent < 1) {
+                        Hevaluation = "同一調和";
+                        Hpoint = 1.5;
+                    }
+                    else if (Hdifferent < 7) {
+                        Hevaluation = "第1の曖昧";
+                        Hpoint = 0;
+                    }
+                    else if (Hdifferent < 12) {
+                        Hevaluation = "類似調和";
+                        Hpoint = 1.1;
+                    }
+                    else if (Hdifferent < 28) {
+                        Hevaluation = "第2の曖昧";
+                        Hpoint = 0.65;
+                    }
+                    else {
+                        Hevaluation = "対比調和";
+                        Hpoint = 1.7;
+                    }
+                    if (C1 < 1 || C2 < 1) {
+                        Hevaluation = "灰色";
+                        Hpoint = 1.0;
+                    }
+                    order += Hpoint;
+                    newRow_1 = document.createElement("tr");
+                    newRow_1.innerHTML = "<th>\u8272\u76F8\u5DEE</th><td>" + Hdifferent.toFixed(2) + "</td><td>" + Hevaluation + "</td><td>" + Hpoint + "</td>";
+                    tbody_1.appendChild(newRow_1);
+                    Vdifferent = Math.abs(V1, V2) //高さ明度
+                    ;
+                    Cdifferent = Math.abs(C1, C2);
+                    VCdifferent = Math.sqrt(Math.pow(Vdifferent, 2) + Math.pow(Cdifferent, 2));
+                    if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(0.25, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(0.5, 2)) < 1) {
+                        Vevaluation = "同一調和";
+                        Cevaluation = "同一調和";
+                        Vpoint = -1.3;
+                        Cpoint = 0.8;
+                    }
+                    else if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(0.5, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(3, 2)) < 1) {
+                        Vevaluation = "第1の曖昧";
+                        Cevaluation = "第1の曖昧";
+                        Vpoint = -1.0;
+                        Cpoint = 0;
+                    }
+                    else if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(1.5, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(5, 2)) < 1) {
+                        Vevaluation = "類似調和";
+                        Cevaluation = "類似調和";
+                        Vpoint = 0.7;
+                        Cpoint = 0.1;
+                    }
+                    else if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(2.5, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(7.5, 2)) < 1) {
+                        Vevaluation = "第2の曖昧";
+                        Cevaluation = "第2の曖昧";
+                        Vpoint = -0.2;
+                        Cpoint = 0;
+                    }
+                    else {
+                        Vevaluation = "対比調和";
+                        Cevaluation = "対比調和";
+                        Vpoint = 3.7;
+                        Cpoint = 0.4;
+                    }
+                    if (Vdifferent > 10) {
+                        Vevaluation = "眩輝";
+                        Vpoint = -2.0;
+                    }
+                    order += Cpoint;
+                    order += Vpoint;
+                    newRow_1 = document.createElement("tr");
+                    newRow_1.innerHTML = "<th>\u660E\u5EA6\u5DEE</th><td>" + Vdifferent.toFixed(2) + "</td><td>" + Vevaluation + "</td><td>" + Vpoint.toFixed(2) + "</td>";
+                    tbody_1.appendChild(newRow_1);
+                    newRow_1 = document.createElement("tr");
+                    newRow_1.innerHTML = "<th>\u5F69\u5EA6\u5DEE</th><td>" + Cdifferent.toFixed(2) + "</td><td>" + Cevaluation + "</td><td>" + Cpoint.toFixed(2) + "</td>";
+                    tbody_1.appendChild(newRow_1);
+                    newRow_1 = document.createElement("tr");
+                    newRow_1.innerHTML = "<th>\u79E9\u5E8F</th><td></td><td></td><td>" + order.toFixed(2) + "</td>";
+                    tbody_1.appendChild(newRow_1);
+                    console.log("diff", Hdifferent, Vdifferent, Cdifferent);
+                    if (Hdifferent > 2) {
+                        HdifferentCount += 1;
+                    }
+                    if (Vdifferent > 2) {
+                        VdifferentCount += 1;
+                    }
+                    if (Cdifferent > 2) {
+                        CdifferentCount += 1;
+                    }
+                    document.getElementById("aestheticMeasure");
+                    ordersum += order;
+                    // var harmonybtn = harmonyElement.createElement("button");
+                    // document.getElementById("colorHarmony").appendChild(harmonybtn);
+                    // // Set the class and text content for the button
+                    // harmonybtn.className = "btn btn-primary";
+                    // harmonybtn.textContent = "a";
+                    // console.log(b1.style.backgroundColor, b2.style.backgroundColor)
+                    // var colorHarmony = document.getElementById("colorHarmony");
+                    // // console.log(colorList);
+                    // var div = document.createElement("div");
+                    // const text1 = div.createTextNode(c1);
+                    // text1.style.color = b1.style.backgroundColor;
+                    // const element = 5
+                    // console.log("計算");
+                    // console.log("Start");
+                    // await delay(1000);  // 1秒待つ
+                    // console.log("After 1 second");
+                    // await delay(2000);  // 2秒待つ
+                    // console.log("After 2 seconds");
+                }
+            }
+            harmonyTemplate = document.getElementById("harmonyTemplate");
+            harmonyElement = harmonyTemplate.content.cloneNode(true);
+            container = document.getElementById("colorHarmony");
+            container.appendChild(harmonyElement);
+            tbody = container.querySelector(".autocolor tbody");
+            complexity = 0;
+            complexity += colorButtons.length;
+            newRow = document.createElement("tr");
+            newRow.innerHTML = "<th>\u8272\u6570</th><td>" + colorButtons.length;
+            tbody.appendChild(newRow);
+            newRow = document.createElement("tr");
+            newRow.innerHTML = "<th>\u8272\u76F8\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + HdifferentCount;
+            tbody.appendChild(newRow);
+            newRow = document.createElement("tr");
+            newRow.innerHTML = "<th>\u660E\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + VdifferentCount;
+            tbody.appendChild(newRow);
+            newRow = document.createElement("tr");
+            newRow.innerHTML = "<th>\u5F69\u5EA6\u5DEE\u306E\u306E\u3042\u308B\u8272\u5BFE</th><td>" + CdifferentCount;
+            tbody.appendChild(newRow);
+            complexity += HdifferentCount;
+            complexity += VdifferentCount;
+            complexity += CdifferentCount;
+            newRow = document.createElement("tr");
+            newRow.innerHTML = "<th>\u8907\u96D1\u3055</th><td>" + complexity;
+            tbody.appendChild(newRow);
+            console.log(document.getElementById("aestheticMeasure"));
+            measre = (ordersum / complexity);
+            document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:" + measre.toFixed(2);
             return [2 /*return*/];
         });
     });

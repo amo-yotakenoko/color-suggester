@@ -69,7 +69,7 @@ async function colorSet(item, colorcode) {
     var [H, V, C] = XYZtoHVC(obj.position);
     // console.log(XYZtoHVC(obj.position));
     hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);;
-    hvcView.style.color = textcolorIswhite ? "white" : "black";
+    // hvcView.style.color = textcolorIswhite ? "white" : "black";
     // console.log("pos", obj.position)
     // console.log("pos,", obj.position)
     colorHighlight(rgbToColorcode(colorcode), true);
@@ -91,6 +91,8 @@ function XYZtoHVC(pos) {
 var colorList = document.getElementById("colorList");
 var SelectingColorText = document.getElementById("colorcode");
 var btns = document.getElementsByClassName('btn');
+
+// var btns = document.getElementsByClassName('btn');
 SelectingColorText.addEventListener('input', function (event) {
     console.log("input event" + SelectingColorText.value);
     colorSet(selectiongItem, SelectingColorText.value)
@@ -131,10 +133,15 @@ function colorUpdate() {
         // deleteButton.style.backgroundColor = c;
         // deleteButton.style.outline = "10px solid #000";
         textcolorIswhite = (parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)) < 255 * 3 / 2
-        var btnClassName = textcolorIswhite ? 'btn btn-outline-light' : 'btn btn-outline-dark';
+
         btns.forEach((b: HTMLElement) => {
 
-            b.className = btnClassName;
+            b.className = textcolorIswhite ? 'btn btn-outline-light' : 'btn btn-outline-dark';
+
+        });
+        document.getElementsByClassName('autocolor').forEach((b: HTMLElement) => {
+
+            b.style.color = textcolorIswhite ? '#FFFFFF' : '#000000';
 
         });
     });
