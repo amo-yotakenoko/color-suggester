@@ -5,6 +5,7 @@ var prevcolorcode;
 var prevcameraangle;
 // var isHighLight = false;
 function colorHighlight(colorcode, enforceUpdate) {
+    // requestAnimationFrame(colorHighlight);
     if (enforceUpdate === void 0) { enforceUpdate = false; }
     colorcode = rgbToColorcode(colorcode);
     // console.log("updatecolorcode", colorcode)
@@ -14,7 +15,6 @@ function colorHighlight(colorcode, enforceUpdate) {
     // console.log("更新")
     prevcolorcode = colorcode;
     prevcameraangle = munsellCamera.position.x;
-    // requestAnimationFrame(colorHighlight);
     // console.log(colorHighlight);
     // if (!isMouseDown) {
     //     return;

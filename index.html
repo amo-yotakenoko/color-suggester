@@ -40,29 +40,47 @@
                 <canvas id="cameraCanvas" class="cameraCanvas touchActionDisable" width="256px" height="256px"></canvas>
             </div>
         </div>
-        <div class="row" id="colorProperty">
 
+        <div class="row ">
+            <div class="col-6">
 
-            <!-- <div type="text" id="colorcode">colorcode</div> -->
-            <input type="text" id="colorcode" pattern="#[0-9A-Fa-f]{6}" maxlength="7"
-                style="width:100px;  border-radius: 8px;">
-            <button type="button" class="btn btn-outline-primary" id="colorDelete" onclick="colorDelete();"
-                style="width:100px">削除</button>
+                <!-- <div type="text" id="colorcode">colorcode</div> -->
+                <div id="colorProperty">
 
+                    <input type="text" id="colorcode" pattern="#[0-9A-Fa-f]{6}" maxlength="7"
+                        style="width:100px;  border-radius: 8px;">
+                    <br>
+                    <div id="HVCview">
+                        色彩H:<br>
+                        明度V:<br>
+                        彩度C:<br>
+                    </div><br>
+                    <button type="button" class="btn btn-outline-dark" id="colorDelete" onclick="colorDelete();"
+                        style="width:100px">削除</button>
+                </div>
 
-            <div id="suggestion"></div>
+                <div id="settings">
+
+                    設定
+                    <div id="cameraList"></div>
+                </div>
+
+                <!-- <div id="suggestion"></div> -->
+            </div>
+
+            <div class="col-6" id="colorHarmony">
+                <!-- 美度計算式 -->
+                <button type="button" class="btn btn-outline-dark" onclick="colorHarmonyCalculate();">美度計算式</button>
+            </div>
         </div>
-        <div class="row" id="settings">
 
-            設定
-            <div id="cameraList"></div>
-        </div>
+
 
         <div class="footer x-scroll" id="colorList">
             <!-- <ul id="colorList"> -->
             <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
             <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
-            <button type="button" class="btn btn-primary" onclick="settingButton();">設定</button>
+            <button type="button" class="btn btn-outline-dark" onclick="settingButton();">設定</button>
 
 
 
@@ -86,6 +104,7 @@
     <script src="colorList.js"></script>
     <script src="camera.js"></script>
     <script src="RGBtoHVC.js"></script>
+    <script src="colorHarmonyCalculate.js"></script>
 </body>
 
 

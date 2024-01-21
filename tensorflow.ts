@@ -5,9 +5,9 @@ var model;
 // }
 loadModel()
 
-RGBtoHVC([255, 255, 0]);
+RGBtoHVCxyz([255, 255, 0]);
 
-async function RGBtoHVC(RGB) {
+async function RGBtoHVCxyz(RGB) {
     if (!model) {
         model = await tf.loadLayersModel('ConvertionMunsellColorSystem/out/RGBtoHVC/model.json');
     }

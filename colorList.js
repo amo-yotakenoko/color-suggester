@@ -77,11 +77,12 @@ function colorItemAdd() {
 }
 var selectiongItem;
 var selectiongcolor;
+var hvcView = document.getElementById('HVCview');
 function colorSet(item, colorcode) {
     return __awaiter(this, void 0, void 0, function () {
-        var obj, HVC;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var obj, HVC, _a, H, V, C;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     item.style.backgroundColor = colorcode; // 任意の色に変更
                     item.style.borderColor = colorcode; // ボーダーカラーも指定すると良い
@@ -90,23 +91,37 @@ function colorSet(item, colorcode) {
                     obj = scene.getObjectByProperty('uuid', item.dataset.anchorUuid);
                     // console.log("colorset", item.dataset, obj)
                     obj.material.color.set(new THREE.Color(colorcode));
-                    return [4 /*yield*/, RGBtoHVC(hexToRgb(colorcode))
+                    return [4 /*yield*/, RGBtoHVCxyz(hexToRgb(colorcode))
                         // console.log("結果", HVC)
                     ];
                 case 1:
-                    HVC = _a.sent();
+                    HVC = _b.sent();
                     // console.log("結果", HVC)
                     obj.position.z = HVC[0] * 1.5;
                     obj.position.x = HVC[1] * 1.5;
                     obj.position.y = HVC[2] * 5 - 20;
+                    _a = XYZtoHVC(obj.position), H = _a[0], V = _a[1], C = _a[2];
+                    // console.log(XYZtoHVC(obj.position));
+                    hvcView.innerHTML = '色彩H: ' + H + '<br>明度V: ' + V + '<br>彩度C: ' + C;
+                    hvcView.style.color = textcolorIswhite ? "white" : "black";
+                    // console.log("pos", obj.position)
+                    // console.log("pos,", obj.position)
+                    colorHighlight(rgbToColorcode(colorcode), true);
                     return [2 /*return*/];
             }
         });
     });
 }
+function XYZtoHVC(pos) {
+    // console.log(pos.x);
+    var H = Math.atan2(pos.x, pos.y) / (2 * Math.PI) * 40.0;
+    var V = (pos.z + 20) / 5;
+    var C = Math.sqrt(Math.pow(pos.x, 2) + Math.pow(pos.y, 2)) / 1.5;
+    return [H, V, C];
+}
 var colorList = document.getElementById("colorList");
 var SelectingColorText = document.getElementById("colorcode");
-var deleteButton = document.getElementById("colorDelete");
+var btns = document.getElementsByClassName('btn');
 SelectingColorText.addEventListener('input', function (event) {
     console.log("input event" + SelectingColorText.value);
     colorSet(selectiongItem, SelectingColorText.value);
@@ -117,6 +132,7 @@ SelectingColorText.addEventListener('input', function (event) {
 SelectingColorText.addEventListener('change', function (event) {
     console.log("change event");
 });
+var textcolorIswhite;
 colorUpdate();
 function colorUpdate() {
     requestAnimationFrame(colorUpdate);
@@ -132,27 +148,38 @@ function colorUpdate() {
         var regex = /rgb\((\d+), (\d+), (\d+)\)/;
         var rgb = selectiongcolor.match(regex);
         // console.log((parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)));
-        var c = (parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
-        deleteButton.style.color = c;
-        deleteButton.style.outlineColor = c;
-        // console.log("aa" + hexToRgb(selectiongcolor) + deleteButton.style.outlineColor);
+        // var c = (parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
+        // deleteButton.style.color = c;
+        // // deleteButton.style.outlineColor = c;
+        // deleteButton.style.backgroundColor = c;
+        // deleteButton.style.outline = "10px solid #000";
+        textcolorIswhite = (parseInt(rgb[1], 10) + parseInt(rgb[2], 10) + parseInt(rgb[3], 10)) < 255 * 3 / 2;
+        var btnClassName = textcolorIswhite ? 'btn btn-outline-light' : 'btn btn-outline-dark';
+        btns.forEach(function (b) {
+            b.className = btnClassName;
+        });
     }
-    if (document.activeElement !== SelectingColorText) {
-        // console.log("selectingColorcode" + selectingColorcode)
-        SelectingColorText.value = rgbToColorcode(selectingColorcode);
-    }
-    // console.log(selectiongcolor)
-    // SelectingColorText.style.color = "aa";
-    // SelectingColorText.style.color = (rgb[0] + rgb[1] + rgb[2]) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
-    // console.log((rgb[0] + rgb[1] + rgb[2]) < 255 * 3 / 2 ? '#000000' : '#FFFFFF')
-    // console.log(selectingColorcode)
-    // console.log("selectingColorcodelast", selectingColorcode)
-    colorHighlight(selectingColorcode);
-    // console.log(selectingColorcode)
-    //     }
+    ;
+    // console.log("aa" + hexToRgb(selectiongcolor) + deleteButton.style.outlineColor);
 }
+if (document.activeElement !== SelectingColorText) {
+    // console.log("selectingColorcode" + selectingColorcode)
+    SelectingColorText.value = rgbToColorcode(selectingColorcode);
+}
+// console.log(selectiongcolor)
+// SelectingColorText.style.color = "aa";
+// SelectingColorText.style.color = (rgb[0] + rgb[1] + rgb[2]) > 255 * 3 / 2 ? '#000000' : '#FFFFFF';
+// console.log((rgb[0] + rgb[1] + rgb[2]) < 255 * 3 / 2 ? '#000000' : '#FFFFFF')
+// console.log(selectingColorcode)
+// console.log("selectingColorcodelast", selectingColorcode)
+// colorHighlight(selectingColorcode);
+//     // console.log(selectingColorcode)
+//     //     }
+// }
 function rgbToColorcode(rgb) {
+    // console.log(rgb)
     if (!rgb) {
+        console.log("rgb が undefined または null");
         return rgb; // rgb が undefined または null の場合、そのまま返す
     }
     var match = rgb.match(/^rgb\((\d+), (\d+), (\d+)\)$/);

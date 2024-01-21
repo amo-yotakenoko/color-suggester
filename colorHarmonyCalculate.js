@@ -34,45 +34,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var model;
-// async function loadModel() {
-//     model = await tf.loadLayersModel('ConvertionMunsellColorSystem/out/RGBtoHVC/model.json');
-// }
-loadModel();
-RGBtoHVCxyz([255, 255, 0]);
-function RGBtoHVCxyz(RGB) {
+function delay(ms) {
+    return new Promise(function (resolve) { return setTimeout(resolve, ms); });
+}
+function colorHarmonyCalculate() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, HVC, error_1;
+        var c1, c2;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!!model) return [3 /*break*/, 2];
-                    return [4 /*yield*/, tf.loadLayersModel('ConvertionMunsellColorSystem/out/RGBtoHVC/model.json')];
-                case 1:
-                    model = _a.sent();
-                    _a.label = 2;
-                case 2:
-                    if (!model) return [3 /*break*/, 7];
-                    _a.label = 3;
-                case 3:
-                    _a.trys.push([3, 5, , 6]);
-                    data = tf.tensor2d([RGB], [1, 3]);
-                    return [4 /*yield*/, model.predict(data)];
-                case 4:
-                    HVC = _a.sent();
-                    // HVC.print(); // 予測結果を表示
-                    // console.log("結果", HVC.arraySync()[0])
-                    return [2 /*return*/, HVC.arraySync()[0]];
-                case 5:
-                    error_1 = _a.sent();
-                    console.error("予測中にエラーが発生しました:", error_1);
-                    return [2 /*return*/, null];
-                case 6: return [3 /*break*/, 8];
-                case 7:
-                    console.log("modelがない", model);
-                    _a.label = 8;
-                case 8: return [2 /*return*/];
+            for (c1 = 0; c1 < 5; c1++) {
+                for (c2 = c1 + 1; c2 < 5; c2++) {
+                    console.log(c1, c2);
+                }
+                // const element = 5
+                // console.log("計算");
+                // console.log("Start");
+                // await delay(1000);  // 1秒待つ
+                // console.log("After 1 second");
+                // await delay(2000);  // 2秒待つ
+                // console.log("After 2 seconds");
             }
+            return [2 /*return*/];
         });
     });
 }
