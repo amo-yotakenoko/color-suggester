@@ -102,7 +102,8 @@ function colorSet(item, colorcode) {
                     obj.position.y = HVC[2] * 5 - 20;
                     _a = XYZtoHVC(obj.position), H = _a[0], V = _a[1], C = _a[2];
                     // console.log(XYZtoHVC(obj.position));
-                    hvcView.innerHTML = '色彩H: ' + H + '<br>明度V: ' + V + '<br>彩度C: ' + C;
+                    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+                    ;
                     hvcView.style.color = textcolorIswhite ? "white" : "black";
                     // console.log("pos", obj.position)
                     // console.log("pos,", obj.position)
@@ -111,6 +112,11 @@ function colorSet(item, colorcode) {
             }
         });
     });
+}
+// https://rfs.jp/sb/javascript/js-lab/zeropadding.html
+function zeroPadding(NUM, LEN) {
+    return NUM;
+    return (Array(LEN).join('0') + NUM).slice(-LEN);
 }
 function XYZtoHVC(pos) {
     // console.log(pos.x);

@@ -68,14 +68,18 @@ async function colorSet(item, colorcode) {
 
     var [H, V, C] = XYZtoHVC(obj.position);
     // console.log(XYZtoHVC(obj.position));
-    hvcView.innerHTML = '色彩H: ' + H + '<br>明度V: ' + V + '<br>彩度C: ' + C;
+    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);;
     hvcView.style.color = textcolorIswhite ? "white" : "black";
     // console.log("pos", obj.position)
     // console.log("pos,", obj.position)
     colorHighlight(rgbToColorcode(colorcode), true);
 
 }
-
+// https://rfs.jp/sb/javascript/js-lab/zeropadding.html
+function zeroPadding(NUM, LEN) {
+    return NUM
+    return (Array(LEN).join('0') + NUM).slice(-LEN);
+}
 function XYZtoHVC(pos) {
     // console.log(pos.x);
     let H = Math.atan2(pos.x, pos.y) / (2 * Math.PI) * 40.0;
