@@ -114,15 +114,11 @@ function colorSet(item, colorcode) {
     });
 }
 // https://rfs.jp/sb/javascript/js-lab/zeropadding.html
-function zeroPadding(NUM, LEN) {
-    return NUM;
-    return (Array(LEN).join('0') + NUM).slice(-LEN);
-}
 function XYZtoHVC(pos) {
     // console.log(pos.x);
-    var H = Math.atan2(pos.x, pos.y) / (2 * Math.PI) * 40.0;
-    var V = (pos.z + 20) / 5;
-    var C = Math.sqrt(Math.pow(pos.x, 2) + Math.pow(pos.y, 2)) / 1.5;
+    var H = (Math.atan2(pos.z, pos.x) + 2 * Math.PI) / (2 * Math.PI) * 40.0 % 40;
+    var V = (pos.y + 20) / 5;
+    var C = Math.sqrt(Math.pow(pos.x, 2) + Math.pow(pos.z, 2)) / 1.5;
     return [H, V, C];
 }
 var colorList = document.getElementById("colorList");
@@ -167,10 +163,10 @@ function colorUpdate() {
     }
     ;
     // console.log("aa" + hexToRgb(selectiongcolor) + deleteButton.style.outlineColor);
-}
-if (document.activeElement !== SelectingColorText) {
-    // console.log("selectingColorcode" + selectingColorcode)
-    SelectingColorText.value = rgbToColorcode(selectingColorcode);
+    if (document.activeElement !== SelectingColorText) {
+        // console.log("selectingColorcode" + selectingColorcode)
+        SelectingColorText.value = rgbToColorcode(selectingColorcode);
+    }
 }
 // console.log(selectiongcolor)
 // SelectingColorText.style.color = "aa";

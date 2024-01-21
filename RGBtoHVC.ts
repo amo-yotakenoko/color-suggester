@@ -94,7 +94,6 @@ function colorHighlight(colorcode, enforceUpdate: boolean = false) {
 
             // drawCircleFill(VCview,x,y, 10);
         }
-
         if (obj[2][1] == nearobj[2][1]) {
 
             Hview.fillStyle = obj[1];
@@ -144,6 +143,10 @@ function colorHighlight(colorcode, enforceUpdate: boolean = false) {
             // var y= sphere.position.z * 3 + HviewCanvas.height / 2
             // drawCircleFill(Math.sin(rad - radwidth) * (C) * 5 + HviewCanvas.width / 2, Math.cos(rad - radwidth) * (C+1) * 5 + HviewCanvas.height / 2, 1);
 
+        }
+        if (obj[2][0] % 40 == nearobj[2][0] % 40 && obj[2][1] == nearobj[2][1] && obj[2][2] == nearobj[2][2]) {
+
+            console.log(obj[2][0], obj[2][1], obj[2][2])
         }
         if (isHighLight) {
             sphere.material.transparent = false;
