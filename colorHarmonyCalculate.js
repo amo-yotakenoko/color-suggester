@@ -78,7 +78,7 @@ function colorHarmonyCalculate(coloritems) {
                     _b.label = 2;
                 case 2:
                     if (!(c2 < coloritems.length)) return [3 /*break*/, 5];
-                    return [4 /*yield*/, delay(5)];
+                    return [4 /*yield*/, delay(1)];
                 case 3:
                     _b.sent();
                     // delay(1000);

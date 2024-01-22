@@ -217,14 +217,15 @@ function settingButton() {
 
 }
 changetab("")
+
 function changetab(enabletab) {
 
-    ["colorHarmony", "colorProperty", "settings"].forEach(function (tab) {
+    ["colorHarmony", "colorProperty", "settings", "suggestion"].forEach(function (tab) {
         // console.log(tab);
         document.getElementById(tab).style.display = tab == enabletab ? "block" : "none"
         // ここに要素ごとの処理を追加
     });
-    if (enabletab == "colorHarmony") {
+    if (enabletab == "colorHarmony" || enabletab == "suggestion") {
         selectiongItem = null
         selectiongcolor = null
         document.body.style.backgroundColor = "#FFFFFF"
@@ -238,8 +239,9 @@ function changetab(enabletab) {
             b.className = 'btn btn-outline-dark';
 
         });
-        colorHarmonyCalculate()
+
     }
+    if (enabletab == "colorHarmony") colorHarmonyCalculate()
 
     // if (isenable) {
 

@@ -36,7 +36,7 @@ async function colorHarmonyCalculate(coloritems) {
     var paircount = 0
     for (let c1 = 0; c1 < coloritems.length; c1++) {
         for (let c2 = c1 + 1; c2 < coloritems.length; c2++) {
-            await delay(5);
+            await delay(1);
             // delay(1000);
             console.log("mae", coloritems.length)
             // if (coloritems.length > 5) return

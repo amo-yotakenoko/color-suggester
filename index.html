@@ -81,22 +81,22 @@
         <div id="colorHarmony">
             <!-- 美度計算式 -->
             <!-- <button type="button" class="btn btn-outline-dark" onclick="colorHarmonyCalculate();">美度計算式</button> -->
-            <h1 class="display-4 autocolor" id="aestheticMeasure">美度:5</h1>
+            <h1 class="display-4 autocolor" id="aestheticMeasure">美度:</h1>
 
             <div class="row">
-                <div class="col-7" id="ordartable">
+                <div class="col-7 p-0" id="ordartable">
 
 
                     <template id="ordartableTemplate">
                         <div class="harmony upmargin ">
                             <table>
                                 <tr>
-                                    <td><button type="button" class="btn sample1" onclick="tableHide(this)">　</button>
-                                    </td>
-                                    <td><button type="button" class="btn sample2" onclick="tableHide(this)">　</button>
+                                    <td><button type="button" class="btn sample1"
+                                            onclick="tableHide(this)">　</button><button type="button"
+                                            class="btn sample2" onclick="tableHide(this)">　</button>
                                     </td>
                                     <td>
-                                        <div class="orderview display-6"></div>
+                                        <div class="orderview display-6">秩序:</div>
                                     </td>
                                 </tr>
                             </table>
@@ -112,7 +112,7 @@
                     </template>
 
                 </div>
-                <div class="col-5" id="complexitytable">
+                <div class="col-5 p-0" id="complexitytable">
 
                     <template id="complexitytableTemplate">
 
@@ -133,11 +133,17 @@
 
                 </div>
             </div>
-
+            <br><br>
 
         </div>
 
+        <div id="suggestion">
+            <div class=" display-6" id="suggestionProgress">提案</div>
+            <div id="suggestionElements">
 
+            </div>
+
+        </div>
 
         <div class="footer x-scroll" id="colorList">
             <!-- <ul id="colorList"> -->
@@ -145,6 +151,7 @@
             <!-- <a class="nav-link active" onclick="settingButton();">設定</a> -->
 
             <button type="button" class="btn btn-outline-dark" onclick=" changetab('colorHarmony')">美度</button>
+            <button type="button" class="btn btn-outline-dark" onclick="suggestionButton();">提案</button>
             <button type="button" class="btn btn-outline-dark" onclick="settingButton();">設定</button>
 
 

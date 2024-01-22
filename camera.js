@@ -183,12 +183,12 @@ function settingButton() {
 }
 changetab("");
 function changetab(enabletab) {
-    ["colorHarmony", "colorProperty", "settings"].forEach(function (tab) {
+    ["colorHarmony", "colorProperty", "settings", "suggestion"].forEach(function (tab) {
         // console.log(tab);
         document.getElementById(tab).style.display = tab == enabletab ? "block" : "none";
         // ここに要素ごとの処理を追加
     });
-    if (enabletab == "colorHarmony") {
+    if (enabletab == "colorHarmony" || enabletab == "suggestion") {
         selectiongItem = null;
         selectiongcolor = null;
         document.body.style.backgroundColor = "#FFFFFF";
@@ -199,8 +199,9 @@ function changetab(enabletab) {
         btns.forEach(function (b) {
             b.className = 'btn btn-outline-dark';
         });
-        colorHarmonyCalculate();
     }
+    if (enabletab == "colorHarmony")
+        colorHarmonyCalculate();
     // if (isenable) {
     //     document.getElementById("colorProperty").style.display = "block";
     //     document.getElementById("settings").style.display = "none";
