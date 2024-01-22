@@ -17,10 +17,11 @@ function cameraInit(deviceId) {
         video: {
             width: 256,
             height: 256,
-            deviceId: deviceId,
-            facingMode: { exact: "environment" },
+            // deviceId: deviceId,
+            facingMode: { exact: deviceId }// { exact: "environment" },
         }
-    };
+    }
+    console.log(cameraSetting)
     // ユーザーのデバイスからメディアストリーム（カメラのビデオストリーム）を取得
     navigator.mediaDevices.getUserMedia(cameraSetting)
         .then(function (mediaStream) {
@@ -120,20 +121,25 @@ function canvasInit() {
 function cameraDevicesChangeButtonInit() {
     console.log("cameraDevicesChangeButtonInit");
 
-    navigator.mediaDevices.enumerateDevices()
-        .then(function (devices) {
-            devices
-                .filter(device => device.kind === "videoinput")
-                .forEach(device => createCameraButton(device));
-        });
+    // navigator.mediaDevices.enumerateDevices()
+    //     .then(function (devices) {
+    //         devices
+    //             .filter(device => device.kind === "videoinput")
+    //             .forEach(device => createCameraButton(device));
+    //     });
+    createCameraButton("environment")
+    createCameraButton("user")
+
+    // createCameraButton(device)
 }
 
 function createCameraButton(device) {
     console.log(`${device.kind}: ${device.label} ${device.deviceId}`);
 
     const newButton = document.createElement("button");
-    newButton.innerHTML = `${device.label}`;
-    newButton.onclick = () => cameraInit(device.deviceId);
+    newButton.innerHTML = `${device}`;
+    newButton.classList.add("btn", "btn-outline-light");
+    newButton.onclick = () => cameraInit(device);
 
     const cameraList = document.getElementById("cameraList");
     if (cameraList) {
@@ -141,7 +147,7 @@ function createCameraButton(device) {
     }
 }
 // カメラの初期化関数を呼び出し
-cameraInit('1');
+cameraInit("environment");
 canvasInit();
 cameraDevicesChangeButtonInit();
 
