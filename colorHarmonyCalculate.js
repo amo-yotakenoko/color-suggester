@@ -39,39 +39,50 @@ function delay(ms) {
 }
 function colorHarmonyCalculate(coloritems) {
     return __awaiter(this, void 0, void 0, function () {
-        var _i, _a, element, parent_1, colorButtons, b, HVC, ordersum, paircount, c1, c2, item1, item2, ordartableTemplate, ordartableElemant, container_1, tbodyElements, tbody_1, colorelements1, colorelements2, order, HVC1, HVC2, Hdifferent, Hevaluation, Hpoint, newRow_1, Vdifferent, Cdifferent, Vpoint, Cpoint, VCdifferent, newRow_2, newRow_3, newRow_4, orderviewelements, complexitytableTemplate, complexitytableElemant, container, tbody, complexity, newRow, newRow, newRow, newRow, newRow;
+        var _i, _a, element, parent_1, colorButtons, b, HVC, ordersum, paircount, c1, c2, item1, item2, ordartableTemplate, ordartableElemant, container_1, tbodyElements, tbody_1, colorelements1, colorelements2, order, HVC1, HVC2, Hdifferent, Hevaluation, Hpoint, newRow_1, Vdifferent, Cdifferent, Vpoint, Cpoint, VCdifferent, newRow_2, newRow_3, newRow_4, orderviewelements, complexity, complexitytableTemplate, complexitytableElemant, container, tbody, newRow, newRow, newRow, newRow, newRow;
         return __generator(this, function (_b) {
-            console.log("olorHarmonyCalculate");
-            for (_i = 0, _a = Array.from(document.getElementsByClassName("harmony")); _i < _a.length; _i++) {
-                element = _a[_i];
-                parent_1 = element.parentNode;
-                if (parent_1) {
-                    parent_1.removeChild(element);
-                }
-            }
-            if (coloritems == null) {
-                coloritems = [];
-            }
-            colorButtons = document.querySelectorAll('#colorButton');
-            for (b = 0; b < colorButtons.length; b++) {
-                HVC = XYZtoHVC(scene.getObjectByProperty('uuid', colorButtons[b].dataset.anchorUuid).position);
-                console.log("coloritems", { color: colorButtons[b].style.backgroundColor, HVC: HVC });
-                coloritems.push({ color: colorButtons[b].style.backgroundColor, HVC: HVC });
-            }
-            // if (coloritems > 5) return
-            // coloritems = colorObjects;// coloritems.concat(colorObjects);
-            // var colorButtons = document.querySelectorAll('#colorButton');
-            HdifferentCount = 0;
-            VdifferentCount = 0;
-            CdifferentCount = 0;
-            ordersum = 0;
-            paircount = 0;
-            for (c1 = 0; c1 < coloritems.length; c1++) {
-                for (c2 = c1 + 1; c2 < coloritems.length; c2++) {
+            switch (_b.label) {
+                case 0:
+                    document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:";
+                    // document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:`
+                    console.log("olorHarmonyCalculate");
+                    for (_i = 0, _a = Array.from(document.getElementsByClassName("harmony")); _i < _a.length; _i++) {
+                        element = _a[_i];
+                        parent_1 = element.parentNode;
+                        if (parent_1) {
+                            parent_1.removeChild(element);
+                        }
+                    }
+                    if (coloritems == null) {
+                        coloritems = [];
+                    }
+                    colorButtons = document.querySelectorAll('#colorButton');
+                    for (b = 0; b < colorButtons.length; b++) {
+                        HVC = XYZtoHVC(scene.getObjectByProperty('uuid', colorButtons[b].dataset.anchorUuid).position);
+                        console.log("coloritems", { color: colorButtons[b].style.backgroundColor, HVC: HVC });
+                        coloritems.push({ color: colorButtons[b].style.backgroundColor, HVC: HVC });
+                    }
+                    // if (coloritems > 5) return
+                    // coloritems = colorObjects;// coloritems.concat(colorObjects);
+                    // var colorButtons = document.querySelectorAll('#colorButton');
+                    HdifferentCount = 0;
+                    VdifferentCount = 0;
+                    CdifferentCount = 0;
+                    ordersum = 0;
+                    paircount = 0;
+                    c1 = 0;
+                    _b.label = 1;
+                case 1:
+                    if (!(c1 < coloritems.length)) return [3 /*break*/, 6];
+                    c2 = c1 + 1;
+                    _b.label = 2;
+                case 2:
+                    if (!(c2 < coloritems.length)) return [3 /*break*/, 5];
+                    return [4 /*yield*/, delay(5)];
+                case 3:
+                    _b.sent();
                     // delay(1000);
                     console.log("mae", coloritems.length);
-                    if (coloritems.length > 5)
-                        return [2 /*return*/];
                     item1 = coloritems[c1];
                     item2 = coloritems[c2];
                     console.log(item1, item2);
@@ -191,57 +202,45 @@ function colorHarmonyCalculate(coloritems) {
                     ordersum += order;
                     orderviewelements = container_1.querySelectorAll(".orderview");
                     orderviewelements[orderviewelements.length - 1].innerHTML = "\u79E9\u5E8F:" + order.toFixed(2);
-                    // var harmonybtn = harmonyElement.createElement("button");
-                    // document.getElementById("colorHarmony").appendChild(harmonybtn);
-                    // // Set the class and text content for the button
-                    // harmonybtn.className = "btn btn-primary";
-                    // harmonybtn.textContent = "a";
-                    // console.log(b1.style.backgroundColor, b2.style.backgroundColor)
-                    // var colorHarmony = document.getElementById("colorHarmony");
-                    // // console.log(colorList);
-                    // var div = document.createElement("div");
-                    // const text1 = div.createTextNode(c1);
-                    // text1.style.color = b1.style.backgroundColor;
-                    // const element = 5
-                    // console.log("計算");
-                    // console.log("Start");
-                    // await delay(1000);  // 1秒待つ
-                    // console.log("After 1 second");
-                    // await delay(2000);  // 2秒待つ
-                    // console.log("After 2 seconds");
-                }
+                    complexity = 0;
+                    complexity += coloritems.length;
+                    complexity += HdifferentCount;
+                    complexity += VdifferentCount;
+                    complexity += CdifferentCount;
+                    console.log(document.getElementById("aestheticMeasure"));
+                    measre = (ordersum / complexity);
+                    document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:" + measre.toFixed(2);
+                    _b.label = 4;
+                case 4:
+                    c2++;
+                    return [3 /*break*/, 2];
+                case 5:
+                    c1++;
+                    return [3 /*break*/, 1];
+                case 6:
+                    complexitytableTemplate = document.getElementById("complexitytableTemplate");
+                    complexitytableElemant = complexitytableTemplate.content.cloneNode(true);
+                    container = document.getElementById("complexitytable");
+                    container.appendChild(complexitytableElemant);
+                    tbody = container.querySelector(".autocolor tbody");
+                    newRow = document.createElement("tr");
+                    newRow.innerHTML = "<th>\u8272\u6570</th><td>" + coloritems.length;
+                    tbody.appendChild(newRow);
+                    newRow = document.createElement("tr");
+                    newRow.innerHTML = "<th>\u8272\u76F8\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + HdifferentCount;
+                    tbody.appendChild(newRow);
+                    newRow = document.createElement("tr");
+                    newRow.innerHTML = "<th>\u660E\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + VdifferentCount;
+                    tbody.appendChild(newRow);
+                    newRow = document.createElement("tr");
+                    newRow.innerHTML = "<th>\u5F69\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + CdifferentCount;
+                    tbody.appendChild(newRow);
+                    newRow = document.createElement("tr");
+                    newRow.innerHTML = "<th>\u8907\u96D1\u3055</th><td>" + complexity;
+                    newRow.classList.add("total-cell");
+                    tbody.appendChild(newRow);
+                    return [2 /*return*/];
             }
-            complexitytableTemplate = document.getElementById("complexitytableTemplate");
-            complexitytableElemant = complexitytableTemplate.content.cloneNode(true);
-            container = document.getElementById("complexitytable");
-            container.appendChild(complexitytableElemant);
-            tbody = container.querySelector(".autocolor tbody");
-            complexity = 0;
-            complexity += coloritems.length;
-            newRow = document.createElement("tr");
-            newRow.innerHTML = "<th>\u8272\u6570</th><td>" + coloritems.length;
-            tbody.appendChild(newRow);
-            newRow = document.createElement("tr");
-            newRow.innerHTML = "<th>\u8272\u76F8\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + HdifferentCount;
-            tbody.appendChild(newRow);
-            newRow = document.createElement("tr");
-            newRow.innerHTML = "<th>\u660E\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + VdifferentCount;
-            tbody.appendChild(newRow);
-            newRow = document.createElement("tr");
-            newRow.innerHTML = "<th>\u5F69\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + CdifferentCount;
-            tbody.appendChild(newRow);
-            complexity += HdifferentCount;
-            complexity += VdifferentCount;
-            complexity += CdifferentCount;
-            newRow = document.createElement("tr");
-            newRow.innerHTML = "<th>\u8907\u96D1\u3055</th><td>" + complexity;
-            newRow.classList.add("total-cell");
-            tbody.appendChild(newRow);
-            console.log(document.getElementById("aestheticMeasure"));
-            measre = (ordersum / complexity);
-            document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:" + measre.toFixed(2);
-            document.getElementById("colorPropertyAestheticMeasure").innerText = "\u7F8E\u5EA6:" + measre.toFixed(2);
-            return [2 /*return*/];
         });
     });
 }

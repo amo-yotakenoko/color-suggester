@@ -120,7 +120,14 @@ function HVCviewupdate(obj) {
     var HVC = XYZtoHVC(obj.position);
     // console.log(XYZtoHVC(obj.position));
     hvcView.innerHTML = '色彩H: ' + HVC.H.toFixed(2) + '<br>明度V: ' + HVC.V.toFixed(2) + '<br>彩度C: ' + HVC.C.toFixed(2);
-    colorHarmonyCalculate();
+    // if (document.querySelectorAll('#colorButton').length < 500) {
+    //     colorHarmonyCalculate()
+    //     console.log("計算")
+    // } else {
+    //     // document.getElementById("aestheticMeasure").innerText = `美度:`
+    //     document.getElementById("colorPropertyAestheticMeasure").innerText = ``
+    //     console.log("計算しない")
+    // }
 }
 // https://rfs.jp/sb/javascript/js-lab/zeropadding.html
 function XYZtoHVC(pos) {
@@ -193,7 +200,7 @@ function colorUpdate() {
 function rgbToColorcode(rgb) {
     // console.log(rgb)
     if (!rgb) {
-        console.log("rgb が undefined または null");
+        // console.log("rgb が undefined または null")
         return rgb; // rgb が undefined または null の場合、そのまま返す
     }
     var match = rgb.match(/^rgb\((\d+), (\d+), (\d+)\)$/);

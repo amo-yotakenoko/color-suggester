@@ -1,0 +1,10 @@
+declare var HviewCanvas: HTMLElement;
+declare var VCviewCanvas: HTMLElement;
+declare var prevcolorcode: any;
+declare var prevcameraangle: any;
+declare function colorHighlight(colorcode: any, enforceUpdate?: boolean): void;
+declare function isgray(colorcode: any): boolean;
+declare function HilightReset(): void;
+declare function drawCircleFill(context: any, centerX: any, centerY: any, radius: any): void;
+declare function colorConvart(selectingColorcode: any): any;
+declare function hexToRgb(hex: any): number[];

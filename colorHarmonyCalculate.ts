@@ -2,6 +2,8 @@ function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 async function colorHarmonyCalculate(coloritems) {
+    document.getElementById("aestheticMeasure").innerText = `美度:`
+    // document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:`
     console.log("olorHarmonyCalculate")
     for (const element of Array.from(document.getElementsByClassName("harmony"))) {
         const parent = element.parentNode;
@@ -34,9 +36,10 @@ async function colorHarmonyCalculate(coloritems) {
     var paircount = 0
     for (let c1 = 0; c1 < coloritems.length; c1++) {
         for (let c2 = c1 + 1; c2 < coloritems.length; c2++) {
+            await delay(5);
             // delay(1000);
             console.log("mae", coloritems.length)
-            if (coloritems.length > 5) return
+            // if (coloritems.length > 5) return
             var item1 = coloritems[c1];
             var item2 = coloritems[c2];
             console.log(item1, item2)
@@ -198,6 +201,16 @@ async function colorHarmonyCalculate(coloritems) {
             // console.log("After 1 second");
             // await delay(2000);  // 2秒待つ
             // console.log("After 2 seconds");
+            var complexity = 0
+            complexity += coloritems.length;
+            complexity += HdifferentCount
+            complexity += VdifferentCount
+            complexity += CdifferentCount
+
+            console.log(document.getElementById("aestheticMeasure"))
+            measre = (ordersum / complexity)
+            document.getElementById("aestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
+            // document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
 
         }
     }
@@ -211,8 +224,6 @@ async function colorHarmonyCalculate(coloritems) {
 
 
 
-    var complexity = 0
-    complexity += coloritems.length;
     const newRow = document.createElement("tr");
     newRow.innerHTML = `<th>色数</th><td>${coloritems.length}`;
     tbody.appendChild(newRow);
@@ -225,19 +236,11 @@ async function colorHarmonyCalculate(coloritems) {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `<th>彩度差のある色対</th><td>${CdifferentCount}`;
     tbody.appendChild(newRow);
-
-    complexity += HdifferentCount
-    complexity += VdifferentCount
-    complexity += CdifferentCount
     const newRow = document.createElement("tr");
     newRow.innerHTML = `<th>複雑さ</th><td>${complexity}`;
     newRow.classList.add("total-cell");
     tbody.appendChild(newRow);
 
-    console.log(document.getElementById("aestheticMeasure"))
-    measre = (ordersum / complexity)
-    document.getElementById("aestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
-    document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
 
 
 
