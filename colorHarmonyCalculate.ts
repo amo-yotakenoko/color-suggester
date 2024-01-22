@@ -1,28 +1,45 @@
 function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-async function colorHarmonyCalculate() {
-
+async function colorHarmonyCalculate(coloritems) {
+    console.log("olorHarmonyCalculate")
     for (const element of Array.from(document.getElementsByClassName("harmony"))) {
         const parent = element.parentNode;
         if (parent) {
             parent.removeChild(element);
         }
     }
-
-
+    if (coloritems == null) {
+        coloritems = []
+    }
     var colorButtons = document.querySelectorAll('#colorButton');
+    for (let b = 0; b < colorButtons.length; b++) {
+
+
+        // coloritems.push(scene.getObjectByProperty('uuid', colorButtons[b].dataset.anchorUuid))
+
+        var HVC = XYZtoHVC(scene.getObjectByProperty('uuid', colorButtons[b].dataset.anchorUuid).position)
+        console.log("coloritems", { color: colorButtons[b].style.backgroundColor, HVC: HVC })
+        coloritems.push({ color: colorButtons[b].style.backgroundColor, HVC: HVC })
+    }
+    // if (coloritems > 5) return
+
+    // coloritems = colorObjects;// coloritems.concat(colorObjects);
+
+    // var colorButtons = document.querySelectorAll('#colorButton');
     HdifferentCount = 0
     VdifferentCount = 0
     CdifferentCount = 0
     var ordersum = 0
     var paircount = 0
-    for (let c1 = 0; c1 < colorButtons.length; c1++) {
-        for (let c2 = c1 + 1; c2 < colorButtons.length; c2++) {
+    for (let c1 = 0; c1 < coloritems.length; c1++) {
+        for (let c2 = c1 + 1; c2 < coloritems.length; c2++) {
             // delay(1000);
-            var b1 = colorButtons[c1];
-            var b2 = colorButtons[c2];
-            console.log(c1, c2)
+            console.log("mae", coloritems.length)
+            if (coloritems.length > 5) return
+            var item1 = coloritems[c1];
+            var item2 = coloritems[c2];
+            console.log(item1, item2)
             // Clone the content of the template
             const ordartableTemplate = document.getElementById("ordartableTemplate");
             const ordartableElemant = ordartableTemplate.content.cloneNode(true);
@@ -40,20 +57,26 @@ async function colorHarmonyCalculate() {
             const colorelements2 = container.querySelectorAll(".sample2");
 
             // 新しい要素ごとに処理
-            colorelements1[colorelements1.length - 1].style.backgroundColor = b1.style.backgroundColor;
+            console.log("color", item1.color)
+            colorelements1[colorelements1.length - 1].style.backgroundColor = item1.color;
             colorelements1[colorelements1.length - 1].dataset.pairid = paircount
 
-            colorelements2[colorelements2.length - 1].style.backgroundColor = b2.style.backgroundColor;
+            colorelements2[colorelements2.length - 1].style.backgroundColor = item2.color;
             colorelements2[colorelements2.length - 1].dataset.pairid = paircount
             console.log(paircount)
             paircount += 1
 
 
             var order = 0
+            // console.log("pos", item1.position.x, coloritems.length)
+            var HVC1 = item1.HVC;
+            var HVC2 = item2.HVC;
+            console.log("ato", item1.HVC, HVC1, HVC2)
+            // continue
+            // return
 
-            var [H1, V1, C1] = XYZtoHVC(scene.getObjectByProperty('uuid', b1.dataset.anchorUuid).position);
-            var [H2, V2, C2] = XYZtoHVC(scene.getObjectByProperty('uuid', b2.dataset.anchorUuid).position);
-            var Hdifferent = Math.abs(H1 - H2)
+            var Hdifferent = Math.abs(HVC1.H - HVC2.H)
+            console.log("Hdiff", Hdifferent)
             if (Hdifferent > 20) {
                 Hdifferent = 40 - Hdifferent;
             }
@@ -78,7 +101,7 @@ async function colorHarmonyCalculate() {
                 Hevaluation = "対比調和"
                 Hpoint = 1.7
             }
-            if (C1 < 1 || C2 < 1) {
+            if (HVC1.C < 1 || HVC2.C < 1) {
                 Hevaluation = "灰色"
                 Hpoint = 1.0
             }
@@ -88,8 +111,8 @@ async function colorHarmonyCalculate() {
             newRow.innerHTML = `<th>色相差</th><td>${Hdifferent.toFixed(2)}</td><td>${Hevaluation}</td><td>${Hpoint}</td>`;
             tbody.appendChild(newRow);
 
-            var Vdifferent = Math.abs(V1 - V2)//高さ明度
-            var Cdifferent = Math.abs(C1 - C2)
+            var Vdifferent = Math.abs(HVC1.V - HVC2.V)//高さ明度
+            var Cdifferent = Math.abs(HVC1.C - HVC2.C)
             var Vpoint
             var Cpoint
             var VCdifferent = Math.sqrt(Vdifferent ** 2 + Cdifferent ** 2);
@@ -122,7 +145,7 @@ async function colorHarmonyCalculate() {
                 Vpoint = 3.7
                 Cpoint = 0.4
             }
-            if (Vdifferent > 10) {
+            if (Vdifferent > 9) {
                 Vevaluation = "眩輝"
                 Vpoint = -2.0
             }
@@ -189,9 +212,9 @@ async function colorHarmonyCalculate() {
 
 
     var complexity = 0
-    complexity += colorButtons.length;
+    complexity += coloritems.length;
     const newRow = document.createElement("tr");
-    newRow.innerHTML = `<th>色数</th><td>${colorButtons.length}`;
+    newRow.innerHTML = `<th>色数</th><td>${coloritems.length}`;
     tbody.appendChild(newRow);
     const newRow = document.createElement("tr");
     newRow.innerHTML = `<th>色相差のある色対</th><td>${HdifferentCount}`;
@@ -214,6 +237,8 @@ async function colorHarmonyCalculate() {
     console.log(document.getElementById("aestheticMeasure"))
     measre = (ordersum / complexity)
     document.getElementById("aestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
+    document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
+
 
 
 }

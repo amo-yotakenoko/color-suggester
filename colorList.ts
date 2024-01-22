@@ -68,9 +68,10 @@ async function colorSet(item, colorcode) {
     obj.position.x = HVC[1] * 1.5;
     obj.position.y = HVC[2] * 5 - 20;
 
-    var [H, V, C] = XYZtoHVC(obj.position);
-    // console.log(XYZtoHVC(obj.position));
-    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+    // var [H, V, C] = XYZtoHVC(obj.position);
+    // // console.log(XYZtoHVC(obj.position));
+    // hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+    HVCviewupdate(obj)
     // hvcView.style.color = textcolorIswhite ? "white" : "black";
     // console.log("pos", obj.position)
     // console.log("pos,", obj.position)
@@ -80,9 +81,10 @@ async function colorSet(item, colorcode) {
 }
 
 function HVCviewupdate(obj) {
-    var [H, V, C] = XYZtoHVC(obj.position);
+    var HVC = XYZtoHVC(obj.position);
     // console.log(XYZtoHVC(obj.position));
-    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+    hvcView.innerHTML = '色彩H: ' + HVC.H.toFixed(2) + '<br>明度V: ' + HVC.V.toFixed(2) + '<br>彩度C: ' + HVC.C.toFixed(2);
+    colorHarmonyCalculate()
 }
 
 
@@ -95,7 +97,7 @@ function XYZtoHVC(pos) {
     let V = (pos.y + 20) / 5;
 
     let C = Math.sqrt(pos.x ** 2 + pos.z ** 2) / 1.5;
-    return [H, V, C];
+    return { H: H, V: V, C: C };
 }
 
 

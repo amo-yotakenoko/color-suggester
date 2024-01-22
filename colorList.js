@@ -82,9 +82,9 @@ var selectiongcolor;
 var hvcView = document.getElementById('HVCview');
 function colorSet(item, colorcode) {
     return __awaiter(this, void 0, void 0, function () {
-        var obj, HVC, _a, H, V, C;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var obj, HVC;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     item.style.backgroundColor = colorcode; // 任意の色に変更
                     item.style.borderColor = colorcode; // ボーダーカラーも指定すると良い
@@ -97,14 +97,15 @@ function colorSet(item, colorcode) {
                         // console.log("結果", HVC)
                     ];
                 case 1:
-                    HVC = _b.sent();
+                    HVC = _a.sent();
                     // console.log("結果", HVC)
                     obj.position.z = HVC[0] * 1.5;
                     obj.position.x = HVC[1] * 1.5;
                     obj.position.y = HVC[2] * 5 - 20;
-                    _a = XYZtoHVC(obj.position), H = _a[0], V = _a[1], C = _a[2];
-                    // console.log(XYZtoHVC(obj.position));
-                    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+                    // var [H, V, C] = XYZtoHVC(obj.position);
+                    // // console.log(XYZtoHVC(obj.position));
+                    // hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+                    HVCviewupdate(obj);
                     // hvcView.style.color = textcolorIswhite ? "white" : "black";
                     // console.log("pos", obj.position)
                     // console.log("pos,", obj.position)
@@ -116,9 +117,10 @@ function colorSet(item, colorcode) {
     });
 }
 function HVCviewupdate(obj) {
-    var _a = XYZtoHVC(obj.position), H = _a[0], V = _a[1], C = _a[2];
+    var HVC = XYZtoHVC(obj.position);
     // console.log(XYZtoHVC(obj.position));
-    hvcView.innerHTML = '色彩H: ' + H.toFixed(2) + '<br>明度V: ' + V.toFixed(2) + '<br>彩度C: ' + C.toFixed(2);
+    hvcView.innerHTML = '色彩H: ' + HVC.H.toFixed(2) + '<br>明度V: ' + HVC.V.toFixed(2) + '<br>彩度C: ' + HVC.C.toFixed(2);
+    colorHarmonyCalculate();
 }
 // https://rfs.jp/sb/javascript/js-lab/zeropadding.html
 function XYZtoHVC(pos) {
@@ -126,7 +128,7 @@ function XYZtoHVC(pos) {
     var H = (Math.atan2(pos.z, pos.x) + 2 * Math.PI) / (2 * Math.PI) * 40.0 % 40;
     var V = (pos.y + 20) / 5;
     var C = Math.sqrt(Math.pow(pos.x, 2) + Math.pow(pos.z, 2)) / 1.5;
-    return [H, V, C];
+    return { H: H, V: V, C: C };
 }
 var colorList = document.getElementById("colorList");
 var SelectingColorText = document.getElementById("colorcode");
