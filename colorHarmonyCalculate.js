@@ -139,25 +139,25 @@ function colorHarmonyCalculate(coloritems) {
                     ;
                     Cdifferent = Math.abs(HVC1.C - HVC2.C);
                     VCdifferent = Math.sqrt(Math.pow(Vdifferent, 2) + Math.pow(Cdifferent, 2));
-                    if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(0.25, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(0.5, 2)) < 1) {
+                    if (Math.sqrt(Math.pow(Vdifferent, 2) / Math.pow(0.25, 2) + Math.pow(Cdifferent, 2) / Math.pow(0.5, 2)) < 1) {
                         Vevaluation = "同一調和";
                         Cevaluation = "同一調和";
                         Vpoint = -1.3;
                         Cpoint = 0.8;
                     }
-                    else if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(0.5, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(3, 2)) < 1) {
+                    else if (Math.sqrt(Math.pow(Vdifferent, 2) / Math.pow(0.5, 2) + Math.pow(Cdifferent, 2) / Math.pow(3, 2)) < 1) {
                         Vevaluation = "第1の曖昧";
                         Cevaluation = "第1の曖昧";
                         Vpoint = -1.0;
                         Cpoint = 0;
                     }
-                    else if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(1.5, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(5, 2)) < 1) {
+                    else if (Math.sqrt(Math.pow(Vdifferent, 2) / Math.pow(1.5, 2) + Math.pow(Cdifferent, 2) / Math.pow(5, 2)) < 1) {
                         Vevaluation = "類似調和";
                         Cevaluation = "類似調和";
                         Vpoint = 0.7;
                         Cpoint = 0.1;
                     }
-                    else if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(2.5, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(7.5, 2)) < 1) {
+                    else if (Math.sqrt(Math.pow(Vdifferent, 2) / Math.pow(2.5, 2) + Math.pow(Cdifferent, 2) / Math.pow(7.5, 2)) < 1) {
                         Vevaluation = "第2の曖昧";
                         Cevaluation = "第2の曖昧";
                         Vpoint = -0.2;
