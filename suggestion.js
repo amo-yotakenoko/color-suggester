@@ -92,6 +92,7 @@ function suggestionButton() {
                     return [4 /*yield*/, colorHarmonyCalculate([{ color: candidateColor, HVC: candidateHVC }])];
                 case 6:
                     measreresult = _c.sent();
+                    measreresult -= beforemeasreresult;
                     newDiv = document.createElement("div");
                     // 新しい div 要素に内容を追加
                     newDiv.innerHTML = "\n        <table class=\"suggestElement\">\n            <tr>\n                <td>\n                    <button type=\"button\" class=\"btn\" onclick=\"newsuggestedColor('" + candidateColor + "')\" style=\"background-color:" + candidateColor + ";\">\u3000\u3000</button>\n                </td>\n                <td>\n                    <div class=\"orderview display-6\">" + (measreresult > 0 ? '+' : '') + measreresult.toFixed(3) + "</div>\n                </td>\n            </tr>\n        </table>\n    ";

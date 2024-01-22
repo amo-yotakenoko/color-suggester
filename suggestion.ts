@@ -30,7 +30,7 @@ async function suggestionButton() {
             // console.log(candidateColor, candidateHVC);
 
             const measreresult = await colorHarmonyCalculate([{ color: candidateColor, HVC: candidateHVC }]);
-            // measreresult -= beforemeasreresult;
+            measreresult -= beforemeasreresult;
             // console.log("measre", measreresult);
             // console.log(suggestionElement.style.display);
 
