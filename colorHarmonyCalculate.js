@@ -236,10 +236,10 @@ function colorHarmonyCalculate(coloritems) {
                     newRow.innerHTML = "<th>\u5F69\u5EA6\u5DEE\u306E\u3042\u308B\u8272\u5BFE</th><td>" + CdifferentCount;
                     tbody.appendChild(newRow);
                     newRow = document.createElement("tr");
-                    newRow.innerHTML = "<th>\u8907\u96D1\u3055</th><td>" + complexity;
+                    newRow.innerHTML = "<th class=\"display-6\">\u8907\u96D1\u3055</th><td>" + complexity;
                     newRow.classList.add("total-cell");
                     tbody.appendChild(newRow);
-                    return [2 /*return*/];
+                    return [2 /*return*/, measre];
             }
         });
     });

@@ -237,12 +237,12 @@ async function colorHarmonyCalculate(coloritems) {
     newRow.innerHTML = `<th>彩度差のある色対</th><td>${CdifferentCount}`;
     tbody.appendChild(newRow);
     const newRow = document.createElement("tr");
-    newRow.innerHTML = `<th>複雑さ</th><td>${complexity}`;
+    newRow.innerHTML = `<th class="display-6">複雑さ</th><td>${complexity}`;
     newRow.classList.add("total-cell");
     tbody.appendChild(newRow);
 
 
-
+    return measre;
 
 }
 
