@@ -45,7 +45,7 @@ function colorHarmonyCalculate(coloritems) {
                 case 0:
                     document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:";
                     // document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:`
-                    console.log("olorHarmonyCalculate");
+                    // console.log("olorHarmonyCalculate")
                     for (_i = 0, _a = Array.from(document.getElementsByClassName("harmony")); _i < _a.length; _i++) {
                         element = _a[_i];
                         parent_1 = element.parentNode;
@@ -59,7 +59,7 @@ function colorHarmonyCalculate(coloritems) {
                     colorButtons = document.querySelectorAll('#colorButton');
                     for (b = 0; b < colorButtons.length; b++) {
                         HVC = XYZtoHVC(scene.getObjectByProperty('uuid', colorButtons[b].dataset.anchorUuid).position);
-                        console.log("coloritems", { color: colorButtons[b].style.backgroundColor, HVC: HVC });
+                        // console.log("coloritems", { color: colorButtons[b].style.backgroundColor, HVC: HVC })
                         coloritems.push({ color: colorButtons[b].style.backgroundColor, HVC: HVC });
                     }
                     // if (coloritems > 5) return
@@ -81,11 +81,8 @@ function colorHarmonyCalculate(coloritems) {
                     return [4 /*yield*/, delay(1)];
                 case 3:
                     _b.sent();
-                    // delay(1000);
-                    console.log("mae", coloritems.length);
                     item1 = coloritems[c1];
                     item2 = coloritems[c2];
-                    console.log(item1, item2);
                     ordartableTemplate = document.getElementById("ordartableTemplate");
                     ordartableElemant = ordartableTemplate.content.cloneNode(true);
                     container_1 = document.getElementById("ordartable");
@@ -95,19 +92,18 @@ function colorHarmonyCalculate(coloritems) {
                     colorelements1 = container_1.querySelectorAll(".sample1");
                     colorelements2 = container_1.querySelectorAll(".sample2");
                     // 新しい要素ごとに処理
-                    console.log("color", item1.color);
+                    // console.log("color", item1.color)
                     colorelements1[colorelements1.length - 1].style.backgroundColor = item1.color;
                     colorelements1[colorelements1.length - 1].dataset.pairid = paircount;
                     colorelements2[colorelements2.length - 1].style.backgroundColor = item2.color;
                     colorelements2[colorelements2.length - 1].dataset.pairid = paircount;
-                    console.log(paircount);
+                    // console.log(paircount)
                     paircount += 1;
                     order = 0;
                     HVC1 = item1.HVC;
                     HVC2 = item2.HVC;
-                    console.log("ato", item1.HVC, HVC1, HVC2);
                     Hdifferent = Math.abs(HVC1.H - HVC2.H);
-                    console.log("Hdiff", Hdifferent);
+                    // console.log("Hdiff", Hdifferent)
                     if (Hdifferent > 20) {
                         Hdifferent = 40 - Hdifferent;
                     }
@@ -188,7 +184,7 @@ function colorHarmonyCalculate(coloritems) {
                     newRow_1 = document.createElement("tr");
                     newRow_1.innerHTML = "<th >\u79E9\u5E8F</th><td></td><td></td><td >" + order.toFixed(2) + "</td>";
                     tbody_1.appendChild(newRow_1);
-                    console.log("diff", Hdifferent, Vdifferent, Cdifferent);
+                    // console.log("diff", Hdifferent, Vdifferent, Cdifferent)
                     if (Hdifferent > 2) {
                         HdifferentCount += 1;
                     }
@@ -207,9 +203,9 @@ function colorHarmonyCalculate(coloritems) {
                     complexity += HdifferentCount;
                     complexity += VdifferentCount;
                     complexity += CdifferentCount;
-                    console.log(document.getElementById("aestheticMeasure"));
+                    // console.log(document.getElementById("aestheticMeasure"))
                     measre = (ordersum / complexity);
-                    document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:" + measre.toFixed(2);
+                    document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:" + measre.toFixed(3);
                     _b.label = 4;
                 case 4:
                     c2++;

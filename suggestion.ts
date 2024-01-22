@@ -14,9 +14,11 @@ async function suggestionButton() {
         var measreresults = []
         // var rundam
         var count = 0
+        console.log(document.querySelectorAll('#colorButton').length)
+        const beforemeasreresult = document.querySelectorAll('#colorButton').length <= 1 ? 0 : await colorHarmonyCalculate();
         for (const colorObject of shuffleArray(colorObjects)) {
             count += 1
-            console.log(count / colorObjects.length * 100)
+            // console.log(count / colorObjects.length * 100)
             document.getElementById("suggestionProgress").innerText = `提案${Math.round(count / colorObjects.length * 100)}%`;
             // const currentColorObject = colorObject;
             // console.log("dis", suggestionElement.style.display)
@@ -25,11 +27,12 @@ async function suggestionButton() {
             const candidateHVC = { H: colorObject[2][0], V: colorObject[2][1], C: colorObject[2][1] };
 
             const candidateColor = colorObject[1];
-            console.log(candidateColor, candidateHVC);
+            // console.log(candidateColor, candidateHVC);
 
             const measreresult = await colorHarmonyCalculate([{ color: candidateColor, HVC: candidateHVC }]);
-            console.log("measre", measreresult);
-            console.log(suggestionElement.style.display);
+            // measreresult -= beforemeasreresult;
+            // console.log("measre", measreresult);
+            // console.log(suggestionElement.style.display);
 
             const newDiv = document.createElement("div");
 
@@ -38,7 +41,7 @@ async function suggestionButton() {
         <table class="suggestElement">
             <tr>
                 <td>
-                    <button type="button" class="btn" onclick="tableHide(this)" style="background-color:${candidateColor};">　　</button>
+                    <button type="button" class="btn" onclick="newsuggestedColor('${candidateColor}')" style="background-color:${candidateColor};">　　</button>
                 </td>
                 <td>
                     <div class="orderview display-6">${measreresult > 0 ? '+' : ''}${measreresult.toFixed(3)}</div>
@@ -100,4 +103,11 @@ function shuffleArray(array) {
     }
 
     return cloneArray
+}
+
+function newsuggestedColor(newcolorcode) {
+    console.log("newcolorcode", newcolorcode)
+    inputingColorItem = colorItemAdd();
+    canvasUpdate();
+    colorSet(inputingColorItem, newcolorcode)
 }

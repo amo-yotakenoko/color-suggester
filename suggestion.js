@@ -44,17 +44,17 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 var suggestionProsessing = false;
 function suggestionButton() {
     return __awaiter(this, void 0, void 0, function () {
-        var suggestionElement, measreresults, count, _i, _a, colorObject, candidateHVC, candidateColor, measreresult, newDiv, i_1, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var suggestionElement, measreresults, count, beforemeasreresult, _a, _i, _b, colorObject, candidateHVC, candidateColor, measreresult, newDiv, i_1, error_1;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
                     if (suggestionProsessing) {
                         console.log("実行中！");
                         return [2 /*return*/];
                     }
-                    _b.label = 1;
+                    _c.label = 1;
                 case 1:
-                    _b.trys.push([1, 6, 7, 8]);
+                    _c.trys.push([1, 9, 10, 11]);
                     suggestionProsessing = true;
                     suggestionElement = document.getElementById("suggestionElements");
                     changetab("suggestion");
@@ -63,31 +63,38 @@ function suggestionButton() {
                     });
                     measreresults = [];
                     count = 0;
-                    _i = 0, _a = shuffleArray(colorObjects);
-                    _b.label = 2;
-                case 2:
-                    if (!(_i < _a.length)) return [3 /*break*/, 5];
-                    colorObject = _a[_i];
+                    console.log(document.querySelectorAll('#colorButton').length);
+                    if (!(document.querySelectorAll('#colorButton').length <= 1)) return [3 /*break*/, 2];
+                    _a = 0;
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, colorHarmonyCalculate()];
+                case 3:
+                    _a = _c.sent();
+                    _c.label = 4;
+                case 4:
+                    beforemeasreresult = _a;
+                    _i = 0, _b = shuffleArray(colorObjects);
+                    _c.label = 5;
+                case 5:
+                    if (!(_i < _b.length)) return [3 /*break*/, 8];
+                    colorObject = _b[_i];
                     count += 1;
-                    console.log(count / colorObjects.length * 100);
+                    // console.log(count / colorObjects.length * 100)
                     document.getElementById("suggestionProgress").innerText = "\u63D0\u6848" + Math.round(count / colorObjects.length * 100) + "%";
                     // const currentColorObject = colorObject;
                     // console.log("dis", suggestionElement.style.display)
                     if (document.getElementById("suggestion").style.display == "none") {
                         console.log("おわり");
-                        return [3 /*break*/, 5];
+                        return [3 /*break*/, 8];
                     }
                     candidateHVC = { H: colorObject[2][0], V: colorObject[2][1], C: colorObject[2][1] };
                     candidateColor = colorObject[1];
-                    console.log(candidateColor, candidateHVC);
                     return [4 /*yield*/, colorHarmonyCalculate([{ color: candidateColor, HVC: candidateHVC }])];
-                case 3:
-                    measreresult = _b.sent();
-                    console.log("measre", measreresult);
-                    console.log(suggestionElement.style.display);
+                case 6:
+                    measreresult = _c.sent();
                     newDiv = document.createElement("div");
                     // 新しい div 要素に内容を追加
-                    newDiv.innerHTML = "\n        <table class=\"suggestElement\">\n            <tr>\n                <td>\n                    <button type=\"button\" class=\"btn\" onclick=\"tableHide(this)\" style=\"background-color:" + candidateColor + ";\">\u3000\u3000</button>\n                </td>\n                <td>\n                    <div class=\"orderview display-6\">" + (measreresult > 0 ? '+' : '') + measreresult.toFixed(3) + "</div>\n                </td>\n            </tr>\n        </table>\n    ";
+                    newDiv.innerHTML = "\n        <table class=\"suggestElement\">\n            <tr>\n                <td>\n                    <button type=\"button\" class=\"btn\" onclick=\"newsuggestedColor('" + candidateColor + "')\" style=\"background-color:" + candidateColor + ";\">\u3000\u3000</button>\n                </td>\n                <td>\n                    <div class=\"orderview display-6\">" + (measreresult > 0 ? '+' : '') + measreresult.toFixed(3) + "</div>\n                </td>\n            </tr>\n        </table>\n    ";
                     // 新しい div 要素を suggestionElement に追加
                     for (i_1 = 0; i_1 < measreresults.length; i_1++) {
                         if (measreresults[i_1] < measreresult) {
@@ -107,22 +114,22 @@ function suggestionButton() {
                         // 親要素の末尾に要素を挿入
                         suggestionElement.appendChild(newDiv);
                     }
-                    _b.label = 4;
-                case 4:
+                    _c.label = 7;
+                case 7:
                     _i++;
-                    return [3 /*break*/, 2];
-                case 5: return [3 /*break*/, 8];
-                case 6:
-                    error_1 = _b.sent();
+                    return [3 /*break*/, 5];
+                case 8: return [3 /*break*/, 11];
+                case 9:
+                    error_1 = _c.sent();
                     // 何らかのエラーが発生した場合の処理
                     console.error("エラーが発生しました:", error_1);
-                    return [3 /*break*/, 8];
-                case 7:
+                    return [3 /*break*/, 11];
+                case 10:
                     // このブロックのコードは、try ブロックが正常に終了またはエラーで終了した場合に実行されます
                     // console.log("finally ブロックが実行されました。");
                     suggestionProsessing = false;
                     return [7 /*endfinally*/];
-                case 8: return [2 /*return*/];
+                case 11: return [2 /*return*/];
             }
         });
     });
@@ -137,4 +144,10 @@ function shuffleArray(array) {
         cloneArray[rand] = tmpStorage;
     }
     return cloneArray;
+}
+function newsuggestedColor(newcolorcode) {
+    console.log("newcolorcode", newcolorcode);
+    inputingColorItem = colorItemAdd();
+    canvasUpdate();
+    colorSet(inputingColorItem, newcolorcode);
 }

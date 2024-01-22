@@ -4,7 +4,7 @@ function delay(ms: number): Promise<void> {
 async function colorHarmonyCalculate(coloritems) {
     document.getElementById("aestheticMeasure").innerText = `美度:`
     // document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:`
-    console.log("olorHarmonyCalculate")
+    // console.log("olorHarmonyCalculate")
     for (const element of Array.from(document.getElementsByClassName("harmony"))) {
         const parent = element.parentNode;
         if (parent) {
@@ -21,7 +21,7 @@ async function colorHarmonyCalculate(coloritems) {
         // coloritems.push(scene.getObjectByProperty('uuid', colorButtons[b].dataset.anchorUuid))
 
         var HVC = XYZtoHVC(scene.getObjectByProperty('uuid', colorButtons[b].dataset.anchorUuid).position)
-        console.log("coloritems", { color: colorButtons[b].style.backgroundColor, HVC: HVC })
+        // console.log("coloritems", { color: colorButtons[b].style.backgroundColor, HVC: HVC })
         coloritems.push({ color: colorButtons[b].style.backgroundColor, HVC: HVC })
     }
     // if (coloritems > 5) return
@@ -38,11 +38,11 @@ async function colorHarmonyCalculate(coloritems) {
         for (let c2 = c1 + 1; c2 < coloritems.length; c2++) {
             await delay(1);
             // delay(1000);
-            console.log("mae", coloritems.length)
+            // console.log("mae", coloritems.length)
             // if (coloritems.length > 5) return
             var item1 = coloritems[c1];
             var item2 = coloritems[c2];
-            console.log(item1, item2)
+            // console.log(item1, item2)
             // Clone the content of the template
             const ordartableTemplate = document.getElementById("ordartableTemplate");
             const ordartableElemant = ordartableTemplate.content.cloneNode(true);
@@ -60,13 +60,13 @@ async function colorHarmonyCalculate(coloritems) {
             const colorelements2 = container.querySelectorAll(".sample2");
 
             // 新しい要素ごとに処理
-            console.log("color", item1.color)
+            // console.log("color", item1.color)
             colorelements1[colorelements1.length - 1].style.backgroundColor = item1.color;
             colorelements1[colorelements1.length - 1].dataset.pairid = paircount
 
             colorelements2[colorelements2.length - 1].style.backgroundColor = item2.color;
             colorelements2[colorelements2.length - 1].dataset.pairid = paircount
-            console.log(paircount)
+            // console.log(paircount)
             paircount += 1
 
 
@@ -74,12 +74,12 @@ async function colorHarmonyCalculate(coloritems) {
             // console.log("pos", item1.position.x, coloritems.length)
             var HVC1 = item1.HVC;
             var HVC2 = item2.HVC;
-            console.log("ato", item1.HVC, HVC1, HVC2)
+            // console.log("ato", item1.HVC, HVC1, HVC2)
             // continue
             // return
 
             var Hdifferent = Math.abs(HVC1.H - HVC2.H)
-            console.log("Hdiff", Hdifferent)
+            // console.log("Hdiff", Hdifferent)
             if (Hdifferent > 20) {
                 Hdifferent = 40 - Hdifferent;
             }
@@ -166,7 +166,7 @@ async function colorHarmonyCalculate(coloritems) {
             const newRow = document.createElement("tr");
             newRow.innerHTML = `<th >秩序</th><td></td><td></td><td >${order.toFixed(2)}</td>`;
             tbody.appendChild(newRow);
-            console.log("diff", Hdifferent, Vdifferent, Cdifferent)
+            // console.log("diff", Hdifferent, Vdifferent, Cdifferent)
             if (Hdifferent > 2) {
                 HdifferentCount += 1
             }
@@ -207,9 +207,9 @@ async function colorHarmonyCalculate(coloritems) {
             complexity += VdifferentCount
             complexity += CdifferentCount
 
-            console.log(document.getElementById("aestheticMeasure"))
+            // console.log(document.getElementById("aestheticMeasure"))
             measre = (ordersum / complexity)
-            document.getElementById("aestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
+            document.getElementById("aestheticMeasure").innerText = `美度:${measre.toFixed(3)}`
             // document.getElementById("colorPropertyAestheticMeasure").innerText = `美度:${measre.toFixed(2)}`
 
         }
