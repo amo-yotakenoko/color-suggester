@@ -77,7 +77,7 @@ function colorHarmonyCalculate() {
                     order = 0;
                     _b = XYZtoHVC(scene.getObjectByProperty('uuid', b1.dataset.anchorUuid).position), H1 = _b[0], V1 = _b[1], C1 = _b[2];
                     _c = XYZtoHVC(scene.getObjectByProperty('uuid', b2.dataset.anchorUuid).position), H2 = _c[0], V2 = _c[1], C2 = _c[2];
-                    Hdifferent = Math.abs(H1, H2);
+                    Hdifferent = Math.abs(H1 - H2);
                     if (Hdifferent > 20) {
                         Hdifferent = 40 - Hdifferent;
                     }
@@ -109,9 +109,9 @@ function colorHarmonyCalculate() {
                     newRow_1 = document.createElement("tr");
                     newRow_1.innerHTML = "<th>\u8272\u76F8\u5DEE</th><td>" + Hdifferent.toFixed(2) + "</td><td>" + Hevaluation + "</td><td>" + Hpoint + "</td>";
                     tbody_1.appendChild(newRow_1);
-                    Vdifferent = Math.abs(V1, V2) //高さ明度
+                    Vdifferent = Math.abs(V1 - V2) //高さ明度
                     ;
-                    Cdifferent = Math.abs(C1, C2);
+                    Cdifferent = Math.abs(C1 - C2);
                     VCdifferent = Math.sqrt(Math.pow(Vdifferent, 2) + Math.pow(Cdifferent, 2));
                     if (Math.sqrt((Math.pow(Vdifferent, 2)) / (Math.pow(0.25, 2)) + Math.pow(Cdifferent, 2)) / (Math.pow(0.5, 2)) < 1) {
                         Vevaluation = "同一調和";

@@ -53,7 +53,7 @@ async function colorHarmonyCalculate() {
 
             var [H1, V1, C1] = XYZtoHVC(scene.getObjectByProperty('uuid', b1.dataset.anchorUuid).position);
             var [H2, V2, C2] = XYZtoHVC(scene.getObjectByProperty('uuid', b2.dataset.anchorUuid).position);
-            var Hdifferent = Math.abs(H1, H2)
+            var Hdifferent = Math.abs(H1 - H2)
             if (Hdifferent > 20) {
                 Hdifferent = 40 - Hdifferent;
             }
@@ -88,8 +88,8 @@ async function colorHarmonyCalculate() {
             newRow.innerHTML = `<th>色相差</th><td>${Hdifferent.toFixed(2)}</td><td>${Hevaluation}</td><td>${Hpoint}</td>`;
             tbody.appendChild(newRow);
 
-            var Vdifferent = Math.abs(V1, V2)//高さ明度
-            var Cdifferent = Math.abs(C1, C2)
+            var Vdifferent = Math.abs(V1 - V2)//高さ明度
+            var Cdifferent = Math.abs(C1 - C2)
             var Vpoint
             var Cpoint
             var VCdifferent = Math.sqrt(Vdifferent ** 2 + Cdifferent ** 2);
