@@ -18,7 +18,7 @@ function cameraInit(deviceId) {
             width: 256,
             height: 256,
             // deviceId: deviceId,
-            facingMode: { exact: deviceId }// { exact: "environment" },
+            facingMode: deviceId // { exact: "environment" },
         }
     }
     console.log(cameraSetting)
