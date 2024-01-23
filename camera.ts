@@ -248,7 +248,7 @@ function changetab(enabletab) {
         });
 
     }
-    if (enabletab == "colorHarmony") setTimeout(colorHarmonyCalculate, 100)
+    if (enabletab == "colorHarmony") setTimeout(colorHarmonyCalculate, 500)
 
     // if (isenable) {
 

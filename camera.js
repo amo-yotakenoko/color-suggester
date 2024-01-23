@@ -207,7 +207,7 @@ function changetab(enabletab) {
         });
     }
     if (enabletab == "colorHarmony")
-        setTimeout(colorHarmonyCalculate, 100);
+        setTimeout(colorHarmonyCalculate, 500);
     // if (isenable) {
     //     document.getElementById("colorProperty").style.display = "block";
     //     document.getElementById("settings").style.display = "none";

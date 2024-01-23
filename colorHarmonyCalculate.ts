@@ -11,6 +11,7 @@ async function colorHarmonyCalculate(coloritems) {
             parent.removeChild(element);
         }
     }
+    await delay(10);
     if (coloritems == null) {
         coloritems = []
     }

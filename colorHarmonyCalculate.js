@@ -53,6 +53,9 @@ function colorHarmonyCalculate(coloritems) {
                             parent_1.removeChild(element);
                         }
                     }
+                    return [4 /*yield*/, delay(10)];
+                case 1:
+                    _b.sent();
                     if (coloritems == null) {
                         coloritems = [];
                     }
@@ -71,15 +74,15 @@ function colorHarmonyCalculate(coloritems) {
                     ordersum = 0;
                     paircount = 0;
                     c1 = 0;
-                    _b.label = 1;
-                case 1:
-                    if (!(c1 < coloritems.length)) return [3 /*break*/, 6];
-                    c2 = c1 + 1;
                     _b.label = 2;
                 case 2:
-                    if (!(c2 < coloritems.length)) return [3 /*break*/, 5];
-                    return [4 /*yield*/, delay(1)];
+                    if (!(c1 < coloritems.length)) return [3 /*break*/, 7];
+                    c2 = c1 + 1;
+                    _b.label = 3;
                 case 3:
+                    if (!(c2 < coloritems.length)) return [3 /*break*/, 6];
+                    return [4 /*yield*/, delay(1)];
+                case 4:
                     _b.sent();
                     item1 = coloritems[c1];
                     item2 = coloritems[c2];
@@ -206,14 +209,14 @@ function colorHarmonyCalculate(coloritems) {
                     // console.log(document.getElementById("aestheticMeasure"))
                     measre = (ordersum / complexity);
                     document.getElementById("aestheticMeasure").innerText = "\u7F8E\u5EA6:" + measre.toFixed(3);
-                    _b.label = 4;
-                case 4:
-                    c2++;
-                    return [3 /*break*/, 2];
+                    _b.label = 5;
                 case 5:
-                    c1++;
-                    return [3 /*break*/, 1];
+                    c2++;
+                    return [3 /*break*/, 3];
                 case 6:
+                    c1++;
+                    return [3 /*break*/, 2];
+                case 7:
                     complexitytableTemplate = document.getElementById("complexitytableTemplate");
                     complexitytableElemant = complexitytableTemplate.content.cloneNode(true);
                     container = document.getElementById("complexitytable");
