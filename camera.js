@@ -16,7 +16,7 @@ function cameraInit(deviceId) {
             width: 256,
             height: 256,
             // deviceId: deviceId,
-            facingMode: { exact: deviceId } // { exact: "environment" },
+            facingMode: deviceId // { exact: "environment" },
         }
     };
     console.log(cameraSetting);
@@ -36,6 +36,7 @@ var mousePos = { x: 0, y: 0 };
 var ctx;
 var isMouseDown;
 function canvasInit() {
+    requestAnimationFrame(canvasUpdate);
     console.log("canvasInit");
     cameraCanvas = document.getElementById("cameraCanvas");
     console.log(cameraCanvas);
@@ -95,7 +96,7 @@ function canvasInit() {
         };
         // Perform other actions with the updated mousePos as needed
     }
-    canvasUpdate();
+    // canvasUpdate();
 }
 function cameraDevicesChangeButtonInit() {
     console.log("cameraDevicesChangeButtonInit");
@@ -206,7 +207,7 @@ function changetab(enabletab) {
         });
     }
     if (enabletab == "colorHarmony")
-        colorHarmonyCalculate();
+        setTimeout(colorHarmonyCalculate, 100);
     // if (isenable) {
     //     document.getElementById("colorProperty").style.display = "block";
     //     document.getElementById("settings").style.display = "none";

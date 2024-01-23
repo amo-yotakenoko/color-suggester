@@ -38,6 +38,7 @@ var mousePos = { x: 0, y: 0 };
 var ctx;
 var isMouseDown;
 function canvasInit() {
+    requestAnimationFrame(canvasUpdate);
     console.log("canvasInit");
     cameraCanvas = document.getElementById("cameraCanvas");
     console.log(cameraCanvas);
@@ -114,7 +115,7 @@ function canvasInit() {
         };
         // Perform other actions with the updated mousePos as needed
     }
-    canvasUpdate();
+    // canvasUpdate();
 }
 
 
@@ -247,7 +248,7 @@ function changetab(enabletab) {
         });
 
     }
-    if (enabletab == "colorHarmony") colorHarmonyCalculate()
+    if (enabletab == "colorHarmony") setTimeout(colorHarmonyCalculate, 100)
 
     // if (isenable) {
 
